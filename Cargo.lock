@@ -499,6 +499,7 @@ dependencies = [
 name = "knight-bot"
 version = "1.0.0"
 dependencies = [
+ "getrandom",
  "grammers-client",
  "grammers-session",
  "log",

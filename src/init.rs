@@ -4,13 +4,12 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-use std::sync::Arc;
+use crate::{cfg, plugins};
 use log;
 use grammers_client::{Client, Config, InitParams};
 use grammers_session::Session;
+use std::sync::Arc;
 use tokio::task;
-
-use crate::{cfg, plugins};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -40,6 +39,7 @@ pub async fn async_main() -> Result {
     if !client.is_authorized().await? {
         log::info!("Signing in...");
         client.bot_sign_in(&token, api_id, &api_hash).await?;
+	client.session().save_to_file(SESSION_FILE)?;
         log::info!("Signed in!");
     }
 
@@ -58,6 +58,6 @@ pub async fn async_main() -> Result {
         });
     }
 
-    log::warn!("Saving session file and exiting...");
+    client.session().save_to_file(SESSION_FILE)?;
     Ok(())
 }
