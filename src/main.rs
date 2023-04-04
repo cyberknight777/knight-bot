@@ -4,6 +4,22 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-fn main() {
-    println!("Hello, world!");
+use tokio::runtime;
+
+mod cfg;
+mod plugins;
+mod init;
+
+type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+const VERSION: &str = env!("CARGO_PKG_VERSION");
+
+fn main() -> Result {
+    pretty_env_logger::init();
+
+    log::info!("Knight-Bot v{} is initializing...", VERSION);
+    runtime::Builder::new_current_thread()
+        .enable_all()
+        .build()
+        .unwrap()
+        .block_on(init::async_main())
 }
