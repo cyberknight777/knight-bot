@@ -7,3 +7,4 @@
 // Expose all plugins to external modules.
 pub mod help;
 pub mod msg;
+pub mod ping;
