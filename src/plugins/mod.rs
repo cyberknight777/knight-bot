@@ -9,6 +9,7 @@ mod flipcoin;
 mod help;
 mod luck;
 mod msg;
+mod neo;
 mod ping;
 mod start;
 
@@ -25,6 +26,7 @@ enum Command {
     Help,
     Luck,
     Msg(String),
+    Neo,
     Ping,
     Start,
 }
@@ -52,6 +54,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/help" | "/help@theknight_test_bot" => Command::Help,
 	"/l" | "/l@theknight_test_bot" => Command::Luck,
 	"/msg" | "/msg@theknight_test_bot" => Command::Msg(args.join(" ")),
+	"/neo" | "/neo@theknight_test_bot" => Command::Neo,
 	"/ping" | "/ping@theknight_test_bot" => Command::Ping,
 	"/start" | "/start@theknight_test_bot" => Command::Start,
 	_ => return Ok(()),
@@ -63,6 +66,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Help => help::knightcmd_help(client, message).await?,
 	Command::Luck => luck::knightcmd_luck(client, message).await?,
 	Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
+	Command::Neo => neo::knightcmd_neo(client, message).await?,
 	Command::Ping => ping::knightcmd_ping(client, message).await?,
 	Command::Start => start::knightcmd_start(client, message).await?
     }

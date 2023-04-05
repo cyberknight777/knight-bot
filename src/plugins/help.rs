@@ -17,6 +17,7 @@ pub async fn knightcmd_help(client: Client, message: Message) -> Result {
 	/help ~ Displays this text.\n\
 	/l ~ To say your lucky number.\n\
 	/msg ~ Sends text.\n\
+	/neo ~ Sends neofetch output. \n\
 	/ping ~ Checks how fast I can respond.\n\
 	/start ~ Checks if I'm alive.\n";
     client.send_message(message.chat(), msg).await?;
