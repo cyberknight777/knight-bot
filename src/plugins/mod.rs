@@ -17,6 +17,7 @@ use grammers_client::{
     types::{Message},
     Client, Update
 };
+use getrandom::getrandom;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -76,4 +77,10 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 
 fn check_msg(message: &Message) -> bool {
     return !message.outgoing() && message.text().starts_with('/') && !message.text().starts_with("/ ") || message.text().ends_with("@theknight_test_bot");
+}
+
+pub fn random(modulo: u8) -> u8 {
+    let mut buffer = [0; 1];
+    getrandom(&mut buffer).expect("Failed to generate random number");
+    return buffer[0] % modulo;
 }
