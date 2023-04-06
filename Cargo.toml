@@ -17,5 +17,6 @@ tokio = { version = "1.5.0", features = ["full"] }
 toml = "0.5.9"
 
 [features]
-default = ["html"]
+default = ["html", "markdown"]
 html = ["grammers-client/html"]
+markdown = ["grammers-client/markdown"]
