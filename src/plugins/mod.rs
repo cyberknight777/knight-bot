@@ -15,6 +15,7 @@ mod msg;
 mod neo;
 mod ping;
 mod req;
+mod run;
 mod start;
 mod urb;
 
@@ -37,6 +38,7 @@ enum Command {
     Msg(String),
     Neo,
     Ping,
+    Run,
     Start,
     Urb(String),
 }
@@ -69,6 +71,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/msg" | "/msg@theknight_test_bot" => Command::Msg(args.join(" ")),
 	"/neo" | "/neo@theknight_test_bot" => Command::Neo,
 	"/ping" | "/ping@theknight_test_bot" => Command::Ping,
+	"/run" | "/run@theknight_test_bot" => Command::Run,
 	"/start" | "/start@theknight_test_bot" => Command::Start,
 	"/urb" | "/urb@theknight_test_bot" => Command::Urb(args.join(" ")),
 	_ => return Ok(()),
@@ -85,6 +88,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
 	Command::Neo => neo::knightcmd_neo(client, message).await?,
 	Command::Ping => ping::knightcmd_ping(message).await?,
+	Command::Run => run::knightcmd_run(message).await?,
 	Command::Start => start::knightcmd_start(message).await?,
 	Command::Urb(word) => urb::knightcmd_urb(message, word).await?
     }
