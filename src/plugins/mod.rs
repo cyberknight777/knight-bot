@@ -75,7 +75,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Luck => luck::knightcmd_luck(message).await?,
 	Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
 	Command::Neo => neo::knightcmd_neo(client, message).await?,
-	Command::Ping => ping::knightcmd_ping(client, message).await?,
+	Command::Ping => ping::knightcmd_ping(message).await?,
 	Command::Start => start::knightcmd_start(client, message).await?,
 	Command::Urb(word) => urb::knightcmd_urb(message, word).await?
     }
