@@ -12,6 +12,10 @@ use grammers_client::{
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
 pub async fn knightcmd_msg(client: Client, message: Message, text: String) -> Result {
-    client.send_message(message.chat(), InputMessage::markdown(text.trim().replace(r#"\n"#, "  \n"))).await?;
+    if let Some(id) = message.reply_to_message_id() {
+	client.send_message(message.chat(), InputMessage::markdown(text.trim().replace(r#"\n"#, "  \n")).reply_to(Some(id))).await?;
+    } else {
+	message.reply(InputMessage::markdown(text.trim().replace(r#"\n"#, "  \n"))).await?;
+    }
     return Ok(());
 }
