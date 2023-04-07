@@ -12,12 +12,15 @@ mod msg;
 mod neo;
 mod ping;
 mod start;
+mod urb;
 
 use grammers_client::{
     types::{Message},
     Client, Update
 };
 use getrandom::getrandom;
+use reqwest;
+use serde_json::Value;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -30,6 +33,7 @@ enum Command {
     Neo,
     Ping,
     Start,
+    Urb(String),
 }
 
 pub async fn handle_update(client: Client, update: Update) -> Result {
@@ -58,6 +62,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/neo" | "/neo@theknight_test_bot" => Command::Neo,
 	"/ping" | "/ping@theknight_test_bot" => Command::Ping,
 	"/start" | "/start@theknight_test_bot" => Command::Start,
+	"/urb" | "/urb@theknight_test_bot" => Command::Urb(args.join(" ")),
 	_ => return Ok(()),
     };
 
@@ -69,7 +74,8 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
 	Command::Neo => neo::knightcmd_neo(client, message).await?,
 	Command::Ping => ping::knightcmd_ping(client, message).await?,
-	Command::Start => start::knightcmd_start(client, message).await?
+	Command::Start => start::knightcmd_start(client, message).await?,
+	Command::Urb(word) => urb::knightcmd_urb(message, word).await?
     }
 
     Ok(())
