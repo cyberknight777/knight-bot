@@ -10,6 +10,7 @@ mod ipa;
 mod help;
 mod link;
 mod luck;
+mod man;
 mod msg;
 mod neo;
 mod ping;
@@ -32,6 +33,7 @@ enum Command {
     Ipa(String),
     Link(String),
     Luck,
+    Man(String),
     Msg(String),
     Neo,
     Ping,
@@ -63,6 +65,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/ipa" | "/ipa@theknight_test_bot" => Command::Ipa(args.join(" ")),
 	"/link" | "/link@theknight_test_bot" => Command::Link(args.join(" ")),
 	"/l" | "/l@theknight_test_bot" => Command::Luck,
+	"/man" | "/man@theknight_test_bot" => Command::Man(args.join(" ")),
 	"/msg" | "/msg@theknight_test_bot" => Command::Msg(args.join(" ")),
 	"/neo" | "/neo@theknight_test_bot" => Command::Neo,
 	"/ping" | "/ping@theknight_test_bot" => Command::Ping,
@@ -78,6 +81,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Ipa(addr) => ipa::knightcmd_ipa(message, addr).await?,
 	Command::Link(url) => link::knightcmd_link(message, url).await?,
 	Command::Luck => luck::knightcmd_luck(client, message).await?,
+	Command::Man(cmd) => man::knightcmd_man(client, message, cmd).await?,
 	Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
 	Command::Neo => neo::knightcmd_neo(client, message).await?,
 	Command::Ping => ping::knightcmd_ping(message).await?,
