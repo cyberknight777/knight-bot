@@ -7,6 +7,7 @@
 mod eightball;
 mod flipcoin;
 mod help;
+mod link;
 mod luck;
 mod msg;
 mod neo;
@@ -19,8 +20,6 @@ use grammers_client::{
     Client, Update
 };
 use getrandom::getrandom;
-use reqwest;
-use serde_json::Value;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -28,6 +27,7 @@ enum Command {
     EightBall,
     FlipCoin,
     Help,
+    Link(String),
     Luck,
     Msg(String),
     Neo,
@@ -57,6 +57,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/eightball" | "/eightball@theknight_test_bot" => Command::EightBall,
 	"/flipcoin" | "/flipcoin@theknight_test_bot" => Command::FlipCoin,
 	"/help" | "/help@theknight_test_bot" => Command::Help,
+	"/link" | "/link@theknight_test_bot" => Command::Link(args.join(" ")),
 	"/l" | "/l@theknight_test_bot" => Command::Luck,
 	"/msg" | "/msg@theknight_test_bot" => Command::Msg(args.join(" ")),
 	"/neo" | "/neo@theknight_test_bot" => Command::Neo,
@@ -70,6 +71,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::EightBall => eightball::knightcmd_eightball(client, message).await?,
 	Command::FlipCoin => flipcoin::knightcmd_flipcoin(client, message).await?,
 	Command::Help => help::knightcmd_help(client, message).await?,
+	Command::Link(url) => link::knightcmd_link(message, url).await?,
 	Command::Luck => luck::knightcmd_luck(client, message).await?,
 	Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
 	Command::Neo => neo::knightcmd_neo(client, message).await?,
