@@ -5,11 +5,11 @@
 //!
 
 use crate::plugins;
-use grammers_client::{Client, types::Message};
+use grammers_client::types::Message;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-pub async fn knightcmd_flipcoin(_client: Client, message: Message) -> Result {
+pub async fn knightcmd_flipcoin(message: Message) -> Result {
     let coin = plugins::random(2);
     let result = if coin == 0 { "Heads!" } else { "Tails!" };
     message.reply(result).await?;
