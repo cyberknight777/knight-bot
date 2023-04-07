@@ -4,9 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-use std::time::SystemTime;
-
 use grammers_client::types::Message;
+use std::time::SystemTime;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
