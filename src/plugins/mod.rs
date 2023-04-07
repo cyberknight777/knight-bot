@@ -6,6 +6,7 @@
 
 mod eightball;
 mod flipcoin;
+mod ipa;
 mod help;
 mod link;
 mod luck;
@@ -28,6 +29,7 @@ enum Command {
     EightBall,
     FlipCoin,
     Help,
+    Ipa(String),
     Link(String),
     Luck,
     Msg(String),
@@ -58,6 +60,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/eightball" | "/eightball@theknight_test_bot" => Command::EightBall,
 	"/flipcoin" | "/flipcoin@theknight_test_bot" => Command::FlipCoin,
 	"/help" | "/help@theknight_test_bot" => Command::Help,
+	"/ipa" | "/ipa@theknight_test_bot" => Command::Ipa(args.join(" ")),
 	"/link" | "/link@theknight_test_bot" => Command::Link(args.join(" ")),
 	"/l" | "/l@theknight_test_bot" => Command::Luck,
 	"/msg" | "/msg@theknight_test_bot" => Command::Msg(args.join(" ")),
@@ -72,6 +75,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::EightBall => eightball::knightcmd_eightball(client, message).await?,
 	Command::FlipCoin => flipcoin::knightcmd_flipcoin(client, message).await?,
 	Command::Help => help::knightcmd_help(message).await?,
+	Command::Ipa(addr) => ipa::knightcmd_ipa(message, addr).await?,
 	Command::Link(url) => link::knightcmd_link(message, url).await?,
 	Command::Luck => luck::knightcmd_luck(client, message).await?,
 	Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
