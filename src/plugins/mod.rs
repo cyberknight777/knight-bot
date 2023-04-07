@@ -12,6 +12,7 @@ mod luck;
 mod msg;
 mod neo;
 mod ping;
+mod req;
 mod start;
 mod urb;
 
