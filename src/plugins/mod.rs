@@ -70,13 +70,13 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
     match cmd {
 	Command::EightBall => eightball::knightcmd_eightball(client, message).await?,
 	Command::FlipCoin => flipcoin::knightcmd_flipcoin(client, message).await?,
-	Command::Help => help::knightcmd_help(client, message).await?,
+	Command::Help => help::knightcmd_help(message).await?,
 	Command::Link(url) => link::knightcmd_link(message, url).await?,
 	Command::Luck => luck::knightcmd_luck(client, message).await?,
 	Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
 	Command::Neo => neo::knightcmd_neo(client, message).await?,
 	Command::Ping => ping::knightcmd_ping(message).await?,
-	Command::Start => start::knightcmd_start(client, message).await?,
+	Command::Start => start::knightcmd_start(message).await?,
 	Command::Urb(word) => urb::knightcmd_urb(message, word).await?
     }
 

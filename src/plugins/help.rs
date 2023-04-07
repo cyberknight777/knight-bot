@@ -4,11 +4,11 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-use grammers_client::{Client, types::Message};
+use grammers_client::types::Message;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-pub async fn knightcmd_help(client: Client, message: Message) -> Result {
+pub async fn knightcmd_help(message: Message) -> Result {
     let msg = "Hello There!, \
 	I am a bot made by cyberknight777 in Rust based on teloxide.\n\
 	Here's a list of my commands:-\n\
@@ -20,6 +20,6 @@ pub async fn knightcmd_help(client: Client, message: Message) -> Result {
 	/neo ~ Sends neofetch output. \n\
 	/ping ~ Checks how fast I can respond.\n\
 	/start ~ Checks if I'm alive.\n";
-    client.send_message(message.chat(), msg).await?;
+    message.reply(msg).await?;
     return Ok(());
 }

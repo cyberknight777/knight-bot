@@ -4,12 +4,12 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-use grammers_client::{Client, types::Message};
+use grammers_client::types::Message;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-pub async fn knightcmd_start(client: Client, message: Message) -> Result {
+pub async fn knightcmd_start(message: Message) -> Result {
     let msg = "Heya! Type /help to see what I can do!";
-    client.send_message(message.chat(), msg).await?;
+    message.reply(msg).await?;
     return Ok(());
 }
