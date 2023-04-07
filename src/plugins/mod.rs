@@ -4,6 +4,7 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+mod aur;
 mod eightball;
 mod flipcoin;
 mod ipa;
@@ -28,6 +29,7 @@ use getrandom::getrandom;
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
 enum Command {
+    Aur(String),
     EightBall,
     FlipCoin,
     Help,
@@ -61,6 +63,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
     let cmd = msg.split_whitespace().next().unwrap();
     let args = msg.split_whitespace().skip(1).collect::<Vec<_>>();
     let cmd = match cmd {
+	"/aur" | "/aur@theknight_test_bot" => Command::Aur(args.join(" ")),
 	"/eightball" | "/eightball@theknight_test_bot" => Command::EightBall,
 	"/flipcoin" | "/flipcoin@theknight_test_bot" => Command::FlipCoin,
 	"/help" | "/help@theknight_test_bot" => Command::Help,
@@ -78,6 +81,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
     };
 
     match cmd {
+	Command::Aur(pkg) => aur::knightcmd_aur(message, pkg).await?,
 	Command::EightBall => eightball::knightcmd_eightball(client, message).await?,
 	Command::FlipCoin => flipcoin::knightcmd_flipcoin(client, message).await?,
 	Command::Help => help::knightcmd_help(message).await?,
