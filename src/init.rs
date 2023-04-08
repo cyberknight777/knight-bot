@@ -13,7 +13,7 @@ use tokio::task;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-const SESSION_FILE: &str = "echo.session";
+const SESSION_FILE: &str = "knight-bot.session";
 
 pub async fn async_main() -> Result {
 
