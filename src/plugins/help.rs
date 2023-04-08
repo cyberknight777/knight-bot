@@ -21,6 +21,7 @@ pub async fn knightcmd_help(message: Message) -> Result {
 	/ipa [ip] ~ Gets information of given IP.\n\
 	/link [url] ~ Gets the last redirected URL.\n\
 	/l ~ To say your lucky number.\n\
+	/magisk [stable/beta/canary] ~ Gets download link of latest Magisk according to variant.\n\
 	/man [command] ~ Gets information of a command from manpages.\n\
 	/msg [msg] ~ Sends text.\n\
 	/neo ~ Sends neofetch output. \n\
