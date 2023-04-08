@@ -18,6 +18,7 @@ mod ping;
 mod req;
 mod run;
 mod start;
+mod uid;
 mod urb;
 
 use grammers_client::{
@@ -42,6 +43,7 @@ enum Command {
     Ping,
     Run,
     Start,
+    Uid,
     Urb(String),
 }
 
@@ -76,6 +78,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/ping" | "/ping@theknight_test_bot" => Command::Ping,
 	"/run" | "/run@theknight_test_bot" => Command::Run,
 	"/start" | "/start@theknight_test_bot" => Command::Start,
+	"/uid" | "/uid@theknight_test_bot" => Command::Uid,
 	"/urb" | "/urb@theknight_test_bot" => Command::Urb(args.join(" ")),
 	_ => return Ok(()),
     };
@@ -94,6 +97,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Ping => ping::knightcmd_ping(message).await?,
 	Command::Run => run::knightcmd_run(message).await?,
 	Command::Start => start::knightcmd_start(message).await?,
+	Command::Uid => uid::knightcmd_uid(client, message).await?,
 	Command::Urb(word) => urb::knightcmd_urb(message, word).await?
     }
 

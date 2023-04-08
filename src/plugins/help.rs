@@ -21,6 +21,7 @@ pub async fn knightcmd_help(message: Message) -> Result {
 	/neo ~ Sends neofetch output. \n\
 	/ping ~ Checks how fast I can respond.\n\
 	/start ~ Checks if I'm alive.\n\
+	/uid ~ Gets UserID & ChatID>.\n\
 	/urb [word] ~ Gets definition of word from urban dictionary.\n";
     message.reply(msg).await?;
     return Ok(());
