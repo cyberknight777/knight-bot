@@ -423,9 +423,9 @@ dependencies = [
 
 [[package]]
 name = "getrandom"
-version = "0.2.8"
+version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c05aeb6a22b8f62540c194aac980f2115af067bfe15a0734d7277a768d396b31"
+checksum = "c85e1d9ab2eadba7e5040d4e09cbd6d072b76a557ad64e797c2cb9d4da21d7e4"
 dependencies = [
  "cfg-if",
  "libc",
@@ -449,7 +449,7 @@ dependencies = [
 [[package]]
 name = "grammers-client"
 version = "0.4.0"
-source = "git+https://github.com/Lonami/grammers#bfe158df8ed33e9ef78794caba0189d485265f72"
+source = "git+https://github.com/Lonami/grammers#c0521f8ad3e8cbf9c8894fb05eb20b9dda45e339"
 dependencies = [
  "chrono",
  "futures-util",
@@ -472,10 +472,10 @@ dependencies = [
 [[package]]
 name = "grammers-crypto"
 version = "0.4.0"
-source = "git+https://github.com/Lonami/grammers#bfe158df8ed33e9ef78794caba0189d485265f72"
+source = "git+https://github.com/Lonami/grammers#c0521f8ad3e8cbf9c8894fb05eb20b9dda45e339"
 dependencies = [
  "aes",
- "getrandom 0.2.8",
+ "getrandom 0.2.9",
  "glass_pumpkin",
  "hmac",
  "num-bigint",
@@ -487,12 +487,12 @@ dependencies = [
 [[package]]
 name = "grammers-mtproto"
 version = "0.4.0"
-source = "git+https://github.com/Lonami/grammers#bfe158df8ed33e9ef78794caba0189d485265f72"
+source = "git+https://github.com/Lonami/grammers#c0521f8ad3e8cbf9c8894fb05eb20b9dda45e339"
 dependencies = [
  "bytes",
  "crc32fast",
  "flate2",
- "getrandom 0.2.8",
+ "getrandom 0.2.9",
  "grammers-crypto",
  "grammers-tl-types",
  "log",
@@ -503,7 +503,7 @@ dependencies = [
 [[package]]
 name = "grammers-mtsender"
 version = "0.4.0"
-source = "git+https://github.com/Lonami/grammers#bfe158df8ed33e9ef78794caba0189d485265f72"
+source = "git+https://github.com/Lonami/grammers#c0521f8ad3e8cbf9c8894fb05eb20b9dda45e339"
 dependencies = [
  "bytes",
  "grammers-mtproto",
@@ -515,7 +515,7 @@ dependencies = [
 [[package]]
 name = "grammers-session"
 version = "0.4.1"
-source = "git+https://github.com/Lonami/grammers#bfe158df8ed33e9ef78794caba0189d485265f72"
+source = "git+https://github.com/Lonami/grammers#c0521f8ad3e8cbf9c8894fb05eb20b9dda45e339"
 dependencies = [
  "grammers-tl-gen",
  "grammers-tl-parser",
@@ -526,7 +526,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-gen"
 version = "0.4.1"
-source = "git+https://github.com/Lonami/grammers#bfe158df8ed33e9ef78794caba0189d485265f72"
+source = "git+https://github.com/Lonami/grammers#c0521f8ad3e8cbf9c8894fb05eb20b9dda45e339"
 dependencies = [
  "grammers-tl-parser",
 ]
@@ -534,7 +534,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-parser"
 version = "1.1.0"
-source = "git+https://github.com/Lonami/grammers#bfe158df8ed33e9ef78794caba0189d485265f72"
+source = "git+https://github.com/Lonami/grammers#c0521f8ad3e8cbf9c8894fb05eb20b9dda45e339"
 dependencies = [
  "crc32fast",
 ]
@@ -542,7 +542,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-types"
 version = "0.4.0"
-source = "git+https://github.com/Lonami/grammers#bfe158df8ed33e9ef78794caba0189d485265f72"
+source = "git+https://github.com/Lonami/grammers#c0521f8ad3e8cbf9c8894fb05eb20b9dda45e339"
 dependencies = [
  "grammers-tl-gen",
  "grammers-tl-parser",
@@ -790,7 +790,7 @@ dependencies = [
 name = "knight-bot"
 version = "1.0.0"
 dependencies = [
- "getrandom 0.2.8",
+ "getrandom 0.2.9",
  "grammers-client",
  "grammers-session",
  "log",
@@ -1302,7 +1302,7 @@ version = "0.6.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 dependencies = [
- "getrandom 0.2.8",
+ "getrandom 0.2.9",
 ]
 
 [[package]]
