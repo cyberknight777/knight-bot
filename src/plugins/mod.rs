@@ -5,6 +5,8 @@
 //!
 
 mod aur;
+mod cat;
+mod dog;
 mod eightball;
 mod flipcoin;
 mod ipa;
@@ -15,6 +17,7 @@ mod man;
 mod msg;
 mod neo;
 mod ping;
+mod plant;
 mod req;
 mod run;
 mod start;
@@ -32,6 +35,8 @@ type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
 enum Command {
     Aur(String),
+    Cat(i64),
+    Dog(i64),
     EightBall,
     FlipCoin,
     Help,
@@ -42,6 +47,7 @@ enum Command {
     Msg(String),
     Neo,
     Ping,
+    Plant(i64),
     Run,
     Start,
     Uid,
@@ -68,6 +74,8 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
     let args = msg.split_whitespace().skip(1).collect::<Vec<_>>();
     let cmd = match cmd {
 	"/aur" | "/aur@theknight_test_bot" => Command::Aur(args.join(" ")),
+	"/cat" | "/cat@theknight_test_bot" => Command::Cat(args.join(" ").parse().unwrap_or_default()),
+	"/dog" | "/dog@theknight_test_bot" => Command::Dog(args.join(" ").parse().unwrap_or_default()),
 	"/eightball" | "/eightball@theknight_test_bot" => Command::EightBall,
 	"/flipcoin" | "/flipcoin@theknight_test_bot" => Command::FlipCoin,
 	"/help" | "/help@theknight_test_bot" => Command::Help,
@@ -78,6 +86,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/msg" | "/msg@theknight_test_bot" => Command::Msg(args.join(" ")),
 	"/neo" | "/neo@theknight_test_bot" => Command::Neo,
 	"/ping" | "/ping@theknight_test_bot" => Command::Ping,
+	"/plant" | "/plant@theknight_test_bot" => Command::Plant(args.join(" ").parse().unwrap_or_default()),
 	"/run" | "/run@theknight_test_bot" => Command::Run,
 	"/start" | "/start@theknight_test_bot" => Command::Start,
 	"/uid" | "/uid@theknight_test_bot" => Command::Uid,
@@ -88,6 +97,8 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 
     match cmd {
 	Command::Aur(pkg) => aur::knightcmd_aur(message, pkg).await?,
+	Command::Cat(kat) => cat::knightcmd_cat(client, message, kat).await?,
+	Command::Dog(doge) => dog::knightcmd_dog(client, message, doge).await?,
 	Command::EightBall => eightball::knightcmd_eightball(client, message).await?,
 	Command::FlipCoin => flipcoin::knightcmd_flipcoin(client, message).await?,
 	Command::Help => help::knightcmd_help(message).await?,
@@ -98,6 +109,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
 	Command::Neo => neo::knightcmd_neo(client, message).await?,
 	Command::Ping => ping::knightcmd_ping(message).await?,
+	Command::Plant(plants) => plant::knightcmd_plant(client, message, plants).await?,
 	Command::Run => run::knightcmd_run(message).await?,
 	Command::Start => start::knightcmd_start(message).await?,
 	Command::Uid => uid::knightcmd_uid(client, message).await?,
