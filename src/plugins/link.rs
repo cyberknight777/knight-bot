@@ -14,7 +14,7 @@ pub async fn knightcmd_link(message: Message, url: String) -> Result {
 	message.reply(InputMessage::html("Send a <b>proper URL</b>!")).await?;
 	return Ok(());
     } else if !url.starts_with("http://") && !url.starts_with("https://") {
-	message.reply(InputMessage::html("<b>Invalid URL</b>")).await?;
+	message.reply(InputMessage::html("<b>Invalid URL!</b>")).await?;
 	return Ok(());
     } else {
 	let msg = message
