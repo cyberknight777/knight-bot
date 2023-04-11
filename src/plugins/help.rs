@@ -31,6 +31,7 @@ pub async fn knightcmd_help(message: Message) -> Result {
 	/start ~ Checks if I'm alive.\n\
 	/uid ~ Gets UserID & ChatID>.\n\
 	/urb [word] ~ Gets definition of word from urban dictionary.\n\
+	/webshot [website] ~ Takes a webshot and sends it to the chat.\n\
 	/whois [site] ~ Gets WHOIS information of site.";
     message.reply(msg).await?;
     return Ok(());
