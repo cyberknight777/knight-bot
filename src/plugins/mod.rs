@@ -77,27 +77,27 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
     let cmd = msg.split_whitespace().next().unwrap();
     let args = msg.split_whitespace().skip(1).collect::<Vec<_>>();
     let cmd = match cmd {
-	"/aur" | "/aur@theknight_test_bot" => Command::Aur(args.join(" ")),
-	"/cat" | "/cat@theknight_test_bot" => Command::Cat(args.join(" ").parse().unwrap_or_default()),
-	"/dog" | "/dog@theknight_test_bot" => Command::Dog(args.join(" ").parse().unwrap_or_default()),
-	"/eightball" | "/eightball@theknight_test_bot" => Command::EightBall,
-	"/flipcoin" | "/flipcoin@theknight_test_bot" => Command::FlipCoin,
-	"/help" | "/help@theknight_test_bot" => Command::Help,
-	"/ipa" | "/ipa@theknight_test_bot" => Command::Ipa(args.join(" ")),
-	"/link" | "/link@theknight_test_bot" => Command::Link(args.join(" ")),
-	"/l" | "/l@theknight_test_bot" => Command::Luck,
-	"/magisk" | "/magisk@theknight_test_bot" => Command::Magisk(args.join(" ")),
-	"/man" | "/man@theknight_test_bot" => Command::Man(args.join(" ")),
-	"/msg" | "/msg@theknight_test_bot" => Command::Msg(args.join(" ")),
-	"/neo" | "/neo@theknight_test_bot" => Command::Neo,
-	"/ping" | "/ping@theknight_test_bot" => Command::Ping,
-	"/plant" | "/plant@theknight_test_bot" => Command::Plant(args.join(" ").parse().unwrap_or_default()),
-	"/run" | "/run@theknight_test_bot" => Command::Run,
-	"/start" | "/start@theknight_test_bot" => Command::Start,
-	"/uid" | "/uid@theknight_test_bot" => Command::Uid,
-	"/urb" | "/urb@theknight_test_bot" => Command::Urb(args.join(" ")),
-	"/webshot" | "/webshot@theknight_test_bot" => Command::Webshot(args.join(" ")),
-	"/whois" | "/whois@theknight_test_bot" => Command::Whois(args.join(" ")),
+	"/aur" | "/aur@ThekNIGHT_bot" => Command::Aur(args.join(" ")),
+	"/cat" | "/cat@ThekNIGHT_bot" => Command::Cat(args.join(" ").parse().unwrap_or_default()),
+	"/dog" | "/dog@ThekNIGHT_bot" => Command::Dog(args.join(" ").parse().unwrap_or_default()),
+	"/eightball" | "/eightball@ThekNIGHT_bot" => Command::EightBall,
+	"/flipcoin" | "/flipcoin@ThekNIGHT_bot" => Command::FlipCoin,
+	"/help" | "/help@ThekNIGHT_bot" => Command::Help,
+	"/ipa" | "/ipa@ThekNIGHT_bot" => Command::Ipa(args.join(" ")),
+	"/link" | "/link@ThekNIGHT_bot" => Command::Link(args.join(" ")),
+	"/l" | "/l@ThekNIGHT_bot" => Command::Luck,
+	"/magisk" | "/magisk@ThekNIGHT_bot" => Command::Magisk(args.join(" ")),
+	"/man" | "/man@ThekNIGHT_bot" => Command::Man(args.join(" ")),
+	"/msg" | "/msg@ThekNIGHT_bot" => Command::Msg(args.join(" ")),
+	"/neo" | "/neo@ThekNIGHT_bot" => Command::Neo,
+	"/ping" | "/ping@ThekNIGHT_bot" => Command::Ping,
+	"/plant" | "/plant@ThekNIGHT_bot" => Command::Plant(args.join(" ").parse().unwrap_or_default()),
+	"/run" | "/run@ThekNIGHT_bot" => Command::Run,
+	"/start" | "/start@ThekNIGHT_bot" => Command::Start,
+	"/uid" | "/uid@ThekNIGHT_bot" => Command::Uid,
+	"/urb" | "/urb@ThekNIGHT_bot" => Command::Urb(args.join(" ")),
+	"/webshot" | "/webshot@ThekNIGHT_bot" => Command::Webshot(args.join(" ")),
+	"/whois" | "/whois@ThekNIGHT_bot" => Command::Whois(args.join(" ")),
 	_ => return Ok(()),
     };
 
@@ -129,7 +129,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 }
 
 fn check_msg(message: &Message) -> bool {
-    return !message.outgoing() && message.text().starts_with('/') && !message.text().starts_with("/ ") || message.text().ends_with("@theknight_test_bot");
+    return !message.outgoing() && message.text().starts_with('/') && !message.text().starts_with("/ ") || message.text().ends_with("@ThekNIGHT_bot");
 }
 
 pub fn random(modulo: u8) -> u8 {
