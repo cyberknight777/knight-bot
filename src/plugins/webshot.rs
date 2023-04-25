@@ -28,7 +28,7 @@ pub async fn knightcmd_webshot(client: Client, message: Message, web: String) ->
 	let cmd: ExitStatus = Command::new("CutyCapt").arg(format!("--url={}", web)).arg(format!("--out={}", Path::new(&filename).display())).status().expect("Failed to run cutycapt");
 	if cmd.success() {
 	    let photo = client.upload_file(Path::new(&filename)).await?;
-	    client.send_message(message.chat(), InputMessage::text("Check this out!").photo(photo)).await?;
+	    message.reply(InputMessage::text("Check this out!").photo(photo)).await?;
 	} else {
 	    message.reply(InputMessage::html("<b>Error! Couldn't take webshot.</b>")).await?;
 	}
