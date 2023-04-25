@@ -24,7 +24,7 @@ Supported variants are: stable, beta, canary")).await?;
 	    Some(response) => {
 		let link = &response["magisk"]["link"];
 		let version = &response["magisk"]["version"];
-		msg.edit(InputMessage::markdown(format!("Latest {} release: [v{}]({})", var, version.to_string().trim_matches('"').to_string(), link.to_string().trim_matches('"').to_string()))).await?;
+		msg.edit(InputMessage::markdown(format!("Latest {} release: [{}]({})", var, version.to_string().trim_matches('"').to_string(), link.to_string().trim_matches('"').to_string()))).await?;
 	    },
 	    None => {
 		msg.edit("Failed to get Magisk release information!").await?;
