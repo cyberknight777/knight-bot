@@ -114,7 +114,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Magisk(var) => magisk::knightcmd_magisk(message, var).await?,
 	Command::Man(cmd) => man::knightcmd_man(client, message, cmd).await?,
 	Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
-	Command::Neo => neo::knightcmd_neo(client, message).await?,
+	Command::Neo => neo::knightcmd_neo(message).await?,
 	Command::Ping => ping::knightcmd_ping(message).await?,
 	Command::Plant(plants) => plant::knightcmd_plant(client, message, plants).await?,
 	Command::Run => run::knightcmd_run(message).await?,
