@@ -1,0 +1,78 @@
+#+TITLE: Knight-Bot
+#+DESCRIPTION: A telegram bot written in rust based on gramme.rs framework.
+#+LANGUAGE: en
+
+* Table of Contents
+:PROPERTIES:
+:TOC:      :include all :ignore this
+:END:
+:CONTENTS:
+- [[#about][About]]
+    - [[#support-chat][Support chat]]
+- [[#installation][Installation]]
+    - [[#setting-up-your-environment][Setting up your environment]]
+    - [[#build-manually][Build manually]]
+- [[#commands-available-currently][Commands]]
+    - [[#commands=on-todo-list][Commands on TODO list]]
+- [[#find-this-bot][Find this bot]]
+:END:
+
+[[https://github.com/cyberknight777/knight-bot/actions/workflows/rust.yml/badge.svg?branch=master]]
+
+
+* About
+=Knight-Bot= is a telegram bot written in rust based on gramme.rs framework.
+** Support chat
+Support chat for this bot can be found [[https://t.me/bots_rs][here]].
+
+* Installation
+
+** Setting up your environment
+    1. [[https://rustup.rs/][Download Rust]]
+    2. Create a new bot using [[https://t.me/BotFather][@Botfather]]
+    3. Setup an X server and install CutyCapt
+
+** Build manually
+#+BEGIN_SRC shell
+$ git clone https://github.com/cyberknight777/knight-bot
+$ cd knight-bot
+$ mv example-config.toml config.toml
+$ # Edit config.toml to include your api id and hash grabbed from my.telegram.org and your bot token.
+$ cargo run --release
+#+END_SRC
+
+* Commands available currently
++ =/aur [package]= - Gets package information from AUR.
++ =/cat [http code]= - Sends cat pic according to http codes.
++ =/dog [http code]= - Sends dog pic according to http codes.
++ =/eightball= - Rolls an eightball to say yes/no.
++ =/flipcoin= - Flips a coin to say heads/tails.
++ =/help= - List of all supported commands.
++ =/ipa [ip]= - Get ip information from ipinfo.io
++ =/link [url]= - Get last redirected URL
++ =/l= - To say your lucky number.
++ =/magisk [stable/beta/canary]= - Gets download link of latest Magisk variant according to variant.
++ =/man [command]= - Gets information of a command from manpages.
++ =/msg [text]= - Bot replies with your text.
++ =/neo= - Sends neofetch output.
++ =/ping= - Checks how fast I can respond.
++ =/plant [http code]= - Sends plant pic according to http codes.
++ =/run= - Runnns :).
++ =/start= - Redirect to =/help=.
++ =/uid= - Get current chat's ID, your ID, replied users ID (if any).
++ =/urb [term]= - Get definition of a term from urban dictionary.
++ =/webshot [website]= - Takes a webshot and sends it to the chat.
++ =/whois [site]= - Gets WHOIS information of a site.
+
+** Commands on TODO list
++ =k.ul [file]= - Upload a file.
++ =k.sh [command]= - Execute a shell command.
++ =k.dl [link]= - Download a file.
++ =/paste= - Paste text in reply to rustbin.
++ =/anyone= - Sends a why do you ask text.
++ =/rtfm= - Sends a RTFM text.
++ =/qrd= - Decodes a QR Code.
++ =/qrg [text]= - Generates a QR Code.
+
+* Find this bot
+You can find this bot [[https://t.me/ThekNIGHT_bot][here]]
