@@ -17,6 +17,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build
-      run: cargo build --verbose
+      run: cargo build --release --verbose
     - name: Run tests
-      run: cargo test --verbose
+      run: cargo test --release --verbose
+    - name: Upload to server
+      uses: "burnett01/rsync-deployments@5.2.1"
+      with:
+        switches: -rvz
+        remote_host: ${{ secrets.SERVER_IP }}
+        remote_user: ${{ secrets.SERVER_USERNAME }}
+        remote_key: ${{ secrets.SSH_KEY }}
+        remote_key_pass: ${{ secrets.SSH_PASSWORD }}
+        path: "./target/release/knight-bot"
+        remote_path: "/home/knight/"
