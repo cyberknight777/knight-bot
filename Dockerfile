@@ -1,8 +1,8 @@
-FROM rust:1.67
+FROM rust:1.69
 
 WORKDIR /usr/src/app
 COPY . .
 
 RUN cargo install --path .
 
-CMD ["myapp"]
+CMD ["knight-bot"]
