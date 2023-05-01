@@ -12,7 +12,7 @@ grammers-client = { git = "https://github.com/Lonami/grammers" }
 grammers-session = { git = "https://github.com/Lonami/grammers" }
 log = { version = "0.4.17" }
 pretty_env_logger = "0.4.0"
-reqwest = { version = "0.11.4", features = ["json"] }
+reqwest = { version = "0.11.17", features = ["json"] }
 serde = { version = "1.0.137", features = ["derive"]}
 serde_json = "1.0.50"
 tokio = { version = "1.28.0", features = ["full"] }
