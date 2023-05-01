@@ -28,8 +28,6 @@ pub async fn async_main() -> Result {
         api_id,
         api_hash: api_hash.clone(),
         params: InitParams {
-            // Fetch the updates we missed while we were offline
-            catch_up: true,
             ..Default::default()
         },
     })
