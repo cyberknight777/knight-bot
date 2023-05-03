@@ -18,6 +18,7 @@ mod man;
 mod msg;
 mod neo;
 mod ping;
+mod paste;
 mod plant;
 mod req;
 mod run;
@@ -49,6 +50,7 @@ enum Command {
     Man(String),
     Msg(String),
     Neo,
+    Paste(String),
     Ping,
     Plant(i64),
     Run,
@@ -91,6 +93,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/msg" | "/msg@ThekNIGHT_bot" => Command::Msg(args.join(" ")),
 	"/neo" | "/neo@ThekNIGHT_bot" => Command::Neo,
 	"/ping" | "/ping@ThekNIGHT_bot" => Command::Ping,
+	"/paste" | "/paste@ThekNIGHT_bot" => Command::Paste(args.join(" ")),
 	"/plant" | "/plant@ThekNIGHT_bot" => Command::Plant(args.join(" ").parse().unwrap_or_default()),
 	"/run" | "/run@ThekNIGHT_bot" => Command::Run,
 	"/start" | "/start@ThekNIGHT_bot" => Command::Start,
@@ -116,6 +119,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
 	Command::Neo => neo::knightcmd_neo(message).await?,
 	Command::Ping => ping::knightcmd_ping(message).await?,
+	Command::Paste(past) => paste::knightcmd_paste(client, message, past).await?,
 	Command::Plant(plants) => plant::knightcmd_plant(client, message, plants).await?,
 	Command::Run => run::knightcmd_run(message).await?,
 	Command::Start => start::knightcmd_start(message).await?,

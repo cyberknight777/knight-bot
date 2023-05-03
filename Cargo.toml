@@ -10,6 +10,7 @@ edition = "2021"
 getrandom = "0.2"
 grammers-client = { git = "https://github.com/Lonami/grammers" }
 grammers-session = { git = "https://github.com/Lonami/grammers" }
+librustbin = "0.2.0"
 log = { version = "0.4.17" }
 pretty_env_logger = "0.4.0"
 reqwest = { version = "0.11.17", features = ["json"] }
