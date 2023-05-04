@@ -30,3 +30,11 @@ jobs:
         remote_key_pass: ${{ secrets.SSH_PASSWORD }}
         path: "./target/release/knight-bot"
         remote_path: "/home/knight/"
+    - name: Restart bot server
+      uses: garygrossgarten/github-action-ssh@release
+      with:
+        command: "bash /home/knight/bot.sh"
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        passphrase: ${{ secrets.SSH_PASSWORD }}
+        privateKey: ${{ secrets.SSH_KEY }}
