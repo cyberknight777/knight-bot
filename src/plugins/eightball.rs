@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Rolls an eightball to say yes or no.
+
 use crate::plugins;
 use grammers_client::{
     Client,

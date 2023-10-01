@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Checks if I'm alive
+
 use grammers_client::types::Message;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;

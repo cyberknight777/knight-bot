@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Extracts redirected URL from given link
+
 use grammers_client::types::{InputMessage, Message};
 use reqwest::header::LOCATION;
 

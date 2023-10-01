@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Sends plant pic according to http code
+
 use grammers_client::{
     Client,
     types::{InputMessage, Message}

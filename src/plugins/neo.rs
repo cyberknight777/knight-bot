@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Sends neofetch output
+
 use grammers_client::types::{InputMessage, Message};
 use std::process::Command;
 

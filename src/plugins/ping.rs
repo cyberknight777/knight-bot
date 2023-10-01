@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Checks how fast I can respond
+
 use grammers_client::types::Message;
 use std::time::SystemTime;
 

@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Sends text
+
 use grammers_client::{
     Client,
     types::{InputMessage, Message}

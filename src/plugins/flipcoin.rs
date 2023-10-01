@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Flips a coin to say heads or tails.
+
 use crate::plugins;
 use grammers_client::{
     Client,

@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Says your lucky number
+
 use crate::plugins;
 use grammers_client::{
     Client,

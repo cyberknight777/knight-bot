@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Sends a pastebin link of the replied message or the text given
+
 use grammers_client::{
     Client,
     types::{InputMessage, Message}

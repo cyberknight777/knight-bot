@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Gets package information from AUR.
+
 use crate::plugins;
 use grammers_client::types::{InputMessage, Message};
 

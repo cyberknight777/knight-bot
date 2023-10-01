@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Takes a webshot of a website
+
 use crate::plugins;
 use grammers_client::{
     Client,

@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Sends cat pic according to the HTTP status code.
+
 use grammers_client::{
     Client,
     types::{InputMessage, Message}
