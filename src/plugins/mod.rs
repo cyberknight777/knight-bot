@@ -25,7 +25,6 @@ mod run;
 mod start;
 mod uid;
 mod urb;
-mod webshot;
 mod whois;
 
 use grammers_client::{
@@ -57,7 +56,6 @@ enum Command {
     Start,
     Uid,
     Urb(String),
-    Webshot(String),
     Whois(String),
 }
 
@@ -99,7 +97,6 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/start" | "/start@ThekNIGHT_bot" => Command::Start,
 	"/uid" | "/uid@ThekNIGHT_bot" => Command::Uid,
 	"/urb" | "/urb@ThekNIGHT_bot" => Command::Urb(args.join(" ")),
-	"/webshot" | "/webshot@ThekNIGHT_bot" => Command::Webshot(args.join(" ")),
 	"/whois" | "/whois@ThekNIGHT_bot" => Command::Whois(args.join(" ")),
 	_ => return Ok(()),
     };
@@ -125,7 +122,6 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Start => start::knightcmd_start(message).await?,
 	Command::Uid => uid::knightcmd_uid(client, message).await?,
 	Command::Urb(word) => urb::knightcmd_urb(message, word).await?,
-	Command::Webshot(web) => webshot::knightcmd_webshot(client, message, web).await?,
 	Command::Whois(site) => whois::knightcmd_whois(message, site).await?
     }
 

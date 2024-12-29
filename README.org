@@ -61,7 +61,6 @@ $ cargo run --release
 + =/start= - Redirect to =/help=.
 + =/uid= - Get current chat's ID, your ID, replied users ID (if any).
 + =/urb [term]= - Get definition of a term from urban dictionary.
-+ =/webshot [website]= - Takes a webshot and sends it to the chat.
 + =/whois [site]= - Gets WHOIS information of a site.
 
 ** Commands on TODO list
