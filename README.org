@@ -55,6 +55,7 @@ $ cargo run --release
 + =/man [command]= - Gets information of a command from manpages.
 + =/msg [text]= - Bot replies with your text.
 + =/neo= - Sends neofetch output.
++ =/paste= - Paste text in reply to rustbin.
 + =/ping= - Checks how fast I can respond.
 + =/plant [http code]= - Sends plant pic according to http codes.
 + =/run= - Runnns :).
@@ -67,7 +68,6 @@ $ cargo run --release
 + =k.ul [file]= - Upload a file.
 + =k.sh [command]= - Execute a shell command.
 + =k.dl [link]= - Download a file.
-+ =/paste= - Paste text in reply to rustbin.
 + =/anyone= - Sends a why do you ask text.
 + =/rtfm= - Sends a RTFM text.
 + =/qrd= - Decodes a QR Code.
