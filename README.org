@@ -50,7 +50,7 @@ $ cargo run --release
 + =/help= - List of all supported commands.
 + =/ipa [ip]= - Get ip information from ipinfo.io
 + =/link [url]= - Get last redirected URL
-+ =/l= - To say your lucky number.
++ =/luck= - To say your lucky number.
 + =/magisk [stable/beta/canary]= - Gets download link of latest Magisk variant according to variant.
 + =/man [command]= - Gets information of a command from manpages.
 + =/msg [text]= - Bot replies with your text.

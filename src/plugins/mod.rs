@@ -85,7 +85,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/help" | "/help@ThekNIGHT_bot" => Command::Help,
 	"/ipa" | "/ipa@ThekNIGHT_bot" => Command::Ipa(args.join(" ")),
 	"/link" | "/link@ThekNIGHT_bot" => Command::Link(args.join(" ")),
-	"/l" | "/l@ThekNIGHT_bot" => Command::Luck,
+	"/luck" | "/luck@ThekNIGHT_bot" => Command::Luck,
 	"/magisk" | "/magisk@ThekNIGHT_bot" => Command::Magisk(args.join(" ")),
 	"/man" | "/man@ThekNIGHT_bot" => Command::Man(args.join(" ")),
 	"/msg" | "/msg@ThekNIGHT_bot" => Command::Msg(args.join(" ")),
