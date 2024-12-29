@@ -4,7 +4,7 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-// Description: Checks if I'm alive
+// Description: Checks if I'm alive.
 
 use grammers_client::types::Message;
 

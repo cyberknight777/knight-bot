@@ -4,7 +4,7 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-// Description: Gets the definition of word from urban dictionary
+// Description: Gets the definition of word from urban dictionary.
 
 use crate::plugins;
 use grammers_client::types::{InputMessage, Message};

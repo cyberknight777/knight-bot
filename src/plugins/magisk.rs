@@ -4,7 +4,7 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-// Description: Gets the latest Magisk release according to the variant
+// Description: Gets the latest Magisk release according to the variant.
 
 use crate::plugins;
 use grammers_client::types::{InputMessage, Message};

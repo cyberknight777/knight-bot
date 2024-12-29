@@ -4,7 +4,7 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-// Description: Gets information about a command from manpages
+// Description: Gets information about a command from manpages.
 
 use grammers_client::{
     Client,

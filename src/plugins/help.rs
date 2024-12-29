@@ -4,7 +4,7 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-// Description: Displays this text
+// Description: Displays this text.
 
 use grammers_client::types::Message;
 use std::fs;

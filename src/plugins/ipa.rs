@@ -4,7 +4,7 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-// Description: Sends info about an IP Address
+// Description: Sends info about an IP Address.
 
 use crate::plugins;
 use grammers_client::types::{InputMessage, Message};

@@ -4,7 +4,7 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-// Description: Checks WHOIS information of a given URL
+// Description: Checks WHOIS information of a given URL.
 
 use grammers_client::types::{InputMessage, Message};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};

@@ -4,7 +4,7 @@
 //! SPDX-License-Identifier: MIT
 //!
 
-// Description: Gets UserID and ChatID
+// Description: Gets UserID and ChatID.
 
 use grammers_client::{
     Client,
