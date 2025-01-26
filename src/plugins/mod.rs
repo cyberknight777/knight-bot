@@ -22,6 +22,7 @@ mod ping;
 mod paste;
 mod plant;
 mod req;
+mod rtfm;
 mod run;
 mod sauce;
 mod start;
@@ -55,6 +56,7 @@ enum Command {
     Paste(String),
     Ping,
     Plant(i64),
+    Rtfm,
     Run,
     Sauce,
     Start,
@@ -98,6 +100,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/ping" | "/ping@ThekNIGHT_bot" => Command::Ping,
 	"/paste" | "/paste@ThekNIGHT_bot" => Command::Paste(args.join(" ")),
 	"/plant" | "/plant@ThekNIGHT_bot" => Command::Plant(args.join(" ").parse().unwrap_or_default()),
+	"/rtfm" | "/rtfm@ThekNIGHT_bot" => Command::Rtfm,
 	"/run" | "/run@ThekNIGHT_bot" => Command::Run,
 	"/sauce" | "/sauce@ThekNIGHT_bot" => Command::Sauce,
 	"/start" | "/start@ThekNIGHT_bot" => Command::Start,
@@ -125,6 +128,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Ping => ping::knightcmd_ping(message).await?,
 	Command::Paste(past) => paste::knightcmd_paste(client, message, past).await?,
 	Command::Plant(plants) => plant::knightcmd_plant(client, message, plants).await?,
+	Command::Rtfm => rtfm::knightcmd_rtfm(client, message).await?,
 	Command::Run => run::knightcmd_run(message).await?,
 	Command::Sauce => sauce::knightcmd_sauce(client, message).await?,
 	Command::Start => start::knightcmd_start(message).await?,
