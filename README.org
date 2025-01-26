@@ -68,8 +68,6 @@ $ cargo run --release
 + =k.ul [file]= - Upload a file.
 + =k.sh [command]= - Execute a shell command.
 + =k.dl [link]= - Download a file.
-+ =/anyone= - Sends a why do you ask text.
-+ =/rtfm= - Sends a RTFM text.
 + =/qrd= - Decodes a QR Code.
 + =/qrg [text]= - Generates a QR Code.
 
