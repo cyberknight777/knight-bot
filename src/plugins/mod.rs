@@ -4,6 +4,7 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+mod anyone;
 mod aur;
 mod cat;
 mod dog;
@@ -37,6 +38,7 @@ use getrandom::getrandom;
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
 enum Command {
+    Anyone,
     Aur(String),
     Cat(i64),
     Dog(i64),
@@ -79,6 +81,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
     let cmd = msg.split_whitespace().next().unwrap();
     let args = msg.split_whitespace().skip(1).collect::<Vec<_>>();
     let cmd = match cmd {
+	"/anyone" | "/anyone@ThekNIGHT_bot" => Command::Anyone,
 	"/aur" | "/aur@ThekNIGHT_bot" => Command::Aur(args.join(" ")),
 	"/cat" | "/cat@ThekNIGHT_bot" => Command::Cat(args.join(" ").parse().unwrap_or_default()),
 	"/dog" | "/dog@ThekNIGHT_bot" => Command::Dog(args.join(" ").parse().unwrap_or_default()),
@@ -105,6 +108,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
     };
 
     match cmd {
+	Command::Anyone => anyone::knightcmd_anyone(client, message).await?,
 	Command::Aur(pkg) => aur::knightcmd_aur(message, pkg).await?,
 	Command::Cat(kat) => cat::knightcmd_cat(client, message, kat).await?,
 	Command::Dog(doge) => dog::knightcmd_dog(client, message, doge).await?,
