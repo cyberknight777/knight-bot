@@ -22,6 +22,7 @@ mod paste;
 mod plant;
 mod req;
 mod run;
+mod sauce;
 mod start;
 mod uid;
 mod urb;
@@ -53,6 +54,7 @@ enum Command {
     Ping,
     Plant(i64),
     Run,
+    Sauce,
     Start,
     Uid,
     Urb(String),
@@ -94,6 +96,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	"/paste" | "/paste@ThekNIGHT_bot" => Command::Paste(args.join(" ")),
 	"/plant" | "/plant@ThekNIGHT_bot" => Command::Plant(args.join(" ").parse().unwrap_or_default()),
 	"/run" | "/run@ThekNIGHT_bot" => Command::Run,
+	"/sauce" | "/sauce@ThekNIGHT_bot" => Command::Sauce,
 	"/start" | "/start@ThekNIGHT_bot" => Command::Start,
 	"/uid" | "/uid@ThekNIGHT_bot" => Command::Uid,
 	"/urb" | "/urb@ThekNIGHT_bot" => Command::Urb(args.join(" ")),
@@ -119,6 +122,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
 	Command::Paste(past) => paste::knightcmd_paste(client, message, past).await?,
 	Command::Plant(plants) => plant::knightcmd_plant(client, message, plants).await?,
 	Command::Run => run::knightcmd_run(message).await?,
+	Command::Sauce => sauce::knightcmd_sauce(client, message).await?,
 	Command::Start => start::knightcmd_start(message).await?,
 	Command::Uid => uid::knightcmd_uid(client, message).await?,
 	Command::Urb(word) => urb::knightcmd_urb(message, word).await?,
