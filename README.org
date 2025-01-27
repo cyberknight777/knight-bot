@@ -42,6 +42,7 @@ $ cargo run --release
 #+END_SRC
 
 * Commands available currently
++ =/anyone= - Sends a why do you ask text.
 + =/aur [package]= - Gets package information from AUR.
 + =/cat [http code]= - Sends cat pic according to http codes.
 + =/dog [http code]= - Sends dog pic according to http codes.
@@ -51,22 +52,26 @@ $ cargo run --release
 + =/ipa [ip]= - Get ip information from ipinfo.io
 + =/link [url]= - Get last redirected URL
 + =/luck= - To say your lucky number.
-+ =/magisk [stable/beta/canary]= - Gets download link of latest Magisk variant according to variant.
++ =/magisk= - Gets download link of latest Magisk variants.
 + =/man [command]= - Gets information of a command from manpages.
 + =/msg [text]= - Bot replies with your text.
 + =/neo= - Sends neofetch output.
 + =/paste= - Paste text in reply to rustbin.
 + =/ping= - Checks how fast I can respond.
 + =/plant [http code]= - Sends plant pic according to http codes.
++ =/rtfm= - Sends a RTFM text.
 + =/run= - Runnns :).
++ =/sauce= - Provides the link to the source code of this bot.
 + =/start= - Redirect to =/help=.
 + =/uid= - Get current chat's ID, your ID, replied users ID (if any).
 + =/urb [term]= - Get definition of a term from urban dictionary.
 + =/whois [site]= - Gets WHOIS information of a site.
 
+* Admin commands available currently (edit src/plugins/mod.rs to add more admin user IDs)
++ =k.sh [command]= - Execute a shell command.
+
 ** Commands on TODO list
 + =k.ul [file]= - Upload a file.
-+ =k.sh [command]= - Execute a shell command.
 + =k.dl [link]= - Download a file.
 + =/qrd= - Decodes a QR Code.
 + =/qrg [text]= - Generates a QR Code.
