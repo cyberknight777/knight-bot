@@ -1,5 +1,5 @@
 //!
-//! Copyright (C) 2023 cyberknight777
+//! Copyright (C) 2023-2025 cyberknight777
 //!
 //! SPDX-License-Identifier: MIT
 //!
