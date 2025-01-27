@@ -34,7 +34,7 @@ use grammers_client::{
     types::{Message},
     Client, Update
 };
-use getrandom::getrandom;
+use getrandom;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -146,6 +146,6 @@ fn check_msg(message: &Message) -> bool {
 
 pub fn random(modulo: u8) -> u8 {
     let mut buffer = [0; 1];
-    getrandom(&mut buffer).expect("Failed to generate random number");
+    getrandom::fill(&mut buffer).expect("Failed to generate random number");
     return buffer[0] % modulo;
 }
