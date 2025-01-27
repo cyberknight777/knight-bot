@@ -5,9 +5,9 @@
 //!
 
 use crate::{cfg, plugins};
-use log;
 use grammers_client::{Client, Config, InitParams};
 use grammers_session::Session;
+use log;
 use std::sync::Arc;
 use tokio::task;
 
@@ -16,14 +16,13 @@ type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 const SESSION_FILE: &str = "knight-bot.session";
 
 pub async fn async_main() -> Result {
-
     let config = Arc::new(cfg::Config::read().expect("cannot read the config"));
     let api_id = config.clone().api_id;
     let api_hash = &config.api_hash;
     let token = &config.bot_token;
 
     log::info!("Connecting to Telegram...");
-    let client = Client::connect(Config{
+    let client = Client::connect(Config {
         session: Session::load_file_or_create(SESSION_FILE)?,
         api_id,
         api_hash: api_hash.clone(),
@@ -37,7 +36,7 @@ pub async fn async_main() -> Result {
     if !client.is_authorized().await? {
         log::info!("Signing in...");
         client.bot_sign_in(&token, api_id, &api_hash).await?;
-	client.session().save_to_file(SESSION_FILE)?;
+        client.session().save_to_file(SESSION_FILE)?;
         log::info!("Signed in!");
     }
 

@@ -13,13 +13,17 @@ type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
 pub async fn knightcmd_ipa(message: Message, addr: String) -> Result {
     if addr.trim().is_empty() {
-	message.reply(InputMessage::html("Send a <b>proper IP Address</b>!")).await?;
-	return Ok(());
+        message
+            .reply(InputMessage::html("Send a <b>proper IP Address</b>!"))
+            .await?;
+        return Ok(());
     } else {
-	let msg = message
-	    .reply(InputMessage::html("<b>Extracting info from ip addr........</b>"))
-	    .await?;
-	let url = format!("https://ipinfo.io/{}", addr);
+        let msg = message
+            .reply(InputMessage::html(
+                "<b>Extracting info from ip addr........</b>",
+            ))
+            .await?;
+        let url = format!("https://ipinfo.io/{}", addr);
         let response = plugins::req::make_request(url.to_string()).await;
         if response.is_none() {
             msg.edit("Something went wrong! Please try again").await?;
@@ -30,8 +34,9 @@ pub async fn knightcmd_ipa(message: Message, addr: String) -> Result {
             .to_string()
             == "404"
         {
-            msg.edit(InputMessage::html("Send a <b>proper IP Address</b>!")).await?;
-	    return Ok(());
+            msg.edit(InputMessage::html("Send a <b>proper IP Address</b>!"))
+                .await?;
+            return Ok(());
         } else {
             let hname = &response.clone().unwrap()["hostname"]
                 .to_string()
@@ -76,8 +81,9 @@ pub async fn knightcmd_ipa(message: Message, addr: String) -> Result {
 <b>Postal</b>: {}
 <b>Timezone</b>: {}",
                 addr, hname, city, rgn, ctry, loc, org, postal, tz
-            ))).await?;
-	}
+            )))
+            .await?;
+        }
     }
     return Ok(());
 }

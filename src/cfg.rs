@@ -5,11 +5,7 @@
 //!
 
 //! Import I/O libraries from the stdlib.
-use std::{
-    error::Error,
-    fs::File,
-    io::Read
-};
+use std::{error::Error, fs::File, io::Read};
 
 #[derive(serde::Deserialize)]
 

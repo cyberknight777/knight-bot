@@ -7,8 +7,8 @@
 use tokio::runtime;
 
 mod cfg;
-mod plugins;
 mod init;
+mod plugins;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 const VERSION: &str = env!("CARGO_PKG_VERSION");

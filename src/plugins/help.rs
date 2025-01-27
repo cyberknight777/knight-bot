@@ -40,7 +40,11 @@ pub async fn knightcmd_help(message: Message) -> Result<(), Box<dyn std::error::
 
     let mut help_msg = "Hello There!, I am a bot made by cyberknight777 in Rust based on gramme.rs.\nHere's a list of my commands (sorted alphabetically):\n".to_owned();
     for command in commands {
-        help_msg.push_str(&format!("/{name} - {description}\n", name = command.name, description = command.description));
+        help_msg.push_str(&format!(
+            "/{name} - {description}\n",
+            name = command.name,
+            description = command.description
+        ));
     }
 
     message.reply(help_msg).await?;
@@ -58,7 +62,10 @@ fn get_command_description(command_name: &str, plugin_dir: &str) -> Result<Strin
     for line in reader.lines() {
         if let Ok(line) = line {
             if line.starts_with("// Description:") {
-                description = line.trim_start_matches("// Description:").trim().to_string();
+                description = line
+                    .trim_start_matches("// Description:")
+                    .trim()
+                    .to_string();
                 break;
             }
         }

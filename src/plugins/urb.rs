@@ -26,24 +26,42 @@ async fn get_def(taxt: &String) -> Option<String> {
 
 pub async fn knightcmd_urb(message: Message, word: String) -> Result {
     if word.trim().is_empty() {
-	let msg = message
-	    .reply(InputMessage::html("<b>Getting definition of random word from urban dictionary...</b>"))
-	    .await?;
-	let url = "http://api.urbandictionary.com/v0/random";
-	let response = plugins::req::make_request(url.to_string()).await;
-	let word = &response.clone().unwrap()["list"][0]["word"];
-	let defin = &response.clone().unwrap()["list"][0]["definition"];
-	msg.edit(InputMessage::html(format!("Definition for <b>{}</b> : <i>{}</i>", word.to_string().trim_matches('"').to_string(), defin.to_string().trim_matches('"').to_string().replace(r#"\r\n"#, "")))).await?;
+        let msg = message
+            .reply(InputMessage::html(
+                "<b>Getting definition of random word from urban dictionary...</b>",
+            ))
+            .await?;
+        let url = "http://api.urbandictionary.com/v0/random";
+        let response = plugins::req::make_request(url.to_string()).await;
+        let word = &response.clone().unwrap()["list"][0]["word"];
+        let defin = &response.clone().unwrap()["list"][0]["definition"];
+        msg.edit(InputMessage::html(format!(
+            "Definition for <b>{}</b> : <i>{}</i>",
+            word.to_string().trim_matches('"').to_string(),
+            defin
+                .to_string()
+                .trim_matches('"')
+                .to_string()
+                .replace(r#"\r\n"#, "")
+        )))
+        .await?;
     } else {
-	let msg = message
-	    .reply(InputMessage::html("<b>Getting definition of word from urban dictionary...</b>"))
-	    .await?;
-	let defin = get_def(&word).await;
-	if defin.is_none() {
-	    msg.edit("Something went wrong!").await?;
-	} else {
-	    msg.edit(InputMessage::html(format!("Definition for <b>{}</b> : <i>{}</i>", word, defin.unwrap().replace(r#"\r\n"#, "")))).await?;
-	}
+        let msg = message
+            .reply(InputMessage::html(
+                "<b>Getting definition of word from urban dictionary...</b>",
+            ))
+            .await?;
+        let defin = get_def(&word).await;
+        if defin.is_none() {
+            msg.edit("Something went wrong!").await?;
+        } else {
+            msg.edit(InputMessage::html(format!(
+                "Definition for <b>{}</b> : <i>{}</i>",
+                word,
+                defin.unwrap().replace(r#"\r\n"#, "")
+            )))
+            .await?;
+        }
     }
     return Ok(());
 }

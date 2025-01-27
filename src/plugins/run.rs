@@ -20,12 +20,14 @@ pub async fn knightcmd_run(message: Message) -> Result {
     let c = String::from("Let's keep running folks!");
     let msg;
     if sec == 0 {
-	msg = a;
+        msg = a;
     } else if sec == 1 {
-	msg = b;
+        msg = b;
     } else {
-	msg = c;
+        msg = c;
     }
-    message.reply(InputMessage::html(format!("<b>{}</b>", msg))).await?;
+    message
+        .reply(InputMessage::html(format!("<b>{}</b>", msg)))
+        .await?;
     return Ok(());
 }
