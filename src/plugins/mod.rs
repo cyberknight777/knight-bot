@@ -25,6 +25,7 @@ mod req;
 mod rtfm;
 mod run;
 mod sauce;
+mod sh;
 mod start;
 mod uid;
 mod urb;
@@ -56,6 +57,7 @@ enum Command {
     Rtfm,
     Run,
     Sauce,
+    Sh(String),
     Start,
     Uid,
     Urb(String),
@@ -64,7 +66,7 @@ enum Command {
 
 pub async fn handle_update(client: Client, update: Update) -> Result {
     match update {
-        Update::NewMessage(message) if check_msg(&message) => {
+        Update::NewMessage(message) if check_msg(&message) || check_cmd(&message) => {
             log::info!("Responding to {}", message.chat().name());
             handle_msg(client, message).await?
         }
@@ -106,6 +108,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         "/uid" | "/uid@ThekNIGHT_bot" => Command::Uid,
         "/urb" | "/urb@ThekNIGHT_bot" => Command::Urb(args.join(" ")),
         "/whois" | "/whois@ThekNIGHT_bot" => Command::Whois(args.join(" ")),
+        "k.sh" => Command::Sh(args.join(" ").parse().unwrap_or_default()),
         _ => return Ok(()),
     };
 
@@ -130,6 +133,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         Command::Rtfm => rtfm::knightcmd_rtfm(client, message).await?,
         Command::Run => run::knightcmd_run(message).await?,
         Command::Sauce => sauce::knightcmd_sauce(client, message).await?,
+        Command::Sh(kcmd) => sh::knightcmd_sh(message, kcmd).await?,
         Command::Start => start::knightcmd_start(message).await?,
         Command::Uid => uid::knightcmd_uid(client, message).await?,
         Command::Urb(word) => urb::knightcmd_urb(message, word).await?,
@@ -144,6 +148,11 @@ fn check_msg(message: &Message) -> bool {
         && message.text().starts_with('/')
         && !message.text().starts_with("/ ")
         || message.text().ends_with("@ThekNIGHT_bot");
+}
+
+fn check_cmd(message: &Message) -> bool {
+    return !message.outgoing()
+        && (message.sender().unwrap().id() == 607425846)
 }
 
 pub fn random(modulo: u8) -> u8 {
