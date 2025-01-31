@@ -151,8 +151,7 @@ fn check_msg(message: &Message) -> bool {
 }
 
 fn check_cmd(message: &Message) -> bool {
-    return !message.outgoing()
-        && (message.sender().unwrap().id() == 607425846)
+    return !message.outgoing() && (message.sender().unwrap().id() == 607425846);
 }
 
 pub fn random(modulo: u8) -> u8 {

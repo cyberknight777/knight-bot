@@ -23,7 +23,11 @@ pub async fn knightcmd_help(message: Message) -> Result<(), Box<dyn std::error::
     for entry in fs::read_dir(plugin_dir)? {
         if let Ok(entry) = entry {
             if let Some(filename) = entry.file_name().to_str() {
-                if filename.ends_with(".rs") && filename != "mod.rs" && filename != "req.rs" && filename != "sh.rs" {
+                if filename.ends_with(".rs")
+                    && filename != "mod.rs"
+                    && filename != "req.rs"
+                    && filename != "sh.rs"
+                {
                     let command_name = filename.trim_end_matches(".rs").to_string();
                     let description = get_command_description(&command_name, plugin_dir)?;
 
