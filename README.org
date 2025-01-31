@@ -66,6 +66,7 @@ $ cargo run --release
 + =/uid= - Get current chat's ID, your ID, replied users ID (if any).
 + =/urb [term]= - Get definition of a term from urban dictionary.
 + =/whois [site]= - Gets WHOIS information of a site.
++ =/yaap [device]= - Gets latest YAAP release according to the device.
 
 * Admin commands available currently (edit src/plugins/mod.rs to add more admin user IDs)
 + =k.sh [command]= - Execute a shell command.

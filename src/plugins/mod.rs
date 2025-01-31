@@ -30,6 +30,7 @@ mod start;
 mod uid;
 mod urb;
 mod whois;
+mod yaap;
 
 use getrandom;
 use grammers_client::{types::Message, Client, Update};
@@ -62,6 +63,7 @@ enum Command {
     Uid,
     Urb(String),
     Whois(String),
+    Yaap(String),
 }
 
 pub async fn handle_update(client: Client, update: Update) -> Result {
@@ -108,6 +110,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         "/uid" | "/uid@ThekNIGHT_bot" => Command::Uid,
         "/urb" | "/urb@ThekNIGHT_bot" => Command::Urb(args.join(" ")),
         "/whois" | "/whois@ThekNIGHT_bot" => Command::Whois(args.join(" ")),
+        "/yaap" | "/yaap@ThekNIGHT_bot" => Command::Yaap(args.join(" ")),
         "k.sh" => Command::Sh(args.join(" ").parse().unwrap_or_default()),
         _ => return Ok(()),
     };
@@ -138,6 +141,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         Command::Uid => uid::knightcmd_uid(client, message).await?,
         Command::Urb(word) => urb::knightcmd_urb(message, word).await?,
         Command::Whois(site) => whois::knightcmd_whois(message, site).await?,
+        Command::Yaap(device) => yaap::knightcmd_yaap(client, message, device).await?,
     }
 
     Ok(())
