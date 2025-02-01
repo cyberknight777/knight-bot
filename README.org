@@ -30,7 +30,6 @@ Support chat for this bot can be found [[https://t.me/bots_rs][here]].
 ** Setting up your environment
     1. [[https://rustup.rs/][Download Rust]]
     2. Create a new bot using [[https://t.me/BotFather][@Botfather]]
-    3. Setup an X server and install CutyCapt
 
 ** Build manually
 #+BEGIN_SRC shell
