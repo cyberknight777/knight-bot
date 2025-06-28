@@ -17,9 +17,6 @@
 - [[#find-this-bot][Find this bot]]
 :END:
 
-[[https://github.com/cyberknight777/knight-bot/actions/workflows/rust.yml/badge.svg?branch=master]]
-
-
 * About
 =Knight-Bot= is a telegram bot written in rust based on gramme.rs framework.
 ** Support chat
