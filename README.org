@@ -66,6 +66,7 @@ $ cargo run --release
 
 * Admin commands available currently (Add admin user ID in config.toml)
 + =k.sh [command]= - Execute a shell command.
++ =k.mot [guid] [carrier]= - Gets latest incremental OTA zip from Motorola servers.
 
 ** Commands on TODO list
 + =k.ul [file]= - Upload a file.
