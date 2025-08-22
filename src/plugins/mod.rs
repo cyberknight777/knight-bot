@@ -20,6 +20,7 @@ mod lpaste;
 mod luck;
 mod magisk;
 mod man;
+mod mot;
 mod msg;
 mod neo;
 mod paste;
@@ -55,6 +56,7 @@ enum Command {
     Luck,
     Magisk,
     Man(String),
+    Mot(String, String),
     Msg(String),
     Neo,
     Paste(String),
@@ -121,6 +123,10 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         "/whois" | "/whois@ThekNIGHT_bot" => Command::Whois(args.join(" ")),
         "/yaap" | "/yaap@ThekNIGHT_bot" => Command::Yaap(args.join(" ")),
         "k.sh" => Command::Sh(args.join(" ").parse().unwrap_or_default()),
+        "k.mot" => Command::Mot(
+            args.get(0).unwrap_or(&"").to_string(),
+            args.get(1).unwrap_or(&"").to_string(),
+        ),
         _ => return Ok(()),
     };
 
@@ -138,6 +144,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         Command::Luck => luck::knightcmd_luck(client, message).await?,
         Command::Magisk => magisk::knightcmd_magisk(client, message).await?,
         Command::Man(cmd) => man::knightcmd_man(client, message, cmd).await?,
+        Command::Mot(kuid, kcar) => mot::knightcmd_mot(message, Some(kuid), Some(kcar)).await?,
         Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
         Command::Neo => neo::knightcmd_neo(message).await?,
         Command::Ping => ping::knightcmd_ping(message).await?,
@@ -161,13 +168,15 @@ fn check_msg(message: &Message) -> bool {
     return !message.outgoing()
         && message.text().starts_with('/')
         && !message.text().starts_with("/ ")
-        || (message.text().ends_with("@ThekNIGHT_bot") && !message.text().starts_with("k.sh"));
+        || (message.text().ends_with("@ThekNIGHT_bot")
+            && !message.text().starts_with("k.sh")
+            && !message.text().starts_with("k.mot"));
 }
 
 fn check_cmd(message: &Message, admin_id: i64) -> bool {
     return !message.outgoing()
-        && message.text().starts_with("k.sh")
-        && (message.sender().unwrap().id() == admin_id);
+        && (message.sender().unwrap().id() == admin_id)
+        && (message.text().starts_with("k.sh") || message.text().starts_with("k.mot"));
 }
 
 pub fn random(modulo: u8) -> u8 {

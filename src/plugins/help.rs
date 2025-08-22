@@ -27,6 +27,7 @@ pub async fn knightcmd_help(message: Message) -> Result<(), Box<dyn std::error::
                     && filename != "mod.rs"
                     && filename != "req.rs"
                     && filename != "sh.rs"
+                    && filename != "mot.rs"
                 {
                     let command_name = filename.trim_end_matches(".rs").to_string();
                     let description = get_command_description(&command_name, plugin_dir)?;
