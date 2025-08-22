@@ -151,7 +151,7 @@ fn check_msg(message: &Message) -> bool {
     return !message.outgoing()
         && message.text().starts_with('/')
         && !message.text().starts_with("/ ")
-        || message.text().ends_with("@ThekNIGHT_bot");
+        || (message.text().ends_with("@ThekNIGHT_bot") && !message.text().starts_with("k.sh"));
 }
 
 fn check_cmd(message: &Message) -> bool {
