@@ -22,15 +22,48 @@ pub async fn knightcmd_yaap(client: Client, message: Message, device: String) ->
             .await?;
         return Ok(());
     }
-    let gapps = format!(
-        "https://raw.githubusercontent.com/YAAP/ota-info/full-signed/{}/{}.json",
+
+    let branch = format!(
+        "https://raw.githubusercontent.com/YAAP/device-info/master/{}/{}.json",
         device, device
+    );
+
+    let branch_resp = plugins::req::make_request(branch.to_string()).await;
+
+    let gapps_branch;
+
+    let vanilla_branch;
+
+    match branch_resp {
+        Some(branch_resp) => {
+            gapps_branch = branch_resp["ota-branch"]
+                .to_string()
+                .trim_matches('"')
+                .to_string();
+            vanilla_branch = branch_resp["ota-branch-vanilla"]
+                .to_string()
+                .trim_matches('"')
+                .to_string();
+        }
+        None => {
+            message
+                .reply(InputMessage::html(
+                    "Failed to get YAAP release information! (OTA Branch)",
+                ))
+                .await?;
+            return Ok(());
+        }
+    }
+
+    let gapps = format!(
+        "https://raw.githubusercontent.com/YAAP/ota-info/{}/{}/{}.json",
+        gapps_branch, device, device
     );
     let gapps_resp = plugins::req::make_request(gapps.to_string()).await;
 
     let vanilla = format!(
-        "https://raw.githubusercontent.com/YAAP/ota-info/vanilla-signed/{}/{}.json",
-        device, device
+        "https://raw.githubusercontent.com/YAAP/ota-info/{}/{}/{}.json",
+        vanilla_branch, device, device
     );
     let vanilla_resp = plugins::req::make_request(vanilla.to_string()).await;
 
