@@ -15,6 +15,8 @@ pub struct Config {
     pub api_hash: String,
     /// TG Bot Token
     pub bot_token: String,
+    /// TG Admin User ID
+    pub admin_id: i64,
 }
 
 impl Config {

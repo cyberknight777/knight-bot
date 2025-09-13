@@ -4,6 +4,9 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+use crate::cfg;
+use std::sync::Arc;
+
 mod anyone;
 mod aur;
 mod cat;
@@ -67,8 +70,11 @@ enum Command {
 }
 
 pub async fn handle_update(client: Client, update: Update) -> Result {
+    let config = Arc::new(cfg::Config::read().expect("cannot read the config"));
     match update {
-        Update::NewMessage(message) if check_msg(&message) || check_cmd(&message) => {
+        Update::NewMessage(message)
+            if check_msg(&message) || check_cmd(&message, config.clone().admin_id) =>
+        {
             log::info!("Responding to {}", message.chat().name());
             handle_msg(client, message).await?
         }
@@ -154,10 +160,10 @@ fn check_msg(message: &Message) -> bool {
         || (message.text().ends_with("@ThekNIGHT_bot") && !message.text().starts_with("k.sh"));
 }
 
-fn check_cmd(message: &Message) -> bool {
+fn check_cmd(message: &Message, admin_id: i64) -> bool {
     return !message.outgoing()
         && message.text().starts_with("k.sh")
-        && (message.sender().unwrap().id() == 607425846);
+        && (message.sender().unwrap().id() == admin_id);
 }
 
 pub fn random(modulo: u8) -> u8 {
