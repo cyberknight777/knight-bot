@@ -91,6 +91,8 @@ pub async fn knightcmd_yaap(client: Client, message: Message, device: String) ->
 
     let date;
 
+    let msg;
+
     match gapps_resp {
         Some(gapps_resp) => {
             gapps_link = gapps_resp["response"]
@@ -134,62 +136,35 @@ pub async fn knightcmd_yaap(client: Client, message: Message, device: String) ->
         .or_else(|| get_date(&vanilla_link))
         .unwrap_or("Unknown".to_string());
 
+    msg = InputMessage::html(format!(
+        "<b>Latest YAAP Releases for {} ({})</b>:",
+        device, date
+    ))
+    .reply_markup(&reply_markup::inline(vec![
+        vec![button::url(
+            "Gapps",
+            format!(
+                "https://mirror.codebucket.de/yaap/{}/{}",
+                device,
+                gapps_link.to_string().trim_matches('"').to_string()
+            ),
+        )],
+        vec![button::url(
+            "Vanilla",
+            format!(
+                "https://mirror.codebucket.de/yaap/{}/vanilla/{}",
+                device,
+                vanilla_link.to_string().trim_matches('"').to_string()
+            ),
+        )],
+    ]));
+
     if let Some(id) = message.reply_to_message_id() {
         client
-            .send_message(
-                message.chat(),
-                InputMessage::html(format!(
-                    "<b>Latest YAAP Releases for {} ({})</b>:",
-                    device, date
-                ))
-                .reply_to(Some(id))
-                .reply_markup(&reply_markup::inline(vec![
-                    vec![button::url(
-                        "Gapps",
-                        format!(
-                            "https://mirror.codebucket.de/yaap/{}/{}",
-                            device,
-                            gapps_link.to_string().trim_matches('"').to_string()
-                        ),
-                    )],
-                    vec![button::url(
-                        "Vanilla",
-                        format!(
-                            "https://mirror.codebucket.de/yaap/{}/vanilla/{}",
-                            device,
-                            vanilla_link.to_string().trim_matches('"').to_string()
-                        ),
-                    )],
-                ])),
-            )
+            .send_message(message.chat(), msg.reply_to(Some(id)))
             .await?;
     } else {
-        message
-            .reply(
-                InputMessage::html(format!(
-                    "<b>Latest YAAP Releases for {} ({})</b>:",
-                    device, date
-                ))
-                .reply_markup(&reply_markup::inline(vec![
-                    vec![button::url(
-                        "Gapps",
-                        format!(
-                            "https://mirror.codebucket.de/yaap/{}/{}",
-                            device,
-                            gapps_link.to_string().trim_matches('"').to_string()
-                        ),
-                    )],
-                    vec![button::url(
-                        "Vanilla",
-                        format!(
-                            "https://mirror.codebucket.de/yaap/{}/vanilla/{}",
-                            device,
-                            vanilla_link.to_string().trim_matches('"').to_string()
-                        ),
-                    )],
-                ])),
-            )
-            .await?;
+        message.reply(msg).await?;
     }
     return Ok(());
 }
