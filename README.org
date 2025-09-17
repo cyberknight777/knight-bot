@@ -52,7 +52,7 @@ $ cargo run --release
 + =/man [command]= - Gets information of a command from manpages.
 + =/msg [text]= - Bot replies with your text.
 + =/neo= - Sends neofetch output.
-+ =/paste= - Paste text in reply to rustbin.
++ =/paste= - Paste text (or contents of a document) in reply to rustbin.
 + =/ping= - Checks how fast I can respond.
 + =/plant [http code]= - Sends plant pic according to http codes.
 + =/rtfm= - Sends a RTFM text.
