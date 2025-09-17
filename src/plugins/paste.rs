@@ -41,8 +41,10 @@ pub async fn knightcmd_paste(client: Client, message: Message, past: String) -> 
             client.download_media(&media, file_path.clone()).await?;
 
             let mut file = tokio_fs::File::open(&file_path).await?;
-            let mut contents = String::new();
-            file.read_to_string(&mut contents).await?;
+            let mut bytes = Vec::new();
+            file.read_to_end(&mut bytes).await?;
+
+            let contents = String::from_utf8_lossy(&bytes).to_string();
 
             let url = RbinClient::new("https://bin.cyberknight777.dev".to_string())
                 .paste_highlight(contents)
