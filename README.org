@@ -64,7 +64,7 @@ $ cargo run --release
 + =/whois [site]= - Gets WHOIS information of a site.
 + =/yaap [device]= - Gets latest YAAP release according to the device.
 
-* Admin commands available currently (edit src/plugins/mod.rs to add more admin user IDs)
+* Admin commands available currently (Add admin user ID in config.toml)
 + =k.sh [command]= - Execute a shell command.
 
 ** Commands on TODO list
