@@ -16,6 +16,7 @@ mod flipcoin;
 mod help;
 mod ipa;
 mod link;
+mod lpaste;
 mod luck;
 mod magisk;
 mod man;
@@ -50,6 +51,7 @@ enum Command {
     Help,
     Ipa(String),
     Link(String),
+    Lpaste(String),
     Luck,
     Magisk,
     Man(String),
@@ -99,6 +101,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         "/help" | "/help@ThekNIGHT_bot" => Command::Help,
         "/ipa" | "/ipa@ThekNIGHT_bot" => Command::Ipa(args.join(" ")),
         "/link" | "/link@ThekNIGHT_bot" => Command::Link(args.join(" ")),
+        "/lpaste" | "/lpaste@ThekNIGHT_bot" => Command::Lpaste(args.join(" ")),
         "/luck" | "/luck@ThekNIGHT_bot" => Command::Luck,
         "/magisk" | "/magisk@ThekNIGHT_bot" => Command::Magisk,
         "/man" | "/man@ThekNIGHT_bot" => Command::Man(args.join(" ")),
@@ -131,6 +134,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         Command::Help => help::knightcmd_help(message).await?,
         Command::Ipa(addr) => ipa::knightcmd_ipa(message, addr).await?,
         Command::Link(url) => link::knightcmd_link(message, url).await?,
+        Command::Lpaste(link) => lpaste::knightcmd_lpaste(client, message, link).await?,
         Command::Luck => luck::knightcmd_luck(client, message).await?,
         Command::Magisk => magisk::knightcmd_magisk(client, message).await?,
         Command::Man(cmd) => man::knightcmd_man(client, message, cmd).await?,
