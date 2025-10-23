@@ -18,14 +18,39 @@ use tokio::io::AsyncReadExt;
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
 fn check_paste(url: &str) -> bool {
-    !url.is_empty() || url != "This file is empty!" || url != "This file exceeds the file limit"
+    !url.is_empty() && url != "This file is empty!" && url != "This file exceeds the file limit"
+}
+
+async fn fail_edit(msg: &Message) -> Result {
+    msg.edit(InputMessage::html("<b>Paste failed!</b>")).await?;
+    return Ok(());
+}
+
+async fn paste_edit(msg: &Message, content: String) -> Result {
+    let rbin = RbinClient::new("https://bin.cyberknight777.dev".to_string());
+
+    match rbin.paste_highlight(content) {
+        Ok(url_raw) => {
+            let url = url_raw.trim().to_string();
+            if check_paste(&url) {
+                msg.edit(InputMessage::html(format!("Link: {}", url)))
+                    .await?;
+            } else {
+                fail_edit(&msg).await?;
+            }
+        }
+        Err(_) => {
+            fail_edit(&msg).await?;
+        }
+    }
+    return Ok(());
 }
 
 pub async fn knightcmd_paste(client: Client, message: Message, past: String) -> Result {
     const MAX_SIZE: i64 = 5 * 1024 * 1024;
 
     let msg = message
-        .reply(InputMessage::html(format!("<b>Pasting content...</b>")))
+        .reply(InputMessage::html("<b>Pasting content...</b>"))
         .await?;
 
     if let Some(reply) = client.get_reply_to_message(&message).await? {
@@ -46,49 +71,16 @@ pub async fn knightcmd_paste(client: Client, message: Message, past: String) -> 
 
             let contents = String::from_utf8_lossy(&bytes).to_string();
 
-            let url = RbinClient::new("https://bin.cyberknight777.dev".to_string())
-                .paste_highlight(contents)
-                .unwrap()
-                .trim()
-                .to_string();
-
-            if check_paste(&url) {
-                msg.edit(format!("Link: {}", url)).await?;
-            } else {
-                msg.edit(InputMessage::html(format!("<b>Paste failed!</b>")))
-                    .await?;
-            }
+            paste_edit(&msg, contents).await?;
 
             let _ = fs::remove_file(&file_path);
         } else if !reply.text().is_empty() {
-            let url = RbinClient::new("https://bin.cyberknight777.dev".to_string())
-                .paste_highlight(reply.text().to_string())
-                .unwrap()
-                .trim()
-                .to_string();
-
-            if check_paste(&url) {
-                msg.edit(InputMessage::html(format!("Link: {}", url)))
-                    .await?;
-            } else {
-                msg.edit(InputMessage::html("<b>Paste failed!</b>")).await?;
-            }
+            paste_edit(&msg, reply.text().to_string()).await?;
         } else {
-            msg.edit(InputMessage::html("<b>Paste failed!</b>")).await?;
+            fail_edit(&msg).await?;
         }
     } else if !past.is_empty() {
-        let url = RbinClient::new("https://bin.cyberknight777.dev".to_string())
-            .paste_highlight(past)
-            .unwrap()
-            .trim()
-            .to_string();
-
-        if check_paste(&url) {
-            msg.edit(InputMessage::html(format!("Link: {}", url)))
-                .await?;
-        } else {
-            msg.edit(InputMessage::html("<b>Paste failed!</b>")).await?;
-        }
+        paste_edit(&msg, past).await?;
     } else {
         msg.edit(InputMessage::html(
             "Please reply to a <b>message</b> or reply with <b>/paste yourtext</b> to paste it!",
