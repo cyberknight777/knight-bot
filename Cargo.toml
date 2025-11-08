@@ -8,12 +8,13 @@ edition = "2021"
 
 [dependencies]
 getrandom = "0.3"
-grammers-client = { git = "https://github.com/Lonami/grammers", rev = "8169db7f1fe86896ca4f591f6d424be3cb4f192a" }
-grammers-session = { git = "https://github.com/Lonami/grammers", rev = "8169db7f1fe86896ca4f591f6d424be3cb4f192a" }
+grammers-client = { git = "https://github.com/Lonami/grammers" }
+grammers-session = { git = "https://github.com/Lonami/grammers" }
+grammers-mtsender = { git = "https://github.com/Lonami/grammers" }
 librustbin = { git = "https://github.com/cyberknight777/librustbin" }
 log = { version = "0.4.28" }
 pretty_env_logger = "0.5.0"
-reqwest = { version = "0.12.4", features = ["json"] }
+reqwest = { version = "0.12.24", features = ["json"] }
 serde = { version = "1.0.228", features = ["derive"]}
 serde_json = "1.0.145"
 tokio = { version = "1.29.1", features = ["full"] }

@@ -79,7 +79,8 @@ pub async fn handle_update(client: Client, update: Update) -> Result {
         Update::NewMessage(message)
             if check_msg(&message) || check_cmd(&message, config.clone().admin_id) =>
         {
-            log::info!("Responding to {}", message.chat().name());
+	let peer = message.peer().unwrap();
+            log::info!("Responding to {}", peer.name().unwrap());
             handle_msg(client, message).await?
         }
         _ => {}
