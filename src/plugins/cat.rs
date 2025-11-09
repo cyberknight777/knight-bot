@@ -18,7 +18,7 @@ pub async fn knightcmd_cat(client: Client, message: Message, mut kat: i64) -> Re
         kat = 404;
     }
     let url = format!("https://httpcats.com/{}.jpg", kat);
-    let photo = InputMessage::text("").photo_url(url);
-    client.send_message(message.chat(), photo).await?;
+    let photo = InputMessage::text(message.text().into(), "").photo_url(url);
+    client.send_message(message.peer().unwrap(), photo).await?;
     return Ok(());
 }

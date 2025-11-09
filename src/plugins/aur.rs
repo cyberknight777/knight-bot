@@ -113,7 +113,7 @@ pub async fn knightcmd_aur(message: Message, pkg: String) -> Result {
                     .and_then(|val| val.as_str())
                     .unwrap_or_default();
                 message
-                    .reply(InputMessage::html(format!(
+                    .reply(InputMessage::html(message.html_text().into(), format!(
                         "<b>Name</b>: <code>{}</code>
 <b>Version</b>: <code>{}</code>
 <b>Description</b>: {}

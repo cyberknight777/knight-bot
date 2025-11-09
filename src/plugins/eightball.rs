@@ -24,8 +24,8 @@ pub async fn knightcmd_eightball(client: Client, message: Message) -> Result {
     if let Some(id) = message.reply_to_message_id() {
         client
             .send_message(
-                message.chat(),
-                InputMessage::text(result).reply_to(Some(id)),
+                message.peer().unwrap(),
+                InputMessage::text(message.text().into(), result).reply_to(Some(id)),
             )
             .await?;
     } else {

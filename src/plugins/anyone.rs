@@ -19,7 +19,7 @@ pub async fn knightcmd_anyone(client: Client, message: Message) -> Result {
         client
             .send_message(
                 message.peer().unwrap(),
-                InputMessage::html(message.html_text(), "Hmm.")
+                InputMessage::html(message.html_text().into(), "Hmm.")
                     .reply_to(Some(id))
                     .reply_markup(&reply_markup::inline(vec![vec![button::url(
                         "Why do you ask?",
@@ -30,7 +30,7 @@ pub async fn knightcmd_anyone(client: Client, message: Message) -> Result {
     } else {
         message
             .reply(
-                InputMessage::html("Hmm.").reply_markup(&reply_markup::inline(vec![vec![
+                InputMessage::html(message.html_text().into(), "Hmm.").reply_markup(&reply_markup::inline(vec![vec![
                     button::url("Why do you ask?", "https://dontasktoask.com"),
                 ]])),
             )
