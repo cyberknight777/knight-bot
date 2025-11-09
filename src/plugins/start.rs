@@ -6,7 +6,7 @@
 
 // Description: Checks if I'm alive.
 
-use grammers_client::types::Message;
+use grammers_client::types::update::Message;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 

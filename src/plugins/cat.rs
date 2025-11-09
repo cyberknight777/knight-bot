@@ -7,7 +7,7 @@
 // Description: Sends cat pic according to the HTTP status code.
 
 use grammers_client::{
-    types::{InputMessage, Message},
+    types::{InputMessage, update::Message},
     Client,
 };
 

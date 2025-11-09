@@ -6,7 +6,7 @@
 
 // Description: Gets OTA zips from Motorola's OTA server.
 
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::types::{InputMessage, update::Message};
 use html_escape;
 use reqwest::Client;
 use serde_json::{json, Value};

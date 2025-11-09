@@ -7,7 +7,7 @@
 // Description: Sends plant pic according to http code.
 
 use grammers_client::{
-    types::{InputMessage, Message},
+    types::{InputMessage, update::Message},
     Client,
 };
 

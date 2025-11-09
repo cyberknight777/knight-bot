@@ -7,7 +7,7 @@
 // Description: Gets the definition of word from urban dictionary.
 
 use crate::plugins;
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::types::{InputMessage, update::Message};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 

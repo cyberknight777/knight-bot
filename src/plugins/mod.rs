@@ -38,7 +38,7 @@ mod whois;
 mod yaap;
 
 use getrandom;
-use grammers_client::{types::Message, Client, Update};
+use grammers_client::{types::update::Message, Client, Update};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -91,7 +91,7 @@ pub async fn handle_update(client: Client, update: Update) -> Result {
 
 pub async fn handle_msg(client: Client, message: Message) -> Result {
     let msg = message.text();
-    let _chat = message.chat(); // It is unused for the moment.
+//    let _chat = message.chat(); // It is unused for the moment.
     let cmd = msg.split_whitespace().next().unwrap_or("");
     let args = msg.split_whitespace().skip(1).collect::<Vec<_>>();
     let cmd = match cmd {

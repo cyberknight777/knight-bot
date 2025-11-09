@@ -7,7 +7,7 @@
 // Description: Sends info about an IP Address.
 
 use crate::plugins;
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::types::{InputMessage, update::Message};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 

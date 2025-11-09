@@ -7,7 +7,7 @@
 // Description: Sends a shortlink of the replied link or the link given.
 
 use grammers_client::{
-    types::{InputMessage, Message},
+    types::{InputMessage, update::Message},
     Client,
 };
 use librustbin::Client as RbinClient;

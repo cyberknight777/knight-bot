@@ -6,7 +6,7 @@
 
 // Description: Sends neofetch output.
 
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::types::{InputMessage, update::Message};
 use std::process::Command;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;

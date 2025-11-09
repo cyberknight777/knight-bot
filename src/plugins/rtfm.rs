@@ -8,7 +8,7 @@
 
 use grammers_client::{
     button, reply_markup,
-    types::{InputMessage, Message},
+    types::{InputMessage, update::Message},
     Client,
 };
 

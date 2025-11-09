@@ -8,7 +8,7 @@
 
 use grammers_client::{
     button, reply_markup,
-    types::{InputMessage, Message},
+    types::{InputMessage, update::Message},
     Client,
 };
 
@@ -18,8 +18,8 @@ pub async fn knightcmd_anyone(client: Client, message: Message) -> Result {
     if let Some(id) = message.reply_to_message_id() {
         client
             .send_message(
-                message.chat(),
-                InputMessage::html("Hmm.")
+                message.peer().unwrap(),
+                InputMessage::html(message.html_text(), "Hmm.")
                     .reply_to(Some(id))
                     .reply_markup(&reply_markup::inline(vec![vec![button::url(
                         "Why do you ask?",

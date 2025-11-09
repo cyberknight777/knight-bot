@@ -6,7 +6,7 @@
 
 // Description: Displays this text.
 
-use grammers_client::types::Message;
+use grammers_client::types::update::Message;
 use std::fs;
 use std::io::{self, BufRead};
 use std::result::Result;

@@ -6,7 +6,7 @@
 
 // Description: Checks how fast I can respond.
 
-use grammers_client::types::Message;
+use grammers_client::types::update::Message;
 use std::time::SystemTime;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;

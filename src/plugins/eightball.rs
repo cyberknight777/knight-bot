@@ -8,7 +8,7 @@
 
 use crate::plugins;
 use grammers_client::{
-    types::{InputMessage, Message},
+    types::{InputMessage, update::Message},
     Client,
 };
 

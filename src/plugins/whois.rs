@@ -6,7 +6,7 @@
 
 // Description: Checks WHOIS information of a given URL.
 
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::types::{InputMessage, update::Message};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;

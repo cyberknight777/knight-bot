@@ -6,7 +6,7 @@
 
 // Description: Extracts redirected URL from given link.
 
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::types::{InputMessage, update::Message};
 use reqwest::header::LOCATION;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;

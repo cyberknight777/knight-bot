@@ -7,7 +7,7 @@
 // Description: Gets UserID and ChatID.
 
 use grammers_client::{
-    types::{InputMessage, Message},
+    types::{InputMessage, update::Message},
     Client,
 };
 

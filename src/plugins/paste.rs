@@ -7,7 +7,7 @@
 // Description: Sends a pastebin link of the replied message (or document) or the text given.
 
 use grammers_client::{
-    types::{InputMessage, Media, Message},
+    types::{InputMessage, Media, update::Message},
     Client,
 };
 use librustbin::Client as RbinClient;

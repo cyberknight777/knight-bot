@@ -6,7 +6,7 @@
 
 // Description: Runnns :)
 
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::types::{InputMessage, update::Message};
 use std::time::Instant;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
