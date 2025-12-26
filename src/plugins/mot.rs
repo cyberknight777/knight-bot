@@ -13,12 +13,17 @@ use serde_json::{json, Value};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-pub async fn knightcmd_mot(message: Message, kuid: Option<String>, kcar: Option<String>) -> Result {
+pub async fn knightcmd_mot(
+    message: Message,
+    kuid: Option<String>,
+    kcar: Option<String>,
+    ksn: Option<String>,
+) -> Result {
     let kuid = match kuid {
         Some(k) if !k.is_empty() => k,
         _ => {
             message
-                .reply("Missing GUID! Usage: k.mot <otaSourceSha1> <carrier>")
+                .reply("Missing GUID! Usage: k.mot <otaSourceSha1> <carrier> [serialnumber]")
                 .await?;
             return Ok(());
         }
@@ -28,14 +33,19 @@ pub async fn knightcmd_mot(message: Message, kuid: Option<String>, kcar: Option<
         Some(c) if !c.is_empty() => c,
         _ => {
             message
-                .reply("Missing carrier! Usage: k.mot <otaSourceSha1> <carrier>")
+                .reply("Missing carrier! Usage: k.mot <otaSourceSha1> <carrier> [serialnumber]")
                 .await?;
             return Ok(());
         }
     };
 
+    let ksn = match ksn {
+        Some(s) if !s.is_empty() => s,
+        _ => "SERIAL_NUMBER_NOT_AVAILABLE".to_string(),
+    };
+
     let body = json!({
-        "id": "SERIAL_NUMBER_NOT_AVAILABLE",
+        "id": ksn,
         "deviceInfo": { "country": "US", "region": "US" },
         "extraInfo": {
     "carrier": kcar,
