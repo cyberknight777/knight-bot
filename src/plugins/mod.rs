@@ -56,7 +56,7 @@ enum Command {
     Luck,
     Magisk,
     Man(String),
-    Mot(String, String),
+    Mot(String, String, String),
     Msg(String),
     Neo,
     Paste(String),
@@ -126,6 +126,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         "k.mot" => Command::Mot(
             args.get(0).unwrap_or(&"").to_string(),
             args.get(1).unwrap_or(&"").to_string(),
+            args.get(2).unwrap_or(&"").to_string(),
         ),
         _ => return Ok(()),
     };
@@ -144,7 +145,9 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         Command::Luck => luck::knightcmd_luck(client, message).await?,
         Command::Magisk => magisk::knightcmd_magisk(client, message).await?,
         Command::Man(cmd) => man::knightcmd_man(client, message, cmd).await?,
-        Command::Mot(kuid, kcar) => mot::knightcmd_mot(message, Some(kuid), Some(kcar)).await?,
+        Command::Mot(kuid, kcar, ksn) => {
+            mot::knightcmd_mot(message, Some(kuid), Some(kcar), Some(ksn)).await?
+        }
         Command::Msg(text) => msg::knightcmd_msg(client, message, text).await?,
         Command::Neo => neo::knightcmd_neo(message).await?,
         Command::Ping => ping::knightcmd_ping(message).await?,
