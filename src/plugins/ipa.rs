@@ -8,11 +8,12 @@
 
 use crate::plugins;
 use grammers_client::types::{InputMessage, Message};
+use std::net::IpAddr;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
 pub async fn knightcmd_ipa(message: Message, addr: String) -> Result {
-    if addr.trim().is_empty() {
+    if addr.trim().is_empty() || addr.parse::<IpAddr>().is_err() {
         message
             .reply(InputMessage::html("Send a <b>proper IP Address</b>!"))
             .await?;
