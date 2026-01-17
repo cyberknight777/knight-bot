@@ -19,6 +19,16 @@ pub async fn knightcmd_whois(message: Message, site: String) -> Result {
             ))
             .await?;
         return Ok(());
+    } else if site.starts_with("http://")
+        || site.starts_with("https://")
+        || site.starts_with("www.")
+    {
+        message
+            .reply(InputMessage::html(
+                "Send a <b>proper URL</b> without http(s) or www to get WHOIS information!",
+            ))
+            .await?;
+        return Ok(());
     } else {
         let msg = message
             .reply(InputMessage::html(
