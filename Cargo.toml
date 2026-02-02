@@ -7,7 +7,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-getrandom = "0.3"
+getrandom = "0.4"
 grammers-client = { git = "https://github.com/Lonami/grammers", rev = "8169db7f1fe86896ca4f591f6d424be3cb4f192a" }
 grammers-session = { git = "https://github.com/Lonami/grammers", rev = "8169db7f1fe86896ca4f591f6d424be3cb4f192a" }
 librustbin = { git = "https://github.com/cyberknight777/librustbin" }
