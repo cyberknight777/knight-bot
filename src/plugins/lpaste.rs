@@ -38,7 +38,7 @@ pub async fn knightcmd_lpaste(client: Client, message: Message, link: String) ->
     if let Some(text) = text_to_paste {
         let rbin = RbinClient::new("https://bin.cyberknight777.dev".to_string());
 
-        match rbin.paste_short(text) {
+        match rbin.shorten(&text).await {
             Ok(url_raw) => {
                 let url = url_raw.trim().to_string();
                 if check_paste(&url) {

@@ -10,7 +10,7 @@ use grammers_client::{
     types::{InputMessage, Media, Message},
     Client,
 };
-use librustbin::Client as RbinClient;
+use librustbin::{Client as RbinClient, PasteOptions};
 use std::fs;
 use tokio::fs as tokio_fs;
 use tokio::io::AsyncReadExt;
@@ -26,14 +26,19 @@ async fn fail_edit(msg: &Message) -> Result {
     return Ok(());
 }
 
-async fn paste_edit(msg: &Message, content: String) -> Result {
+async fn paste_edit(msg: &Message, content: String, filename: Option<String>) -> Result {
     let rbin = RbinClient::new("https://bin.cyberknight777.dev".to_string());
 
-    match rbin.paste_highlight(content) {
+    let options = PasteOptions {
+        filename,
+        ..Default::default()
+    };
+
+    match rbin.paste(&content, &options).await {
         Ok(url_raw) => {
             let url = url_raw.trim().to_string();
             if check_paste(&url) {
-                msg.edit(InputMessage::html(format!("Link: {}", url)))
+                msg.edit(InputMessage::html(format!("Link: {}", url)).link_preview(true))
                     .await?;
             } else {
                 fail_edit(&msg).await?;
@@ -56,8 +61,11 @@ pub async fn knightcmd_paste(client: Client, message: Message, past: String) -> 
     if let Some(reply) = client.get_reply_to_message(&message).await? {
         if let Some(ref media @ Media::Document(ref doc)) = reply.media() {
             if doc.size() > MAX_SIZE {
-                msg.edit(InputMessage::html("<b>File too large (max 5MB)</b>"))
-                    .await?;
+                msg.edit(InputMessage::html(format!(
+                    "<b>File too large (max {}MB)</b>",
+                    MAX_SIZE / (1024 * 1024)
+                )))
+                .await?;
                 return Ok(());
             }
 
@@ -71,16 +79,24 @@ pub async fn knightcmd_paste(client: Client, message: Message, past: String) -> 
 
             let contents = String::from_utf8_lossy(&bytes).to_string();
 
-            paste_edit(&msg, contents).await?;
+            let filename = {
+                let name = doc.name();
+                if name.is_empty() {
+                    None
+                } else {
+                    Some(name.to_string())
+                }
+            };
+            paste_edit(&msg, contents, filename).await?;
 
             let _ = fs::remove_file(&file_path);
         } else if !reply.text().is_empty() {
-            paste_edit(&msg, reply.text().to_string()).await?;
+            paste_edit(&msg, reply.text().to_string(), None).await?;
         } else {
             fail_edit(&msg).await?;
         }
     } else if !past.is_empty() {
-        paste_edit(&msg, past).await?;
+        paste_edit(&msg, past, None).await?;
     } else {
         msg.edit(InputMessage::html(
             "Please reply to a <b>message</b> or reply with <b>/paste yourtext</b> to paste it!",
