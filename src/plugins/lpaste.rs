@@ -42,7 +42,7 @@ pub async fn knightcmd_lpaste(client: Client, message: Message, link: String) ->
             Ok(url_raw) => {
                 let url = url_raw.trim().to_string();
                 if check_paste(&url) {
-                    msg.edit(InputMessage::html(format!("Link: {}", url)))
+                    msg.edit(InputMessage::html(format!("Link: {}", url)).link_preview(true))
                         .await?;
                 } else {
                     msg.edit(InputMessage::html("<b>Paste failed!</b>")).await?;
