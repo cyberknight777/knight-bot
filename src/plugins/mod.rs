@@ -31,6 +31,7 @@ mod rtfm;
 mod run;
 mod sauce;
 mod sh;
+mod smsg;
 mod start;
 mod uid;
 mod urb;
@@ -66,6 +67,7 @@ enum Command {
     Run,
     Sauce,
     Sh(String),
+    Smsg(String),
     Start,
     Uid,
     Urb(String),
@@ -117,6 +119,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         "/rtfm" | "/rtfm@ThekNIGHT_bot" => Command::Rtfm,
         "/run" | "/run@ThekNIGHT_bot" => Command::Run,
         "/sauce" | "/sauce@ThekNIGHT_bot" => Command::Sauce,
+        "/smsg" | "/smsg@ThekNIGHT_bot" => Command::Smsg(args.join(" ")),
         "/start" | "/start@ThekNIGHT_bot" => Command::Start,
         "/uid" | "/uid@ThekNIGHT_bot" => Command::Uid,
         "/urb" | "/urb@ThekNIGHT_bot" => Command::Urb(args.join(" ")),
@@ -157,6 +160,7 @@ pub async fn handle_msg(client: Client, message: Message) -> Result {
         Command::Run => run::knightcmd_run(message).await?,
         Command::Sauce => sauce::knightcmd_sauce(client, message).await?,
         Command::Sh(kcmd) => sh::knightcmd_sh(message, kcmd).await?,
+        Command::Smsg(stext) => smsg::knightcmd_smsg(client, message, stext).await?,
         Command::Start => start::knightcmd_start(message).await?,
         Command::Uid => uid::knightcmd_uid(client, message).await?,
         Command::Urb(word) => urb::knightcmd_urb(message, word).await?,

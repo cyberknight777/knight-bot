@@ -58,6 +58,7 @@ $ cargo run --release
 + =/rtfm= - Sends a RTFM text.
 + =/run= - Runnns :).
 + =/sauce= - Provides the link to the source code of this bot.
++ =/smsg= - Bot replies with your text and deletes original message.
 + =/start= - Redirect to =/help=.
 + =/uid= - Get current chat's ID, your ID, replied users ID (if any).
 + =/urb [term]= - Get definition of a term from urban dictionary.
