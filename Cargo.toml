@@ -2,7 +2,7 @@
 name = "knight-bot"
 version = "1.0.0"
 authors = ["Cyber Knight <npv12@iitbbs.ac.in>"]
-edition = "2021"
+edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

@@ -23,22 +23,28 @@ pub async fn knightcmd_lpaste(client: Client, message: Message, link: String) ->
         .reply(InputMessage::html("<b>Pasting link...</b>"))
         .await?;
 
-    let text_to_paste = if let Some(reply) = client.get_reply_to_message(&message).await? {
-        if !reply.text().is_empty() {
-            Some(reply.text().to_string())
-        } else {
-            None
+    let text_to_paste = match client.get_reply_to_message(&message).await? {
+        Some(reply) => {
+            if !reply.text().is_empty() {
+                Some(reply.text().to_string())
+            } else {
+                None
+            }
         }
-    } else if !link.is_empty() {
-        Some(link)
-    } else {
-        None
+        _ => {
+            if !link.is_empty() {
+                Some(link)
+            } else {
+                None
+            }
+        }
     };
 
     if let Some(text) = text_to_paste {
         let rbin = RbinClient::new("https://bin.cyberknight777.dev".to_string());
+        let shorten = rbin.shorten(&text).await;
 
-        match rbin.shorten(&text).await {
+        match shorten {
             Ok(url_raw) => {
                 let url = url_raw.trim().to_string();
                 if check_paste(&url) {

@@ -42,10 +42,17 @@ pub async fn async_main() -> Result {
 
     log::info!("Waiting for messages...");
 
-    while let Some(update) = tokio::select! {
-        _ = tokio::signal::ctrl_c() => Ok(None),
-        result = client.next_update() => result,
-    }? {
+    loop {
+        let update_result = tokio::select! {
+            _ = tokio::signal::ctrl_c() => Ok(None),
+            result = client.next_update() => result,
+        };
+
+        let update = match update_result? {
+            Some(update) => update,
+            None => break,
+        };
+
         let handle = client.clone();
         task::spawn(async move {
             match plugins::handle_update(handle, update).await {
