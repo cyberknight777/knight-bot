@@ -10,6 +10,7 @@ use std::sync::Arc;
 mod anyone;
 mod aur;
 mod cat;
+mod dl;
 mod dog;
 mod eightball;
 mod flipcoin;
@@ -34,6 +35,7 @@ mod sh;
 mod smsg;
 mod start;
 mod uid;
+mod ul;
 mod urb;
 mod whois;
 mod yaap;
@@ -47,6 +49,7 @@ enum Command {
     Anyone,
     Aur(String),
     Cat(i64),
+    Dl(String),
     Dog(i64),
     EightBall,
     FlipCoin,
@@ -70,6 +73,7 @@ enum Command {
     Smsg(String),
     Start,
     Uid,
+    Ul(String),
     Urb(String),
     Whois(String),
     Yaap(String),
@@ -101,6 +105,7 @@ pub async fn handle_msg(client: Client, message: &Message) -> Result {
         "/anyone" | "/anyone@ThekNIGHT_bot" => Command::Anyone,
         "/aur" | "/aur@ThekNIGHT_bot" => Command::Aur(args.join(" ")),
         "/cat" | "/cat@ThekNIGHT_bot" => Command::Cat(args.join(" ").parse().unwrap_or_default()),
+        "k.dl" => Command::Dl(args.join(" ")),
         "/dog" | "/dog@ThekNIGHT_bot" => Command::Dog(args.join(" ").parse().unwrap_or_default()),
         "/eightball" | "/eightball@ThekNIGHT_bot" => Command::EightBall,
         "/flipcoin" | "/flipcoin@ThekNIGHT_bot" => Command::FlipCoin,
@@ -124,6 +129,7 @@ pub async fn handle_msg(client: Client, message: &Message) -> Result {
         "/smsg" | "/smsg@ThekNIGHT_bot" => Command::Smsg(args.join(" ")),
         "/start" | "/start@ThekNIGHT_bot" => Command::Start,
         "/uid" | "/uid@ThekNIGHT_bot" => Command::Uid,
+        "k.ul" => Command::Ul(args.join(" ")),
         "/urb" | "/urb@ThekNIGHT_bot" => Command::Urb(args.join(" ")),
         "/whois" | "/whois@ThekNIGHT_bot" => Command::Whois(args.join(" ")),
         "/yaap" | "/yaap@ThekNIGHT_bot" => Command::Yaap(args.join(" ")),
@@ -140,6 +146,7 @@ pub async fn handle_msg(client: Client, message: &Message) -> Result {
         Command::Anyone => anyone::knightcmd_anyone(client, message).await?,
         Command::Aur(pkg) => aur::knightcmd_aur(message, pkg).await?,
         Command::Cat(kat) => cat::knightcmd_cat(client, message, kat).await?,
+        Command::Dl(link) => dl::knightcmd_dl(client, message, link).await?,
         Command::Dog(doge) => dog::knightcmd_dog(client, message, doge).await?,
         Command::EightBall => eightball::knightcmd_eightball(client, message).await?,
         Command::FlipCoin => flipcoin::knightcmd_flipcoin(client, message).await?,
@@ -165,6 +172,7 @@ pub async fn handle_msg(client: Client, message: &Message) -> Result {
         Command::Smsg(stext) => smsg::knightcmd_smsg(client, message, stext).await?,
         Command::Start => start::knightcmd_start(message).await?,
         Command::Uid => uid::knightcmd_uid(client, message).await?,
+        Command::Ul(path) => ul::knightcmd_ul(client, message, path).await?,
         Command::Urb(word) => urb::knightcmd_urb(message, word).await?,
         Command::Whois(site) => whois::knightcmd_whois(message, site).await?,
         Command::Yaap(device) => yaap::knightcmd_yaap(client, message, device).await?,
@@ -179,13 +187,18 @@ fn check_msg(message: &Message) -> bool {
         && !message.text().starts_with("/ ")
         || (message.text().ends_with("@ThekNIGHT_bot")
             && !message.text().starts_with("k.sh")
-            && !message.text().starts_with("k.mot"));
+            && !message.text().starts_with("k.mot")
+            && !message.text().starts_with("k.ul")
+            && !message.text().starts_with("k.dl"));
 }
 
 fn check_cmd(message: &Message, admin_id: i64) -> bool {
     return !message.outgoing()
         && (message.sender().and_then(|s| s.id().bare_id()) == Some(admin_id))
-        && (message.text().starts_with("k.sh") || message.text().starts_with("k.mot"));
+        && (message.text().starts_with("k.sh")
+            || message.text().starts_with("k.mot")
+            || message.text().starts_with("k.ul")
+            || message.text().starts_with("k.dl"));
 }
 
 pub fn random(modulo: u8) -> u8 {
