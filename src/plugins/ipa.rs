@@ -7,22 +7,20 @@
 // Description: Sends info about an IP Address.
 
 use crate::plugins;
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::message::{InputMessage, Message};
 use std::net::IpAddr;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-pub async fn knightcmd_ipa(message: Message, addr: String) -> Result {
+pub async fn knightcmd_ipa(message: &Message, addr: String) -> Result {
     if addr.trim().is_empty() || addr.parse::<IpAddr>().is_err() {
         message
-            .reply(InputMessage::html("Send a <b>proper IP Address</b>!"))
+            .reply(InputMessage::new().html("Send a <b>proper IP Address</b>!"))
             .await?;
         return Ok(());
     } else {
         let msg = message
-            .reply(InputMessage::html(
-                "<b>Extracting info from ip addr........</b>",
-            ))
+            .reply(InputMessage::new().html("<b>Extracting info from ip addr........</b>"))
             .await?;
         let url = format!("https://ipinfo.io/{}", addr);
         let response = plugins::req::make_request(url.to_string()).await;
@@ -35,7 +33,7 @@ pub async fn knightcmd_ipa(message: Message, addr: String) -> Result {
             .to_string()
             == "404"
         {
-            msg.edit(InputMessage::html("Send a <b>proper IP Address</b>!"))
+            msg.edit(InputMessage::new().html("Send a <b>proper IP Address</b>!"))
                 .await?;
             return Ok(());
         } else {
@@ -71,7 +69,7 @@ pub async fn knightcmd_ipa(message: Message, addr: String) -> Result {
                 .to_string()
                 .trim_matches('"')
                 .to_string();
-            msg.edit(InputMessage::html(format!(
+            msg.edit(InputMessage::new().html(format!(
                 "<b>IP</b>: <code>{}</code>
 <b>Hostname</b>: {}
 <b>City</b>: {}

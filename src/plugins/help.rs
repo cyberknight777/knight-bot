@@ -6,7 +6,7 @@
 
 // Description: Displays this text.
 
-use grammers_client::types::Message;
+use grammers_client::message::Message;
 use std::fs;
 use std::io::{self, BufRead};
 use std::result::Result;
@@ -16,7 +16,7 @@ struct CommandInfo {
     description: String,
 }
 
-pub async fn knightcmd_help(message: Message) -> Result<(), Box<dyn std::error::Error>> {
+pub async fn knightcmd_help(message: &Message) -> Result<(), Box<dyn std::error::Error>> {
     let mut commands = Vec::new();
 
     let plugin_dir = "src/plugins";

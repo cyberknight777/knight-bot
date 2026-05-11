@@ -7,21 +7,21 @@
 // Description: Sends a why do you ask text.
 
 use grammers_client::{
-    button, reply_markup,
-    types::{InputMessage, Message},
     Client,
+    message::{Button, InputMessage, Message, ReplyMarkup},
 };
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-pub async fn knightcmd_anyone(client: Client, message: Message) -> Result {
+pub async fn knightcmd_anyone(client: Client, message: &Message) -> Result {
     if let Some(id) = message.reply_to_message_id() {
         client
             .send_message(
-                message.chat(),
-                InputMessage::html("Hmm.")
+                message.peer_ref().await.unwrap(),
+                InputMessage::new()
+                    .html("Hmm.")
                     .reply_to(Some(id))
-                    .reply_markup(&reply_markup::inline(vec![vec![button::url(
+                    .reply_markup(ReplyMarkup::from_buttons(&vec![vec![Button::url(
                         "Why do you ask?",
                         "https://dontasktoask.com",
                     )]])),
@@ -30,9 +30,12 @@ pub async fn knightcmd_anyone(client: Client, message: Message) -> Result {
     } else {
         message
             .reply(
-                InputMessage::html("Hmm.").reply_markup(&reply_markup::inline(vec![vec![
-                    button::url("Why do you ask?", "https://dontasktoask.com"),
-                ]])),
+                InputMessage::new()
+                    .html("Hmm.")
+                    .reply_markup(ReplyMarkup::from_buttons(&vec![vec![Button::url(
+                        "Why do you ask?",
+                        "https://dontasktoask.com",
+                    )]])),
             )
             .await?;
     }

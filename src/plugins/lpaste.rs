@@ -7,8 +7,8 @@
 // Description: Sends a shortlink of the replied link or the link given.
 
 use grammers_client::{
-    types::{InputMessage, Message},
     Client,
+    message::{InputMessage, Message},
 };
 use librustbin::Client as RbinClient;
 
@@ -18,9 +18,9 @@ fn check_paste(url: &str) -> bool {
     !url.is_empty() && url != "This file is empty!" && url != "relative URL without a base"
 }
 
-pub async fn knightcmd_lpaste(client: Client, message: Message, link: String) -> Result {
+pub async fn knightcmd_lpaste(client: Client, message: &Message, link: String) -> Result {
     let msg = message
-        .reply(InputMessage::html("<b>Pasting link...</b>"))
+        .reply(InputMessage::new().html("<b>Pasting link...</b>"))
         .await?;
 
     let text_to_paste = match client.get_reply_to_message(&message).await? {
@@ -48,18 +48,24 @@ pub async fn knightcmd_lpaste(client: Client, message: Message, link: String) ->
             Ok(url_raw) => {
                 let url = url_raw.trim().to_string();
                 if check_paste(&url) {
-                    msg.edit(InputMessage::html(format!("Link: {}", url)).link_preview(true))
-                        .await?;
+                    msg.edit(
+                        InputMessage::new()
+                            .html(format!("Link: {}", url))
+                            .link_preview(true),
+                    )
+                    .await?;
                 } else {
-                    msg.edit(InputMessage::html("<b>Paste failed!</b>")).await?;
+                    msg.edit(InputMessage::new().html("<b>Paste failed!</b>"))
+                        .await?;
                 }
             }
             Err(_) => {
-                msg.edit(InputMessage::html("<b>Paste failed!</b>")).await?;
+                msg.edit(InputMessage::new().html("<b>Paste failed!</b>"))
+                    .await?;
             }
         }
     } else {
-        msg.edit(InputMessage::html(
+        msg.edit(InputMessage::new().html(
             "Please reply to a <b>link</b> or reply with <b>/lpaste https://link.com</b> to shortlink it!",
         )).await?;
     }

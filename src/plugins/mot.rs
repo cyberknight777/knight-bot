@@ -6,15 +6,15 @@
 
 // Description: Gets OTA zips from Motorola's OTA server.
 
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::message::{InputMessage, Message};
 use html_escape;
 use reqwest::Client;
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
 pub async fn knightcmd_mot(
-    message: Message,
+    message: &Message,
     kuid: Option<String>,
     kcar: Option<String>,
     ksn: Option<String>,
@@ -96,16 +96,22 @@ pub async fn knightcmd_mot(
             .unwrap_or(package_id);
         let package_id_clean = format!("{}.zip", package_id_clean);
         let reply = format!(
-	"<b>Model:</b> <code>{}</code>\n<b>Current Version</b>: <code>{}</code>\n<b>Previous Version:</b> <code>{}</code>\n<b>Fingerprint:</b> <code>{}</code>\n<b>Filename:</b> <code>{}</code>\n<b>Current OTA SHA1:</b> <code>{}</code>\n<b>Next OTA SHA1:</b> <code>{}</code>\n<b>Changelog:</b> <code><pre>{}</pre></code>\n<b>Download:</b> {}",
-	    model, display_version, source_version, fingerprint, package_id_clean, ota_source, ota_target, release_notes, download_url
+            "<b>Model:</b> <code>{}</code>\n<b>Current Version</b>: <code>{}</code>\n<b>Previous Version:</b> <code>{}</code>\n<b>Fingerprint:</b> <code>{}</code>\n<b>Filename:</b> <code>{}</code>\n<b>Current OTA SHA1:</b> <code>{}</code>\n<b>Next OTA SHA1:</b> <code>{}</code>\n<b>Changelog:</b> <code><pre>{}</pre></code>\n<b>Download:</b> {}",
+            model,
+            display_version,
+            source_version,
+            fingerprint,
+            package_id_clean,
+            ota_source,
+            ota_target,
+            release_notes,
+            download_url
         );
 
-        message.reply(InputMessage::html(reply)).await?;
+        message.reply(InputMessage::new().html(reply)).await?;
     } else {
         message
-            .reply(InputMessage::html(format!(
-                "<b>No OTA available or bad response!</b>"
-            )))
+            .reply(InputMessage::new().html(format!("<b>No OTA available or bad response!</b>")))
             .await?;
     }
     return Ok(());

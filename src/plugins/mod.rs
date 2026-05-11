@@ -39,7 +39,7 @@ mod whois;
 mod yaap;
 
 use getrandom;
-use grammers_client::{types::Message, Client, Update};
+use grammers_client::{Client, message::Message, update::Update};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -81,8 +81,11 @@ pub async fn handle_update(client: Client, update: Update) -> Result {
         Update::NewMessage(message)
             if check_msg(&message) || check_cmd(&message, config.clone().admin_id) =>
         {
-            log::info!("Responding to {}", message.chat().name());
-            handle_msg(client, message).await?
+            log::info!(
+                "Responding to {}",
+                message.peer().and_then(|p| p.name()).unwrap_or("")
+            );
+            handle_msg(client, &message).await?
         }
         _ => {}
     }
@@ -90,9 +93,8 @@ pub async fn handle_update(client: Client, update: Update) -> Result {
     Ok(())
 }
 
-pub async fn handle_msg(client: Client, message: Message) -> Result {
+pub async fn handle_msg(client: Client, message: &Message) -> Result {
     let msg = message.text();
-    let _chat = message.chat(); // It is unused for the moment.
     let cmd = msg.split_whitespace().next().unwrap_or("");
     let args = msg.split_whitespace().skip(1).collect::<Vec<_>>();
     let cmd = match cmd {
@@ -182,7 +184,7 @@ fn check_msg(message: &Message) -> bool {
 
 fn check_cmd(message: &Message, admin_id: i64) -> bool {
     return !message.outgoing()
-        && (message.sender().unwrap().id() == admin_id)
+        && (message.sender().and_then(|s| s.id().bare_id()) == Some(admin_id))
         && (message.text().starts_with("k.sh") || message.text().starts_with("k.mot"));
 }
 

@@ -7,7 +7,7 @@
 // Description: Gets the definition of word from urban dictionary.
 
 use crate::plugins;
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::message::{InputMessage, Message};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -24,18 +24,19 @@ async fn get_def(taxt: &String) -> Option<String> {
     Some(target.to_string().trim_matches('"').to_string())
 }
 
-pub async fn knightcmd_urb(message: Message, word: String) -> Result {
+pub async fn knightcmd_urb(message: &Message, word: String) -> Result {
     if word.trim().is_empty() {
         let msg = message
-            .reply(InputMessage::html(
-                "<b>Getting definition of random word from urban dictionary...</b>",
-            ))
+            .reply(
+                InputMessage::new()
+                    .html("<b>Getting definition of random word from urban dictionary...</b>"),
+            )
             .await?;
         let url = "http://api.urbandictionary.com/v0/random";
         let response = plugins::req::make_request(url.to_string()).await;
         let word = &response.clone().unwrap()["list"][0]["word"];
         let defin = &response.clone().unwrap()["list"][0]["definition"];
-        msg.edit(InputMessage::html(format!(
+        msg.edit(InputMessage::new().html(format!(
             "Definition for <b>{}</b> : <i>{}</i>",
             word.to_string().trim_matches('"').to_string(),
             defin
@@ -47,15 +48,16 @@ pub async fn knightcmd_urb(message: Message, word: String) -> Result {
         .await?;
     } else {
         let msg = message
-            .reply(InputMessage::html(
-                "<b>Getting definition of word from urban dictionary...</b>",
-            ))
+            .reply(
+                InputMessage::new()
+                    .html("<b>Getting definition of word from urban dictionary...</b>"),
+            )
             .await?;
         let defin = get_def(&word).await;
         if defin.is_none() {
             msg.edit("Something went wrong!").await?;
         } else {
-            msg.edit(InputMessage::html(format!(
+            msg.edit(InputMessage::new().html(format!(
                 "Definition for <b>{}</b> : <i>{}</i>",
                 word,
                 defin.unwrap().replace(r#"\r\n"#, "")

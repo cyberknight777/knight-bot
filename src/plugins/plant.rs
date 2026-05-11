@@ -7,18 +7,20 @@
 // Description: Sends plant pic according to http code.
 
 use grammers_client::{
-    types::{InputMessage, Message},
     Client,
+    message::{InputMessage, Message},
 };
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-pub async fn knightcmd_plant(client: Client, message: Message, mut plants: i64) -> Result {
+pub async fn knightcmd_plant(client: Client, message: &Message, mut plants: i64) -> Result {
     if plants == 0 {
         plants = 404;
     }
     let url = format!("https://http.garden/{}.jpg", plants);
-    let photo = InputMessage::text("").photo_url(url);
-    client.send_message(message.chat(), photo).await?;
+    let photo = InputMessage::new().text("").photo_url(url);
+    client
+        .send_message(message.peer_ref().await.unwrap(), photo)
+        .await?;
     return Ok(());
 }

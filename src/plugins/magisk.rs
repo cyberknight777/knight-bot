@@ -8,14 +8,13 @@
 
 use crate::plugins;
 use grammers_client::{
-    button, reply_markup,
-    types::{InputMessage, Message},
     Client,
+    message::{Button, InputMessage, Message, ReplyMarkup},
 };
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-pub async fn knightcmd_magisk(client: Client, message: Message) -> Result {
+pub async fn knightcmd_magisk(client: Client, message: &Message) -> Result {
     let stable =
         format!("https://raw.githubusercontent.com/topjohnwu/magisk-files/master/stable.json");
     let stable_resp = plugins::req::make_request(stable.to_string()).await;
@@ -43,9 +42,9 @@ pub async fn knightcmd_magisk(client: Client, message: Message) -> Result {
         }
         None => {
             message
-                .reply(InputMessage::html(
-                    "Failed to get Magisk release information! (Stable)",
-                ))
+                .reply(
+                    InputMessage::new().html("Failed to get Magisk release information! (Stable)"),
+                )
                 .await?;
             return Ok(());
         }
@@ -57,9 +56,7 @@ pub async fn knightcmd_magisk(client: Client, message: Message) -> Result {
         }
         None => {
             message
-                .reply(InputMessage::html(
-                    "Failed to get Magisk release information! (Beta)",
-                ))
+                .reply(InputMessage::new().html("Failed to get Magisk release information! (Beta)"))
                 .await?;
             return Ok(());
         }
@@ -71,9 +68,9 @@ pub async fn knightcmd_magisk(client: Client, message: Message) -> Result {
         }
         None => {
             message
-                .reply(InputMessage::html(
-                    "Failed to get Magisk release information! (Canary)",
-                ))
+                .reply(
+                    InputMessage::new().html("Failed to get Magisk release information! (Canary)"),
+                )
                 .await?;
             return Ok(());
         }
@@ -81,25 +78,26 @@ pub async fn knightcmd_magisk(client: Client, message: Message) -> Result {
     if let Some(id) = message.reply_to_message_id() {
         client
             .send_message(
-                message.chat(),
-                InputMessage::html(format!("<b>Latest Magisk Releases</b>:"))
+                message.peer_ref().await.unwrap(),
+                InputMessage::new()
+                    .html(format!("<b>Latest Magisk Releases</b>:"))
                     .reply_to(Some(id))
-                    .reply_markup(&reply_markup::inline(vec![
-                        vec![button::url(
+                    .reply_markup(ReplyMarkup::from_buttons(&vec![
+                        vec![Button::url(
                             format!(
                                 "Stable: {}",
                                 stable_version.to_string().trim_matches('"').to_string()
                             ),
                             stable_link.to_string().trim_matches('"').to_string(),
                         )],
-                        vec![button::url(
+                        vec![Button::url(
                             format!(
                                 "Beta: {}",
                                 beta_version.to_string().trim_matches('"').to_string()
                             ),
                             beta_link.to_string().trim_matches('"').to_string(),
                         )],
-                        vec![button::url(
+                        vec![Button::url(
                             format!(
                                 "Canary: {}",
                                 canary_version.to_string().trim_matches('"').to_string()
@@ -112,31 +110,31 @@ pub async fn knightcmd_magisk(client: Client, message: Message) -> Result {
     } else {
         message
             .reply(
-                InputMessage::html(format!("<b>Latest Magisk Releases</b>:")).reply_markup(
-                    &reply_markup::inline(vec![
-                        vec![button::url(
+                InputMessage::new()
+                    .html(format!("<b>Latest Magisk Releases</b>:"))
+                    .reply_markup(ReplyMarkup::from_buttons(&vec![
+                        vec![Button::url(
                             format!(
                                 "Stable: {}",
                                 stable_version.to_string().trim_matches('"').to_string()
                             ),
                             stable_link.to_string().trim_matches('"').to_string(),
                         )],
-                        vec![button::url(
+                        vec![Button::url(
                             format!(
                                 "Beta: {}",
                                 beta_version.to_string().trim_matches('"').to_string()
                             ),
                             beta_link.to_string().trim_matches('"').to_string(),
                         )],
-                        vec![button::url(
+                        vec![Button::url(
                             format!(
                                 "Canary: {}",
                                 canary_version.to_string().trim_matches('"').to_string()
                             ),
                             canary_link.to_string().trim_matches('"').to_string(),
                         )],
-                    ]),
-                ),
+                    ])),
             )
             .await?;
     }

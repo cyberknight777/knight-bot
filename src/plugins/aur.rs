@@ -7,11 +7,11 @@
 // Description: Gets package information from AUR.
 
 use crate::plugins;
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::message::{InputMessage, Message};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-pub async fn knightcmd_aur(message: Message, pkg: String) -> Result {
+pub async fn knightcmd_aur(message: &Message, pkg: String) -> Result {
     if !pkg.is_empty() {
         let response = plugins::req::make_request(format!(
             "https://aur.archlinux.org/rpc/?v=5&type=info&arg={}",
@@ -113,7 +113,7 @@ pub async fn knightcmd_aur(message: Message, pkg: String) -> Result {
                     .and_then(|val| val.as_str())
                     .unwrap_or_default();
                 message
-                    .reply(InputMessage::html(format!(
+                    .reply(InputMessage::new().html(format!(
                         "<b>Name</b>: <code>{}</code>
 <b>Version</b>: <code>{}</code>
 <b>Description</b>: {}

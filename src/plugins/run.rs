@@ -6,12 +6,12 @@
 
 // Description: Runnns :)
 
-use grammers_client::types::{InputMessage, Message};
+use grammers_client::message::{InputMessage, Message};
 use std::time::Instant;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-pub async fn knightcmd_run(message: Message) -> Result {
+pub async fn knightcmd_run(message: &Message) -> Result {
     let start = Instant::now();
     let elapsed = start.elapsed();
     let sec = elapsed.subsec_nanos() % 3;
@@ -27,7 +27,7 @@ pub async fn knightcmd_run(message: Message) -> Result {
         msg = c;
     }
     message
-        .reply(InputMessage::html(format!("<b>{}</b>", msg)))
+        .reply(InputMessage::new().html(format!("<b>{}</b>", msg)))
         .await?;
     return Ok(());
 }
