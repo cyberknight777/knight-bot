@@ -39,6 +39,9 @@ pub async fn async_main() -> Result {
         log::info!("Signed in!");
     }
 
+    let me = client.get_me().await?;
+    let bot_username = me.username().unwrap_or("").to_string();
+
     log::info!("Waiting for messages...");
 
     let mut updates = client
@@ -52,8 +55,9 @@ pub async fn async_main() -> Result {
         };
 
         let handle = client.clone();
+        let bot_username = bot_username.clone();
         task::spawn(async move {
-            match plugins::handle_update(handle, update).await {
+            match plugins::handle_update(handle, update, &bot_username).await {
                 Ok(_) => {}
                 Err(e) => log::error!("Error handling updates!: {}", e),
             }

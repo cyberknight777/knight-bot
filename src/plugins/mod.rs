@@ -79,17 +79,18 @@ enum Command {
     Yaap(String),
 }
 
-pub async fn handle_update(client: Client, update: Update) -> Result {
+pub async fn handle_update(client: Client, update: Update, bot_username: &str) -> Result {
     let config = Arc::new(cfg::Config::read().expect("cannot read the config"));
     match update {
         Update::NewMessage(message)
-            if check_msg(&message) || check_cmd(&message, config.clone().admin_id) =>
+            if check_msg(&message, bot_username)
+                || check_cmd(&message, config.clone().admin_id) =>
         {
             log::info!(
                 "Responding to {}",
                 message.peer().and_then(|p| p.name()).unwrap_or("")
             );
-            handle_msg(client, &message).await?
+            handle_msg(client, &message, bot_username).await?
         }
         _ => {}
     }
@@ -97,42 +98,40 @@ pub async fn handle_update(client: Client, update: Update) -> Result {
     Ok(())
 }
 
-pub async fn handle_msg(client: Client, message: &Message) -> Result {
+pub async fn handle_msg(client: Client, message: &Message, bot_username: &str) -> Result {
     let msg = message.text();
     let cmd = msg.split_whitespace().next().unwrap_or("");
     let args = msg.split_whitespace().skip(1).collect::<Vec<_>>();
-    let cmd = match cmd {
-        "/anyone" | "/anyone@ThekNIGHT_bot" => Command::Anyone,
-        "/aur" | "/aur@ThekNIGHT_bot" => Command::Aur(args.join(" ")),
-        "/cat" | "/cat@ThekNIGHT_bot" => Command::Cat(args.join(" ").parse().unwrap_or_default()),
+    let cmd = match bot_command(cmd, bot_username).unwrap_or(cmd) {
+        "/anyone" => Command::Anyone,
+        "/aur" => Command::Aur(args.join(" ")),
+        "/cat" => Command::Cat(args.join(" ").parse().unwrap_or_default()),
         "k.dl" => Command::Dl(args.join(" ")),
-        "/dog" | "/dog@ThekNIGHT_bot" => Command::Dog(args.join(" ").parse().unwrap_or_default()),
-        "/eightball" | "/eightball@ThekNIGHT_bot" => Command::EightBall,
-        "/flipcoin" | "/flipcoin@ThekNIGHT_bot" => Command::FlipCoin,
-        "/help" | "/help@ThekNIGHT_bot" => Command::Help,
-        "/ipa" | "/ipa@ThekNIGHT_bot" => Command::Ipa(args.join(" ")),
-        "/link" | "/link@ThekNIGHT_bot" => Command::Link(args.join(" ")),
-        "/lpaste" | "/lpaste@ThekNIGHT_bot" => Command::Lpaste(args.join(" ")),
-        "/luck" | "/luck@ThekNIGHT_bot" => Command::Luck,
-        "/magisk" | "/magisk@ThekNIGHT_bot" => Command::Magisk,
-        "/man" | "/man@ThekNIGHT_bot" => Command::Man(args.join(" ")),
-        "/msg" | "/msg@ThekNIGHT_bot" => Command::Msg(args.join(" ")),
-        "/neo" | "/neo@ThekNIGHT_bot" => Command::Neo,
-        "/ping" | "/ping@ThekNIGHT_bot" => Command::Ping,
-        "/paste" | "/paste@ThekNIGHT_bot" => Command::Paste(args.join(" ")),
-        "/plant" | "/plant@ThekNIGHT_bot" => {
-            Command::Plant(args.join(" ").parse().unwrap_or_default())
-        }
-        "/rtfm" | "/rtfm@ThekNIGHT_bot" => Command::Rtfm,
-        "/run" | "/run@ThekNIGHT_bot" => Command::Run,
-        "/sauce" | "/sauce@ThekNIGHT_bot" => Command::Sauce,
-        "/smsg" | "/smsg@ThekNIGHT_bot" => Command::Smsg(args.join(" ")),
-        "/start" | "/start@ThekNIGHT_bot" => Command::Start,
-        "/uid" | "/uid@ThekNIGHT_bot" => Command::Uid,
+        "/dog" => Command::Dog(args.join(" ").parse().unwrap_or_default()),
+        "/eightball" => Command::EightBall,
+        "/flipcoin" => Command::FlipCoin,
+        "/help" => Command::Help,
+        "/ipa" => Command::Ipa(args.join(" ")),
+        "/link" => Command::Link(args.join(" ")),
+        "/lpaste" => Command::Lpaste(args.join(" ")),
+        "/luck" => Command::Luck,
+        "/magisk" => Command::Magisk,
+        "/man" => Command::Man(args.join(" ")),
+        "/msg" => Command::Msg(args.join(" ")),
+        "/neo" => Command::Neo,
+        "/ping" => Command::Ping,
+        "/paste" => Command::Paste(args.join(" ")),
+        "/plant" => Command::Plant(args.join(" ").parse().unwrap_or_default()),
+        "/rtfm" => Command::Rtfm,
+        "/run" => Command::Run,
+        "/sauce" => Command::Sauce,
+        "/smsg" => Command::Smsg(args.join(" ")),
+        "/start" => Command::Start,
+        "/uid" => Command::Uid,
         "k.ul" => Command::Ul(args.join(" ")),
-        "/urb" | "/urb@ThekNIGHT_bot" => Command::Urb(args.join(" ")),
-        "/whois" | "/whois@ThekNIGHT_bot" => Command::Whois(args.join(" ")),
-        "/yaap" | "/yaap@ThekNIGHT_bot" => Command::Yaap(args.join(" ")),
+        "/urb" => Command::Urb(args.join(" ")),
+        "/whois" => Command::Whois(args.join(" ")),
+        "/yaap" => Command::Yaap(args.join(" ")),
         "k.sh" => Command::Sh(args.join(" ").parse().unwrap_or_default()),
         "k.mot" => Command::Mot(
             args.get(0).unwrap_or(&"").to_string(),
@@ -181,15 +180,24 @@ pub async fn handle_msg(client: Client, message: &Message) -> Result {
     Ok(())
 }
 
-fn check_msg(message: &Message) -> bool {
+fn bot_command<'a>(cmd: &'a str, bot_username: &str) -> Option<&'a str> {
+    let Some((command, username)) = cmd.split_once('@') else {
+        return Some(cmd);
+    };
+
+    username
+        .eq_ignore_ascii_case(bot_username)
+        .then_some(command)
+}
+
+fn check_msg(message: &Message, bot_username: &str) -> bool {
+    let text = message.text();
+    let cmd = text.split_whitespace().next().unwrap_or("");
+
     return !message.outgoing()
-        && message.text().starts_with('/')
-        && !message.text().starts_with("/ ")
-        || (message.text().ends_with("@ThekNIGHT_bot")
-            && !message.text().starts_with("k.sh")
-            && !message.text().starts_with("k.mot")
-            && !message.text().starts_with("k.ul")
-            && !message.text().starts_with("k.dl"));
+        && text.starts_with('/')
+        && !text.starts_with("/ ")
+        && bot_command(cmd, bot_username).is_some();
 }
 
 fn check_cmd(message: &Message, admin_id: i64) -> bool {
