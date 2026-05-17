@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Download a URL or replied Telegram media to the dl/ folder.
+
 use grammers_client::{
     Client,
     media::Media,

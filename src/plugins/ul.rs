@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Upload a file.
+
 use grammers_client::{
     Client,
     message::{InputMessage, Message},

@@ -4,6 +4,8 @@
 //! SPDX-License-Identifier: MIT
 //!
 
+// Description: Execute a shell command.
+
 use grammers_client::message::{InputMessage, Message};
 use std::process::Command;
 
