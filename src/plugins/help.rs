@@ -16,6 +16,8 @@ struct CommandInfo {
     description: String,
 }
 
+const ADMIN_COMMANDS: &[&str] = &["dl", "mot", "sh", "ul"];
+
 pub async fn knightcmd_help(message: &Message) -> Result<(), Box<dyn std::error::Error>> {
     let mut commands = Vec::new();
 
@@ -23,13 +25,11 @@ pub async fn knightcmd_help(message: &Message) -> Result<(), Box<dyn std::error:
     for entry in fs::read_dir(plugin_dir)? {
         if let Ok(entry) = entry {
             if let Some(filename) = entry.file_name().to_str() {
+                let command_name = filename.trim_end_matches(".rs");
                 if filename.ends_with(".rs")
                     && filename != "mod.rs"
-                    && filename != "dl.rs"
                     && filename != "req.rs"
-                    && filename != "sh.rs"
-                    && filename != "mot.rs"
-                    && filename != "ul.rs"
+                    && !ADMIN_COMMANDS.contains(&command_name)
                 {
                     let command_name = filename.trim_end_matches(".rs").to_string();
                     let description = get_command_description(&command_name, plugin_dir)?;
@@ -51,6 +51,15 @@ pub async fn knightcmd_help(message: &Message) -> Result<(), Box<dyn std::error:
             "/{name} - {description}\n",
             name = command.name,
             description = command.description
+        ));
+    }
+
+    help_msg.push_str("\nAdmin commands:\n");
+    for command in ADMIN_COMMANDS {
+        help_msg.push_str(&format!(
+            "k.{name} - {description}\n",
+            name = command,
+            description = get_command_description(command, plugin_dir)?
         ));
     }
 
