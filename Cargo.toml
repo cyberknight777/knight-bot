@@ -11,7 +11,7 @@ getrandom = "0.4"
 grammers-client = { git = "https://codeberg.org/Lonami/grammers" }
 grammers-session = { git = "https://codeberg.org/Lonami/grammers" }
 librustbin = { git = "https://github.com/cyberknight777/librustbin" }
-log = { version = "0.4.31" }
+log = { version = "0.4.32" }
 pretty_env_logger = "0.5.0"
 reqwest = { version = "0.13.4", features = ["json"] }
 serde = { version = "1.0.228", features = ["derive"]}
