@@ -390,7 +390,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -604,7 +604,7 @@ checksum = "0cc23270f6e1808e30a928bdc84dea0b9b4136a8bc82338574f23baf47bbd280"
 [[package]]
 name = "grammers-client"
 version = "0.9.0"
-source = "git+https://codeberg.org/Lonami/grammers#9cd066ffa2b10e08755a2d1fd985a78cbba2023e"
+source = "git+https://codeberg.org/Lonami/grammers#26c80c3de3f2b2a9c708c4eb1a30a6ad851f816c"
 dependencies = [
  "chrono",
  "futures-util",
@@ -624,7 +624,7 @@ dependencies = [
 [[package]]
 name = "grammers-crypto"
 version = "0.9.0"
-source = "git+https://codeberg.org/Lonami/grammers#9cd066ffa2b10e08755a2d1fd985a78cbba2023e"
+source = "git+https://codeberg.org/Lonami/grammers#26c80c3de3f2b2a9c708c4eb1a30a6ad851f816c"
 dependencies = [
  "aes",
  "ctr",
@@ -641,7 +641,7 @@ dependencies = [
 [[package]]
 name = "grammers-mtproto"
 version = "0.9.0"
-source = "git+https://codeberg.org/Lonami/grammers#9cd066ffa2b10e08755a2d1fd985a78cbba2023e"
+source = "git+https://codeberg.org/Lonami/grammers#26c80c3de3f2b2a9c708c4eb1a30a6ad851f816c"
 dependencies = [
  "bytes",
  "crc32fast",
@@ -657,7 +657,7 @@ dependencies = [
 [[package]]
 name = "grammers-mtsender"
 version = "0.9.0"
-source = "git+https://codeberg.org/Lonami/grammers#9cd066ffa2b10e08755a2d1fd985a78cbba2023e"
+source = "git+https://codeberg.org/Lonami/grammers#26c80c3de3f2b2a9c708c4eb1a30a6ad851f816c"
 dependencies = [
  "bytes",
  "grammers-crypto",
@@ -673,7 +673,7 @@ dependencies = [
 [[package]]
 name = "grammers-session"
 version = "0.9.0"
-source = "git+https://codeberg.org/Lonami/grammers#9cd066ffa2b10e08755a2d1fd985a78cbba2023e"
+source = "git+https://codeberg.org/Lonami/grammers#26c80c3de3f2b2a9c708c4eb1a30a6ad851f816c"
 dependencies = [
  "futures-core",
  "grammers-tl-types",
@@ -685,7 +685,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-gen"
 version = "0.9.0"
-source = "git+https://codeberg.org/Lonami/grammers#9cd066ffa2b10e08755a2d1fd985a78cbba2023e"
+source = "git+https://codeberg.org/Lonami/grammers#26c80c3de3f2b2a9c708c4eb1a30a6ad851f816c"
 dependencies = [
  "grammers-tl-parser",
 ]
@@ -693,7 +693,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-parser"
 version = "1.2.1"
-source = "git+https://codeberg.org/Lonami/grammers#9cd066ffa2b10e08755a2d1fd985a78cbba2023e"
+source = "git+https://codeberg.org/Lonami/grammers#26c80c3de3f2b2a9c708c4eb1a30a6ad851f816c"
 dependencies = [
  "crc32fast",
 ]
@@ -701,7 +701,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-types"
 version = "0.9.0"
-source = "git+https://codeberg.org/Lonami/grammers#9cd066ffa2b10e08755a2d1fd985a78cbba2023e"
+source = "git+https://codeberg.org/Lonami/grammers#26c80c3de3f2b2a9c708c4eb1a30a6ad851f816c"
 dependencies = [
  "grammers-tl-gen",
  "grammers-tl-parser",
@@ -1064,7 +1064,7 @@ checksum = "3640c1c38b8e4e43584d8df18be5fc6b0aa314ce6ebf51b53313d4306cca8e46"
 dependencies = [
  "hermit-abi",
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -2043,7 +2043,7 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "webpki-root-certs",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -2260,7 +2260,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3a766e1110788c36f4fa1c2b71b387a7815aa65f88ce0229841826633d93723e"
 dependencies = [
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -2880,7 +2880,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
