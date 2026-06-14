@@ -9,7 +9,7 @@
 use grammers_client::message::Message;
 use std::time::SystemTime;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_ping(message: &Message) -> Result {
     let start = SystemTime::now();

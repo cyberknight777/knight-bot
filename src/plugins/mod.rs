@@ -43,7 +43,7 @@ mod yaap;
 use getrandom;
 use grammers_client::{Client, message::Message, update::Update};
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 enum Command {
     Anyone,

@@ -12,7 +12,7 @@ use grammers_client::{
     message::{InputMessage, Message},
 };
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_flipcoin(client: Client, message: &Message) -> Result {
     let coin = plugins::random(2);
@@ -20,7 +20,7 @@ pub async fn knightcmd_flipcoin(client: Client, message: &Message) -> Result {
     if let Some(id) = message.reply_to_message_id() {
         client
             .send_message(
-                message.peer_ref().await.unwrap(),
+                message.peer_ref().await.unwrap().unwrap(),
                 InputMessage::new().text(result).reply_to(Some(id)),
             )
             .await?;

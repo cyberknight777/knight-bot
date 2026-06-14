@@ -9,7 +9,7 @@
 use grammers_client::message::{InputMessage, Message};
 use reqwest::header::LOCATION;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_link(message: &Message, url: String) -> Result {
     if url.trim().is_empty() {

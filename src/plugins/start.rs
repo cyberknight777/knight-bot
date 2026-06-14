@@ -8,7 +8,7 @@
 
 use grammers_client::message::Message;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_start(message: &Message) -> Result {
     let msg = "Heya! Type /help to see what I can do!";

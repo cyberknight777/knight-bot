@@ -9,7 +9,7 @@
 use crate::plugins;
 use grammers_client::message::{InputMessage, Message};
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_aur(message: &Message, pkg: String) -> Result {
     if !pkg.is_empty() {

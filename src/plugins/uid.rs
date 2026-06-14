@@ -11,7 +11,7 @@ use grammers_client::{
     message::{InputMessage, Message},
 };
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_uid(client: Client, message: &Message) -> Result {
     if let Some(id) = message.reply_to_message_id() {
@@ -19,7 +19,7 @@ pub async fn knightcmd_uid(client: Client, message: &Message) -> Result {
             if let Some(sender) = reply_to_msg.sender() {
                 client
                     .send_message(
-                        message.peer_ref().await.unwrap(),
+                        message.peer_ref().await.unwrap().unwrap(),
                         InputMessage::new()
                             .html(format!(
                                 "Your ID: <code>{}</code>

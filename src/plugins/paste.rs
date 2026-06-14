@@ -16,7 +16,7 @@ use std::fs;
 use tokio::fs as tokio_fs;
 use tokio::io::AsyncReadExt;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 fn check_paste(url: &str) -> bool {
     !url.is_empty() && url != "This file is empty!" && url != "This file exceeds the file limit"

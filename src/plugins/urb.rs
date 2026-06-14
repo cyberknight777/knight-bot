@@ -9,7 +9,7 @@
 use crate::plugins;
 use grammers_client::message::{InputMessage, Message};
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 async fn get_def(taxt: &String) -> Option<String> {
     let url = format!("https://api.urbandictionary.com/v0/define?term={}", taxt);

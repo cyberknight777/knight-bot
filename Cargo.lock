@@ -1176,6 +1176,7 @@ version = "1.0.0"
 dependencies = [
  "getrandom 0.4.2",
  "grammers-client",
+ "grammers-mtsender",
  "grammers-session",
  "html-escape",
  "librustbin",

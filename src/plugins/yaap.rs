@@ -12,7 +12,7 @@ use grammers_client::{
     message::{Button, InputMessage, Message, ReplyMarkup},
 };
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 fn get_date(filename: &str) -> Option<String> {
     if let Some(stem) = filename.strip_suffix(".zip") {
@@ -160,7 +160,10 @@ pub async fn knightcmd_yaap(client: Client, message: &Message, device: String) -
 
     if let Some(id) = message.reply_to_message_id() {
         client
-            .send_message(message.peer_ref().await.unwrap(), msg.reply_to(Some(id)))
+            .send_message(
+                message.peer_ref().await.unwrap().unwrap(),
+                msg.reply_to(Some(id)),
+            )
             .await?;
     } else {
         message.reply(msg).await?;

@@ -9,7 +9,7 @@
 use grammers_client::message::{InputMessage, Message};
 use std::time::Instant;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_run(message: &Message) -> Result {
     let start = Instant::now();

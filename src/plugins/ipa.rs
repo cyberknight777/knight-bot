@@ -10,7 +10,7 @@ use crate::plugins;
 use grammers_client::message::{InputMessage, Message};
 use std::net::IpAddr;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_ipa(message: &Message, addr: String) -> Result {
     if addr.trim().is_empty() || addr.parse::<IpAddr>().is_err() {

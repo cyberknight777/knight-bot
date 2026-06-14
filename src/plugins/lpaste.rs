@@ -12,7 +12,7 @@ use grammers_client::{
 };
 use librustbin::Client as RbinClient;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 fn check_paste(url: &str) -> bool {
     !url.is_empty() && url != "This file is empty!" && url != "relative URL without a base"

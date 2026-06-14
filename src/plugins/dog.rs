@@ -11,7 +11,7 @@ use grammers_client::{
     message::{InputMessage, Message},
 };
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_dog(client: Client, message: &Message, mut doge: i64) -> Result {
     if doge == 0 {
@@ -20,7 +20,7 @@ pub async fn knightcmd_dog(client: Client, message: &Message, mut doge: i64) -> 
     let url = format!("https://http.dog/{}.jpg", doge);
     let photo = InputMessage::new().text("").photo_url(url);
     client
-        .send_message(message.peer_ref().await.unwrap(), photo)
+        .send_message(message.peer_ref().await.unwrap().unwrap(), photo)
         .await?;
     return Ok(());
 }

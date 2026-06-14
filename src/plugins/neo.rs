@@ -9,7 +9,7 @@
 use grammers_client::message::{InputMessage, Message};
 use std::process::Command;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_neo(message: &Message) -> Result {
     let neofetch = Command::new("neofetch")

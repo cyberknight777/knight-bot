@@ -11,7 +11,7 @@ use html_escape;
 use reqwest::Client;
 use serde_json::{Value, json};
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_mot(
     message: &Message,

@@ -15,7 +15,7 @@ use reqwest::Url;
 use std::path::{Path, PathBuf};
 use tokio::fs;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 const DL_DIR: &str = "dl";
 const DOWNLOAD_FAILED: &str = "<b>Download failed!</b>";
@@ -70,7 +70,9 @@ fn unique_path(dir: &Path, filename: &str) -> PathBuf {
     unreachable!()
 }
 
-async fn download_path(filename: &str) -> std::result::Result<PathBuf, Box<dyn std::error::Error>> {
+async fn download_path(
+    filename: &str,
+) -> std::result::Result<PathBuf, Box<dyn std::error::Error + Send + Sync>> {
     let dir = Path::new(DL_DIR);
     fs::create_dir_all(dir).await?;
     Ok(unique_path(dir, filename))

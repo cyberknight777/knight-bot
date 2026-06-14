@@ -18,7 +18,9 @@ struct CommandInfo {
 
 const ADMIN_COMMANDS: &[&str] = &["dl", "mot", "sh", "ul"];
 
-pub async fn knightcmd_help(message: &Message) -> Result<(), Box<dyn std::error::Error>> {
+pub async fn knightcmd_help(
+    message: &Message,
+) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let mut commands = Vec::new();
 
     let plugin_dir = "src/plugins";

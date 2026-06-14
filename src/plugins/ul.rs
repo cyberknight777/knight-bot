@@ -15,7 +15,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 fn resolve_upload_path(path: &str) -> std::io::Result<PathBuf> {
     let path = Path::new(path);

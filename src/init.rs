@@ -12,7 +12,7 @@ use log;
 use std::sync::Arc;
 use tokio::task;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 const SESSION_FILE: &str = "knight-bot.session";
 
@@ -46,7 +46,7 @@ pub async fn async_main() -> Result {
 
     let mut updates = client
         .stream_updates(updates, UpdatesConfiguration::default())
-        .await;
+        .await?;
 
     loop {
         let update = tokio::select! {
@@ -64,7 +64,7 @@ pub async fn async_main() -> Result {
         });
     }
 
-    updates.sync_update_state().await;
+    updates.sync_update_state().await?;
     handle.quit();
     let _ = pool_task.await;
     Ok(())

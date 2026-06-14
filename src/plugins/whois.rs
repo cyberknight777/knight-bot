@@ -9,7 +9,7 @@
 use grammers_client::message::{InputMessage, Message};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_whois(message: &Message, site: String) -> Result {
     if site.trim().is_empty() {

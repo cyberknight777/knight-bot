@@ -10,7 +10,7 @@ mod cfg;
 mod init;
 mod plugins;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 fn main() -> Result {
