@@ -6,18 +6,14 @@
 
 // Description: Provides the link to the source code of this bot.
 
-use grammers_client::{
-    Client,
-    message::{Button, InputMessage, Message, ReplyMarkup},
-};
+use grammers_client::message::{Button, InputMessage, Message, ReplyMarkup};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
-pub async fn knightcmd_sauce(client: Client, message: &Message) -> Result {
+pub async fn knightcmd_sauce(message: &Message) -> Result {
     if let Some(id) = message.reply_to_message_id() {
-        client
-            .send_message(
-                message.peer_ref().await.unwrap().unwrap(),
+        message
+            .respond(
                 InputMessage::new()
                     .html("You asked for it, so here you go!")
                     .reply_to(Some(id))

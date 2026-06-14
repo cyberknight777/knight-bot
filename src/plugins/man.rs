@@ -6,15 +6,12 @@
 
 // Description: Gets information about a command from manpages.
 
-use grammers_client::{
-    Client,
-    message::{InputMessage, Message},
-};
+use grammers_client::message::{InputMessage, Message};
 use std::process::Command;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
-pub async fn knightcmd_man(client: Client, message: &Message, cmd: String) -> Result {
+pub async fn knightcmd_man(message: &Message, cmd: String) -> Result {
     if cmd.trim().is_empty() {
         message
             .reply(
@@ -35,11 +32,8 @@ pub async fn knightcmd_man(client: Client, message: &Message, cmd: String) -> Re
     }
     let text = format!("<code>{}</code>", msg);
     if let Some(id) = message.reply_to_message_id() {
-        client
-            .send_message(
-                message.peer_ref().await.unwrap().unwrap(),
-                InputMessage::new().html(text).reply_to(Some(id)),
-            )
+        message
+            .respond(InputMessage::new().html(text).reply_to(Some(id)))
             .await?;
     } else {
         message.reply(InputMessage::new().html(text)).await?;

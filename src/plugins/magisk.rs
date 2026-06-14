@@ -7,14 +7,11 @@
 // Description: Gets the latest Magisk release according to the variant.
 
 use crate::plugins;
-use grammers_client::{
-    Client,
-    message::{Button, InputMessage, Message, ReplyMarkup},
-};
+use grammers_client::message::{Button, InputMessage, Message, ReplyMarkup};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
-pub async fn knightcmd_magisk(client: Client, message: &Message) -> Result {
+pub async fn knightcmd_magisk(message: &Message) -> Result {
     let stable =
         format!("https://raw.githubusercontent.com/topjohnwu/magisk-files/master/stable.json");
     let stable_resp = plugins::req::make_request(stable.to_string()).await;
@@ -76,9 +73,8 @@ pub async fn knightcmd_magisk(client: Client, message: &Message) -> Result {
         }
     }
     if let Some(id) = message.reply_to_message_id() {
-        client
-            .send_message(
-                message.peer_ref().await.unwrap().unwrap(),
+        message
+            .respond(
                 InputMessage::new()
                     .html(format!("<b>Latest Magisk Releases</b>:"))
                     .reply_to(Some(id))

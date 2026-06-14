@@ -64,7 +64,7 @@ pub async fn knightcmd_paste(client: Client, message: &Message, past: String) ->
         .reply(InputMessage::new().html("<b>Pasting content...</b>"))
         .await?;
 
-    match client.get_reply_to_message(&message).await? {
+    match message.get_reply().await? {
         Some(reply) => match reply.media() {
             Some(ref media @ Media::Document(ref doc)) => {
                 if doc.size().unwrap_or(0) > MAX_SIZE {

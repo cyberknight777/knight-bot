@@ -6,21 +6,16 @@
 
 // Description: Sends cat pic according to the HTTP status code.
 
-use grammers_client::{
-    Client,
-    message::{InputMessage, Message},
-};
+use grammers_client::message::{InputMessage, Message};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
-pub async fn knightcmd_cat(client: Client, message: &Message, mut kat: i64) -> Result {
+pub async fn knightcmd_cat(message: &Message, mut kat: i64) -> Result {
     if kat == 0 {
         kat = 404;
     }
     let url = format!("https://httpcats.com/{}.jpg", kat);
     let photo = InputMessage::new().text("").photo_url(url);
-    client
-        .send_message(message.peer_ref().await.unwrap().unwrap(), photo)
-        .await?;
+    message.respond(photo).await?;
     return Ok(());
 }

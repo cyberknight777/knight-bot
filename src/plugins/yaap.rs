@@ -7,10 +7,7 @@
 // Description: Gets the latest YAAP release according to the device.
 
 use crate::plugins;
-use grammers_client::{
-    Client,
-    message::{Button, InputMessage, Message, ReplyMarkup},
-};
+use grammers_client::message::{Button, InputMessage, Message, ReplyMarkup};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
@@ -32,7 +29,7 @@ fn get_date(filename: &str) -> Option<String> {
     None
 }
 
-pub async fn knightcmd_yaap(client: Client, message: &Message, device: String) -> Result {
+pub async fn knightcmd_yaap(message: &Message, device: String) -> Result {
     if device.trim().is_empty() {
         message
             .reply(InputMessage::new().html("Provide a device <b>codename</b>!"))
@@ -159,12 +156,7 @@ pub async fn knightcmd_yaap(client: Client, message: &Message, device: String) -
         ]));
 
     if let Some(id) = message.reply_to_message_id() {
-        client
-            .send_message(
-                message.peer_ref().await.unwrap().unwrap(),
-                msg.reply_to(Some(id)),
-            )
-            .await?;
+        message.respond(msg.reply_to(Some(id))).await?;
     } else {
         message.reply(msg).await?;
     }

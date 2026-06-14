@@ -6,20 +6,16 @@
 
 // Description: Gets UserID and ChatID.
 
-use grammers_client::{
-    Client,
-    message::{InputMessage, Message},
-};
+use grammers_client::message::{InputMessage, Message};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
-pub async fn knightcmd_uid(client: Client, message: &Message) -> Result {
+pub async fn knightcmd_uid(message: &Message) -> Result {
     if let Some(id) = message.reply_to_message_id() {
-        if let Some(reply_to_msg) = client.get_reply_to_message(&message).await? {
+        if let Some(reply_to_msg) = message.get_reply().await? {
             if let Some(sender) = reply_to_msg.sender() {
-                client
-                    .send_message(
-                        message.peer_ref().await.unwrap().unwrap(),
+                message
+                    .respond(
                         InputMessage::new()
                             .html(format!(
                                 "Your ID: <code>{}</code>

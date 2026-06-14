@@ -6,18 +6,14 @@
 
 // Description: Sends a RTFM text.
 
-use grammers_client::{
-    Client,
-    message::{Button, InputMessage, Message, ReplyMarkup},
-};
+use grammers_client::message::{Button, InputMessage, Message, ReplyMarkup};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
-pub async fn knightcmd_rtfm(client: Client, message: &Message) -> Result {
+pub async fn knightcmd_rtfm(message: &Message) -> Result {
     if let Some(id) = message.reply_to_message_id() {
-        client
-            .send_message(
-                message.peer_ref().await.unwrap().unwrap(),
+        message
+            .respond(
                 InputMessage::new()
                     .html("How bout you...")
                     .reply_to(Some(id))

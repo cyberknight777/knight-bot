@@ -171,7 +171,7 @@ pub async fn knightcmd_dl(client: Client, message: &Message, link: String) -> Re
     let link = link.trim();
 
     if link.is_empty() {
-        if let Some(reply) = client.get_reply_to_message(message).await? {
+        if let Some(reply) = message.get_reply().await? {
             if let Some(media) = reply.media() {
                 download_reply_media(client, message, media).await?;
             } else {

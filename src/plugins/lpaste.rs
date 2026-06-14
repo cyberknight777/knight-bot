@@ -6,10 +6,7 @@
 
 // Description: Sends a shortlink of the replied link or the link given.
 
-use grammers_client::{
-    Client,
-    message::{InputMessage, Message},
-};
+use grammers_client::message::{InputMessage, Message};
 use librustbin::Client as RbinClient;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
@@ -18,12 +15,12 @@ fn check_paste(url: &str) -> bool {
     !url.is_empty() && url != "This file is empty!" && url != "relative URL without a base"
 }
 
-pub async fn knightcmd_lpaste(client: Client, message: &Message, link: String) -> Result {
+pub async fn knightcmd_lpaste(message: &Message, link: String) -> Result {
     let msg = message
         .reply(InputMessage::new().html("<b>Pasting link...</b>"))
         .await?;
 
-    let text_to_paste = match client.get_reply_to_message(&message).await? {
+    let text_to_paste = match message.get_reply().await? {
         Some(reply) => {
             if !reply.text().is_empty() {
                 Some(reply.text().to_string())
