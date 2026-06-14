@@ -43,6 +43,7 @@ $ cargo run --release
 + =/cat [http code]= - Sends cat pic according to http codes.
 + =/dog [http code]= - Sends dog pic according to http codes.
 + =/eightball= - Rolls an eightball to say yes/no.
++ =/fact= - Sends a random fact.
 + =/flipcoin= - Flips a coin to say heads/tails.
 + =/help= - List of all supported commands.
 + =/ipa [ip]= - Get ip information from ipinfo.io

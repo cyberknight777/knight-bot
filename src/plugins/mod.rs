@@ -13,6 +13,7 @@ mod cat;
 mod dl;
 mod dog;
 mod eightball;
+mod fact;
 mod flipcoin;
 mod help;
 mod ipa;
@@ -52,6 +53,7 @@ enum Command {
     Dl(String),
     Dog(i64),
     EightBall,
+    Fact,
     FlipCoin,
     Help,
     Ipa(String),
@@ -109,6 +111,7 @@ pub async fn handle_msg(client: Client, message: &Message, bot_username: &str) -
         "k.dl" => Command::Dl(args.join(" ")),
         "/dog" => Command::Dog(args.join(" ").parse().unwrap_or_default()),
         "/eightball" => Command::EightBall,
+        "/fact" => Command::Fact,
         "/flipcoin" => Command::FlipCoin,
         "/help" => Command::Help,
         "/ipa" => Command::Ipa(args.join(" ")),
@@ -148,6 +151,7 @@ pub async fn handle_msg(client: Client, message: &Message, bot_username: &str) -
         Command::Dl(link) => dl::knightcmd_dl(client, message, link).await?,
         Command::Dog(doge) => dog::knightcmd_dog(client, message, doge).await?,
         Command::EightBall => eightball::knightcmd_eightball(client, message).await?,
+        Command::Fact => fact::knightcmd_fact(message).await?,
         Command::FlipCoin => flipcoin::knightcmd_flipcoin(client, message).await?,
         Command::Help => help::knightcmd_help(message).await?,
         Command::Ipa(addr) => ipa::knightcmd_ipa(message, addr).await?,
