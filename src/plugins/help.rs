@@ -20,10 +20,13 @@ const ADMIN_COMMANDS: &[&str] = &["dl", "mot", "sh", "ul"];
 
 pub async fn knightcmd_help(
     message: &Message,
+    hcmd: String,
 ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let mut commands = Vec::new();
 
     let plugin_dir = "src/plugins";
+    let target = hcmd.trim();
+    let mut single_reply: Option<String> = None;
     for entry in fs::read_dir(plugin_dir)? {
         if let Ok(entry) = entry {
             if let Some(filename) = entry.file_name().to_str() {
@@ -33,6 +36,12 @@ pub async fn knightcmd_help(
                     && filename != "req.rs"
                     && !ADMIN_COMMANDS.contains(&command_name)
                 {
+                    if !target.is_empty() && command_name == target {
+                        let description = get_command_description(command_name, plugin_dir)?;
+                        single_reply = Some(format!("/{command_name} - {description}"));
+                        continue;
+                    }
+
                     let command_name = filename.trim_end_matches(".rs").to_string();
                     let description = get_command_description(&command_name, plugin_dir)?;
 
@@ -43,6 +52,11 @@ pub async fn knightcmd_help(
                 }
             }
         }
+    }
+
+    if let Some(msg) = single_reply {
+        message.reply(msg).await?;
+        return Ok(());
     }
 
     commands.sort_by(|a, b| a.name.cmp(&b.name));
