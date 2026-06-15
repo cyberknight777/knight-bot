@@ -17,6 +17,7 @@ mod fact;
 mod flipcoin;
 mod help;
 mod ipa;
+mod joke;
 mod link;
 mod lpaste;
 mod luck;
@@ -57,6 +58,7 @@ enum Command {
     FlipCoin,
     Help,
     Ipa(String),
+    Joke(String),
     Link(String),
     Lpaste(String),
     Luck,
@@ -115,6 +117,7 @@ pub async fn handle_msg(client: Client, message: &Message, bot_username: &str) -
         "/flipcoin" => Command::FlipCoin,
         "/help" => Command::Help,
         "/ipa" => Command::Ipa(args.join(" ")),
+        "/joke" => Command::Joke(args.join(" ")),
         "/link" => Command::Link(args.join(" ")),
         "/lpaste" => Command::Lpaste(args.join(" ")),
         "/luck" => Command::Luck,
@@ -155,6 +158,7 @@ pub async fn handle_msg(client: Client, message: &Message, bot_username: &str) -
         Command::FlipCoin => flipcoin::knightcmd_flipcoin(message).await?,
         Command::Help => help::knightcmd_help(message).await?,
         Command::Ipa(addr) => ipa::knightcmd_ipa(message, addr).await?,
+        Command::Joke(typej) => joke::knightcmd_joke(message, typej).await?,
         Command::Link(url) => link::knightcmd_link(message, url).await?,
         Command::Lpaste(link) => lpaste::knightcmd_lpaste(message, link).await?,
         Command::Luck => luck::knightcmd_luck(message).await?,

@@ -47,6 +47,7 @@ $ cargo run --release
 + =/flipcoin= - Flips a coin to say heads/tails.
 + =/help= - List of all supported commands.
 + =/ipa [ip]= - Get ip information from ipinfo.io
++ =/joke [type]= - Sends a random joke if the type is not provided. Available types: Misc, Programming, Dark, Pun, Spooky, Christmas.
 + =/link [url]= - Get last redirected URL
 + =/luck= - To say your lucky number.
 + =/magisk= - Gets download link of latest Magisk variants.
