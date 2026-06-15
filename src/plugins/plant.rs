@@ -16,6 +16,6 @@ pub async fn knightcmd_plant(message: &Message, mut plants: i64) -> Result {
     }
     let url = format!("https://http.garden/{}.jpg", plants);
     let photo = InputMessage::new().text("").photo_url(url);
-    message.respond(photo).await?;
+    message.reply(photo).await?;
     return Ok(());
 }

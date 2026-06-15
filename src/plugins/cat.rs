@@ -16,6 +16,6 @@ pub async fn knightcmd_cat(message: &Message, mut kat: i64) -> Result {
     }
     let url = format!("https://httpcats.com/{}.jpg", kat);
     let photo = InputMessage::new().text("").photo_url(url);
-    message.respond(photo).await?;
+    message.reply(photo).await?;
     return Ok(());
 }
