@@ -7,15 +7,13 @@
 // Description: Checks how fast I can respond.
 
 use grammers_client::message::Message;
-use std::time::SystemTime;
+use std::time::Instant;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
 pub async fn knightcmd_ping(message: &Message) -> Result {
-    let start = SystemTime::now();
+    let start = Instant::now();
     let msg = message.reply("Pinging........").await?;
-    let end = SystemTime::now();
-    let ping = end.duration_since(start).unwrap().as_millis();
-    msg.edit(format!("Pong! {}ms", ping)).await?;
+    msg.edit(format!("Pong! {}ms", start.elapsed().as_millis())).await?;
     return Ok(());
 }
