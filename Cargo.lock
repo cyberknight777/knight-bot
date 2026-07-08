@@ -761,7 +761,7 @@ dependencies = [
 [[package]]
 name = "hacc"
 version = "0.1.0"
-source = "git+https://github.com/cyberknight777/hacc#abd5ceb2f141dd151f3aa3a0d74c414659cdb6f9"
+source = "git+https://github.com/shomykohai/hacc#8cb5e8557610b94d9243a4bb33ab86607c4f60ef"
 dependencies = [
  "bilge",
  "memchr",
