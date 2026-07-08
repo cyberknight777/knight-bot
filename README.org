@@ -57,6 +57,7 @@ $ cargo run --release
 + =/paste= - Paste text (or contents of a document) in reply to rustbin.
 + =/ping= - Checks how fast I can respond.
 + =/plant [http code]= - Sends plant pic according to http codes.
++ =/probe= Probe through a provided MediaTek partition to view the contents.
 + =/rtfm= - Sends a RTFM text.
 + =/run= - Runnns :).
 + =/sauce= - Provides the link to the source code of this bot.

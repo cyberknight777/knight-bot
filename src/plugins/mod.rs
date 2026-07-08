@@ -30,6 +30,7 @@ mod neo;
 mod paste;
 mod ping;
 mod plant;
+mod probe;
 mod req;
 mod rtfm;
 mod run;
@@ -71,6 +72,7 @@ enum Command {
     Paste(String),
     Ping,
     Plant(i64),
+    Probe,
     Rtfm,
     Run,
     Sauce(String),
@@ -129,6 +131,7 @@ pub async fn handle_msg(client: Client, message: &Message, bot_username: &str) -
         "/ping" => Command::Ping,
         "/paste" => Command::Paste(args.join(" ")),
         "/plant" => Command::Plant(args.join(" ").parse().unwrap_or_default()),
+        "/probe" => Command::Probe,
         "/rtfm" => Command::Rtfm,
         "/run" => Command::Run,
         "/sauce" => Command::Sauce(args.join(" ")),
@@ -173,6 +176,7 @@ pub async fn handle_msg(client: Client, message: &Message, bot_username: &str) -
         Command::Ping => ping::knightcmd_ping(message).await?,
         Command::Paste(past) => paste::knightcmd_paste(client, message, past).await?,
         Command::Plant(plants) => plant::knightcmd_plant(message, plants).await?,
+        Command::Probe => probe::knightcmd_probe(client, message).await?,
         Command::Rtfm => rtfm::knightcmd_rtfm(message).await?,
         Command::Run => run::knightcmd_run(message).await?,
         Command::Sauce(scmd) => sauce::knightcmd_sauce(message, scmd).await?,
