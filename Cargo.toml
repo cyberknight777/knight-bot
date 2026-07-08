@@ -11,7 +11,7 @@ getrandom = "0.4"
 grammers-client = { git = "https://codeberg.org/Lonami/grammers" }
 grammers-mtsender = { git = "https://codeberg.org/Lonami/grammers" }
 grammers-session = { git = "https://codeberg.org/Lonami/grammers" }
-hacc = { git = "https://github.com/cyberknight777/hacc" }
+hacc = { git = "https://github.com/shomykohai/hacc" }
 html-escape = "0.2.13"
 librustbin = { git = "https://github.com/cyberknight777/librustbin" }
 log = { version = "0.4.32" }
