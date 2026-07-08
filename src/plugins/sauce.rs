@@ -10,7 +10,7 @@ use grammers_client::message::{Button, InputMessage, Message, ReplyMarkup};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
-const EXCLUDED: &[&str] = &["cfg", "init", "main", "mod", "req"];
+const EXCLUDED: &[&str] = &["cfg", "dlp", "init", "main", "mod", "req"];
 
 pub async fn knightcmd_sauce(message: &Message, scmd: String) -> Result {
     let mut url = "https://github.com/cyberknight777/knight-bot".to_string();

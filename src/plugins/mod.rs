@@ -11,6 +11,7 @@ mod anyone;
 mod aur;
 mod cat;
 mod dl;
+mod dlp;
 mod dog;
 mod eightball;
 mod fact;

@@ -34,6 +34,7 @@ pub async fn knightcmd_help(
                 if filename.ends_with(".rs")
                     && filename != "mod.rs"
                     && filename != "req.rs"
+                    && filename != "dlp.rs"
                     && !ADMIN_COMMANDS.contains(&command_name)
                 {
                     if !target.is_empty() && command_name == target {
