@@ -453,7 +453,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -637,7 +637,7 @@ checksum = "0cc23270f6e1808e30a928bdc84dea0b9b4136a8bc82338574f23baf47bbd280"
 [[package]]
 name = "grammers-client"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5c6d44ff30e02d6c9295bcf1fcb51403ad77c981"
+source = "git+https://codeberg.org/Lonami/grammers#c34290345a4636ff689cec312e655419e5972609"
 dependencies = [
  "chrono",
  "futures-util",
@@ -657,7 +657,7 @@ dependencies = [
 [[package]]
 name = "grammers-crypto"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5c6d44ff30e02d6c9295bcf1fcb51403ad77c981"
+source = "git+https://codeberg.org/Lonami/grammers#c34290345a4636ff689cec312e655419e5972609"
 dependencies = [
  "aes",
  "ctr",
@@ -674,7 +674,7 @@ dependencies = [
 [[package]]
 name = "grammers-mtproto"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5c6d44ff30e02d6c9295bcf1fcb51403ad77c981"
+source = "git+https://codeberg.org/Lonami/grammers#c34290345a4636ff689cec312e655419e5972609"
 dependencies = [
  "bytes",
  "crc32fast",
@@ -690,7 +690,7 @@ dependencies = [
 [[package]]
 name = "grammers-mtsender"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5c6d44ff30e02d6c9295bcf1fcb51403ad77c981"
+source = "git+https://codeberg.org/Lonami/grammers#c34290345a4636ff689cec312e655419e5972609"
 dependencies = [
  "bytes",
  "grammers-crypto",
@@ -706,7 +706,7 @@ dependencies = [
 [[package]]
 name = "grammers-session"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5c6d44ff30e02d6c9295bcf1fcb51403ad77c981"
+source = "git+https://codeberg.org/Lonami/grammers#c34290345a4636ff689cec312e655419e5972609"
 dependencies = [
  "grammers-tl-types",
  "libsql",
@@ -717,7 +717,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-gen"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5c6d44ff30e02d6c9295bcf1fcb51403ad77c981"
+source = "git+https://codeberg.org/Lonami/grammers#c34290345a4636ff689cec312e655419e5972609"
 dependencies = [
  "grammers-tl-parser",
 ]
@@ -725,7 +725,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-parser"
 version = "1.2.2"
-source = "git+https://codeberg.org/Lonami/grammers#5c6d44ff30e02d6c9295bcf1fcb51403ad77c981"
+source = "git+https://codeberg.org/Lonami/grammers#c34290345a4636ff689cec312e655419e5972609"
 dependencies = [
  "crc32fast",
 ]
@@ -733,7 +733,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-types"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5c6d44ff30e02d6c9295bcf1fcb51403ad77c981"
+source = "git+https://codeberg.org/Lonami/grammers#c34290345a4636ff689cec312e655419e5972609"
 dependencies = [
  "grammers-tl-gen",
  "grammers-tl-parser",
@@ -1090,7 +1090,7 @@ checksum = "3640c1c38b8e4e43584d8df18be5fc6b0aa314ce6ebf51b53313d4306cca8e46"
 dependencies = [
  "hermit-abi",
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -1852,7 +1852,7 @@ dependencies = [
  "once_cell",
  "socket2",
  "tracing",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -2021,7 +2021,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys",
- "windows-sys 0.59.0",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -2078,7 +2078,7 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "webpki-root-certs",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -2844,7 +2844,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -2928,15 +2928,6 @@ name = "windows-sys"
 version = "0.52.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "282be5f36a8ce781fad8c8ae18fa3f9beff57ec1b52cb3de0789201425d9a33d"
-dependencies = [
- "windows-targets",
-]
-
-[[package]]
-name = "windows-sys"
-version = "0.59.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e38bc4d79ed67fd075bcc251a1c39b32a1776bbe92e5bef1f0bf1f8c531853b"
 dependencies = [
  "windows-targets",
 ]
