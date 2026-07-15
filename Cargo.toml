@@ -27,3 +27,9 @@ toml = "1.1.2"
 default = ["html", "markdown"]
 html = ["grammers-client/html"]
 markdown = ["grammers-client/markdown"]
+
+[profile.release]
+codegen-units = 1
+lto = "fat"
+opt-level = 3
+strip = true
