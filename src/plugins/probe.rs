@@ -12,7 +12,7 @@ use grammers_client::{
     media::Media,
     message::{InputMessage, Message},
 };
-use hacc::{Da, Image, Preloader, TryRead, gfh::Gfh};
+use hacc::{BootControl, Da, Image, OFFSET_SLOT_SUFFIX, Preloader, TryRead, gfh::Gfh};
 use regex::Regex;
 use std::path::Path;
 use std::time::Duration;
@@ -46,6 +46,31 @@ fn extract_load_addr(content: &[u8]) -> Option<u64> {
         }
     }
     None
+}
+
+fn extract_suffix(data: &[u8]) -> Option<&'static str> {
+    if data.len() < OFFSET_SLOT_SUFFIX + 0x10 {
+        return None;
+    }
+
+    let slot_a = u16::from_le_bytes([
+        data[OFFSET_SLOT_SUFFIX + 0x0c],
+        data[OFFSET_SLOT_SUFFIX + 0x0d],
+    ]);
+
+    let slot_b = u16::from_le_bytes([
+        data[OFFSET_SLOT_SUFFIX + 0x0e],
+        data[OFFSET_SLOT_SUFFIX + 0x0f],
+    ]);
+
+    let priority_a = slot_a & 0xf;
+    let priority_b = slot_b & 0xf;
+
+    if priority_a >= priority_b {
+        Some("_a")
+    } else {
+        Some("_b")
+    }
 }
 
 fn extract_datetime(s: &str) -> Option<String> {
@@ -257,6 +282,29 @@ fn parse_pl(data: &Vec<u8>) -> String {
     }
 }
 
+fn parse_misc(data: &Vec<u8>) -> String {
+    let mut msg = String::from("<b>BootControl File Info</b>\n");
+    match BootControl::try_read(&data[OFFSET_SLOT_SUFFIX..]) {
+        Ok(bctl) => {
+            let curslot = bctl.get_active_slot();
+
+            msg.push_str(&format!("  Active Slot: <code>{:?}</code>\n", curslot));
+
+            if let Some(cursuffix) = bctl.get_current_suffix() {
+                msg.push_str(&format!("  Current Suffix: <code>{}</code>", cursuffix));
+            } else if let Some(cursuffix) = extract_suffix(data) {
+                msg.push_str(&format!("  Current Suffix: <code>{}</code>", cursuffix));
+            }
+
+            return msg;
+        }
+        Err(_) => {
+            msg.clear();
+            return msg;
+        }
+    }
+}
+
 fn parse_da(data: &Vec<u8>) -> String {
     let mut msg = String::from("<b>Info</b>\n");
     match Da::try_read(&data) {
@@ -379,7 +427,19 @@ async fn download_reply_media(client: Client, message: &Message, media: Media) -
         return Ok(());
     }
 
-    // If it isn't a valid MediaTek Preloader either, then we finally parse it as a valid MediaTek Download Agent.
+    // If it isn't a valid MediaTek Preloader, we try to parse it as a valid MediaTek BootControl partition (misc).
+    result = parse_misc(&data);
+
+    if !result.is_empty() {
+        status
+            .edit(InputMessage::new().html("<b>Parsing as MediaTek BootControl partition...</b>"))
+            .await?;
+        time::sleep(Duration::from_secs(1)).await;
+        status.edit(InputMessage::new().html(result)).await?;
+        return Ok(());
+    }
+
+    // If it isn't a valid MediaTek BootControl partition either, then we finally parse it as a valid MediaTek Download Agent.
     result = parse_da(&data);
 
     if !result.is_empty() {
