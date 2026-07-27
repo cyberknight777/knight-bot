@@ -7,7 +7,7 @@
 // Description: Execute a shell command.
 
 use grammers_client::message::{InputMessage, Message};
-use std::process::Command;
+use tokio::process::Command;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
@@ -20,6 +20,7 @@ pub async fn knightcmd_sh(message: &Message, kcmd: String) -> Result {
         .arg("-c")
         .arg(kcmd)
         .output()
+        .await
         .expect("Failed to execute command!");
     let output = String::from_utf8_lossy(&command.stdout).to_string();
     let status = command.status;
