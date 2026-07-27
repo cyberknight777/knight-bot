@@ -761,9 +761,10 @@ dependencies = [
 [[package]]
 name = "hacc"
 version = "0.1.0"
-source = "git+https://github.com/shomykohai/hacc#8cb5e8557610b94d9243a4bb33ab86607c4f60ef"
+source = "git+https://github.com/shomykohai/hacc#a08c83fe406fe3058bd5dbeb1ae7b2aaed7b6e55"
 dependencies = [
  "bilge",
+ "crc32fast",
  "memchr",
  "thiserror 2.0.18",
  "zerocopy 0.8.53",
