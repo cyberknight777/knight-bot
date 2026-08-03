@@ -124,7 +124,7 @@ version = "0.66.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f2b84e06fc203107bfbad243f4aba2af864eb7db3b1cf46ea0a023b0b433d2a7"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "cexpr",
  "clang-sys",
  "lazy_static",
@@ -140,6 +140,12 @@ dependencies = [
  "syn 2.0.118",
  "which",
 ]
+
+[[package]]
+name = "bitflags"
+version = "1.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
 name = "bitflags"
@@ -228,19 +234,6 @@ dependencies = [
  "cfg-if",
  "cpufeatures",
  "rand_core",
-]
-
-[[package]]
-name = "chrono"
-version = "0.4.45"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1aa79e62e7697b8e29b513a68abacf485adcd1fe8284a4316c5ae868e6633327"
-dependencies = [
- "iana-time-zone",
- "js-sys",
- "num-traits",
- "wasm-bindgen",
- "windows-link",
 ]
 
 [[package]]
@@ -374,6 +367,37 @@ dependencies = [
 ]
 
 [[package]]
+name = "defmt"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e2953bfe4f93bbd20cc71198842756f77d161884c99ebbabc41d80231ded88d1"
+dependencies = [
+ "bitflags 1.3.2",
+ "defmt-macros",
+]
+
+[[package]]
+name = "defmt-macros"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bad9c72e7ca2137e0dc3813245a0d282fd6daad32fd800af018306a9169b5fe8"
+dependencies = [
+ "defmt-parser",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.118",
+]
+
+[[package]]
+name = "defmt-parser"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "10d60334b3b2e7c9d91ef8150abfb6fa4c1c39ebbcf4a81c2e346aad939fee3e"
+dependencies = [
+ "thiserror 2.0.18",
+]
+
+[[package]]
 name = "digest"
 version = "0.11.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -391,7 +415,7 @@ version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1e0e367e4e7da84520dedcac1901e4da967309406d1e51017ae1abfb97adbd38"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "objc2",
 ]
 
@@ -637,15 +661,15 @@ checksum = "0cc23270f6e1808e30a928bdc84dea0b9b4136a8bc82338574f23baf47bbd280"
 [[package]]
 name = "grammers-client"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#0305c1daafc44847a94f224bdbc8c2d93f683cc9"
+source = "git+https://codeberg.org/Lonami/grammers#3cb920f729c61b20545a168ae4cc09f9c9bd06f2"
 dependencies = [
- "chrono",
  "futures-util",
  "grammers-crypto",
  "grammers-mtsender",
  "grammers-session",
  "grammers-tl-types",
  "html5ever",
+ "jiff",
  "log",
  "md5",
  "mime_guess",
@@ -657,7 +681,7 @@ dependencies = [
 [[package]]
 name = "grammers-crypto"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#0305c1daafc44847a94f224bdbc8c2d93f683cc9"
+source = "git+https://codeberg.org/Lonami/grammers#3cb920f729c61b20545a168ae4cc09f9c9bd06f2"
 dependencies = [
  "aes",
  "ctr",
@@ -674,7 +698,7 @@ dependencies = [
 [[package]]
 name = "grammers-mtproto"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#0305c1daafc44847a94f224bdbc8c2d93f683cc9"
+source = "git+https://codeberg.org/Lonami/grammers#3cb920f729c61b20545a168ae4cc09f9c9bd06f2"
 dependencies = [
  "bytes",
  "crc32fast",
@@ -690,7 +714,7 @@ dependencies = [
 [[package]]
 name = "grammers-mtsender"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#0305c1daafc44847a94f224bdbc8c2d93f683cc9"
+source = "git+https://codeberg.org/Lonami/grammers#3cb920f729c61b20545a168ae4cc09f9c9bd06f2"
 dependencies = [
  "bytes",
  "grammers-crypto",
@@ -706,7 +730,7 @@ dependencies = [
 [[package]]
 name = "grammers-session"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#0305c1daafc44847a94f224bdbc8c2d93f683cc9"
+source = "git+https://codeberg.org/Lonami/grammers#3cb920f729c61b20545a168ae4cc09f9c9bd06f2"
 dependencies = [
  "grammers-tl-types",
  "libsql",
@@ -717,7 +741,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-gen"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#0305c1daafc44847a94f224bdbc8c2d93f683cc9"
+source = "git+https://codeberg.org/Lonami/grammers#3cb920f729c61b20545a168ae4cc09f9c9bd06f2"
 dependencies = [
  "grammers-tl-parser",
 ]
@@ -725,7 +749,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-parser"
 version = "1.2.2"
-source = "git+https://codeberg.org/Lonami/grammers#0305c1daafc44847a94f224bdbc8c2d93f683cc9"
+source = "git+https://codeberg.org/Lonami/grammers#3cb920f729c61b20545a168ae4cc09f9c9bd06f2"
 dependencies = [
  "crc32fast",
 ]
@@ -733,7 +757,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-types"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#0305c1daafc44847a94f224bdbc8c2d93f683cc9"
+source = "git+https://codeberg.org/Lonami/grammers#3cb920f729c61b20545a168ae4cc09f9c9bd06f2"
 dependencies = [
  "grammers-tl-gen",
  "grammers-tl-parser",
@@ -932,30 +956,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "iana-time-zone"
-version = "0.1.65"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e31bc9ad994ba00e440a8aa5c9ef0ec67d5cb5e5cb0cc7f8b744a35b389cc470"
-dependencies = [
- "android_system_properties",
- "core-foundation-sys",
- "iana-time-zone-haiku",
- "js-sys",
- "log",
- "wasm-bindgen",
- "windows-core",
-]
-
-[[package]]
-name = "iana-time-zone-haiku"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f31827a206f56af32e590ba56d5d2d085f558508192593743f16b2306495269f"
-dependencies = [
- "cc",
-]
-
-[[package]]
 name = "icu_collections"
 version = "2.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1110,6 +1110,59 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682"
 
 [[package]]
+name = "jiff"
+version = "0.2.35"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "668b7183bd07af9a4885f5c35b0cc5c83c4607a913c16b7e17291832910d2dcc"
+dependencies = [
+ "defmt",
+ "jiff-core",
+ "jiff-static",
+ "jiff-tzdb-platform",
+ "log",
+ "portable-atomic",
+ "portable-atomic-util",
+ "serde_core",
+ "windows-link",
+]
+
+[[package]]
+name = "jiff-core"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7feca88439efe53da3754500c1851dedf3cb36c524dd5cf8225cc0794de95d09"
+dependencies = [
+ "defmt",
+]
+
+[[package]]
+name = "jiff-static"
+version = "0.2.35"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3a69dcb3a21cfb32ce1cd056169337ca284af0766dd766e7878819b251a49204"
+dependencies = [
+ "jiff-core",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.118",
+]
+
+[[package]]
+name = "jiff-tzdb"
+version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "142bd39932ad231f10513df9ab62661fead8719872150b7ad02a2df79f4e141e"
+
+[[package]]
+name = "jiff-tzdb-platform"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "875a5a69ac2bab1a891711cf5eccbec1ce0341ea805560dcd90b7a2e925132e8"
+dependencies = [
+ "jiff-tzdb",
+]
+
+[[package]]
 name = "jni"
 version = "0.22.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1243,7 +1296,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "30fe980ac5693ed1f3db490559fb578885e913a018df64af8a1a46e1959a78df"
 dependencies = [
  "async-trait",
- "bitflags",
+ "bitflags 2.13.0",
  "bytes",
  "futures",
  "libsql-sys",
@@ -1397,7 +1450,7 @@ version = "0.31.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf20d2fde8ff38632c426f1165ed7436270b44f199fc55284c38276f9db47c3d"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "cfg-if",
  "cfg_aliases",
  "libc",
@@ -1456,7 +1509,7 @@ version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "73ad74d880bb43877038da939b7427bba67e9dd42004a18b809ba7d87cee241c"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "objc2",
  "objc2-foundation",
 ]
@@ -1477,7 +1530,7 @@ version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2a180dd8642fa45cdb7dd721cd4c11b1cadd4929ce112ebd8b9f5803cc79d536"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "dispatch2",
  "objc2",
 ]
@@ -1488,7 +1541,7 @@ version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e022c9d066895efa1345f8e33e584b9f958da2fd4cd116792e15e07e4720a807"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "dispatch2",
  "objc2",
  "objc2-core-foundation",
@@ -1521,7 +1574,7 @@ version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0cde0dfb48d25d2b4862161a4d5fcc0e3c24367869ad306b0c9ec0073bfed92d"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "objc2",
  "objc2-core-foundation",
  "objc2-core-graphics",
@@ -1539,7 +1592,7 @@ version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3e0adef53c21f888deb4fa59fc59f7eb17404926ee8a6f59f5df0fd7f9f3272"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "block2",
  "libc",
  "objc2",
@@ -1552,7 +1605,7 @@ version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "180788110936d59bab6bd83b6060ffdfffb3b922ba1396b312ae795e1de9d81d"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "objc2",
  "objc2-core-foundation",
 ]
@@ -1563,7 +1616,7 @@ version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "96c1358452b371bf9f104e21ec536d37a650eb10f7ee379fff67d2e08d537f1f"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "objc2",
  "objc2-core-foundation",
  "objc2-foundation",
@@ -1575,7 +1628,7 @@ version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d87d638e33c06f577498cbcc50491496a3ed4246998a7fbba7ccb98b1e7eab22"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "block2",
  "objc2",
  "objc2-cloud-kit",
@@ -1724,6 +1777,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "19f132c84eca552bf34cab8ec81f1c1dcc229b811638f9d283dceabe58c5569e"
 
 [[package]]
+name = "portable-atomic"
+version = "1.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3d20d5497ef88037a52ff98267d066e7f11fcc5e99bbfbd58a42336193aacec3"
+
+[[package]]
+name = "portable-atomic-util"
+version = "0.2.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c2a106d1259c23fac8e543272398ae0e3c0b8d33c88ed73d0cc71b0f1d902618"
+dependencies = [
+ "portable-atomic",
+]
+
+[[package]]
 name = "potential_utf"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1794,7 +1862,7 @@ version = "0.13.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e9f068eba8e7071c5f9511831b44f32c740d5adf574e990f946ddb53db2f314e"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "memchr",
  "unicase",
 ]
@@ -1903,7 +1971,7 @@ version = "0.5.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed2bf2547551a7053d6fdfafda3f938979645c44812fbfcda098faae3f1a362d"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
 ]
 
 [[package]]
@@ -2018,7 +2086,7 @@ version = "0.38.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fdb5bc1ae2baa591800df16c9ca78619bf65c0488b41b96ccec5d11220d8c154"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "errno",
  "libc",
  "linux-raw-sys",
@@ -2136,7 +2204,7 @@ version = "3.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b7f4bc775c73d9a02cde8bf7b2ec4c9d12743edf609006c7facc23998404cd1d"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "core-foundation 0.10.1",
  "core-foundation-sys",
  "libc",
@@ -2389,7 +2457,7 @@ version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a13f3d0daba03132c0aa9767f98351b3488edc2c100cda2d2ec2b04f3d8d3c8b"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "core-foundation 0.9.4",
  "system-configuration-sys",
 ]
@@ -2598,7 +2666,7 @@ version = "0.6.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4cfcf7e2740e6fc6d4d688b4ef00650406bb94adf4731e43c096c3a19fe40840"
 dependencies = [
- "bitflags",
+ "bitflags 2.13.0",
  "bytes",
  "futures-util",
  "http",
@@ -2864,41 +2932,6 @@ name = "winapi-x86_64-pc-windows-gnu"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
-
-[[package]]
-name = "windows-core"
-version = "0.62.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b8e83a14d34d0623b51dce9581199302a221863196a1dde71a7663a4c2be9deb"
-dependencies = [
- "windows-implement",
- "windows-interface",
- "windows-link",
- "windows-result",
- "windows-strings",
-]
-
-[[package]]
-name = "windows-implement"
-version = "0.60.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "053e2e040ab57b9dc951b72c264860db7eb3b0200ba345b4e4c3b14f67855ddf"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.118",
-]
-
-[[package]]
-name = "windows-interface"
-version = "0.59.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3f316c4a2570ba26bbec722032c4099d8c8bc095efccdc15688708623367e358"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.118",
-]
 
 [[package]]
 name = "windows-link"
