@@ -5,9 +5,8 @@
 //!
 
 use crate::{cfg, plugins};
-use grammers_client::{
-    Client, SenderPool, client::UpdatesConfiguration, session::storages::SqliteSession,
-};
+use grammers_client::{Client, SenderPool, session::storages::SqliteSession};
+use grammers_mtsender::UpdatesConfiguration;
 use log;
 use std::sync::Arc;
 use tokio::task;
