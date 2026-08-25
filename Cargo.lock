@@ -785,7 +785,7 @@ dependencies = [
 [[package]]
 name = "hacc"
 version = "0.1.0"
-source = "git+https://github.com/shomykohai/hacc#f8c7089188eb9f2dd52338f313c72f80b2d63c7d"
+source = "git+https://github.com/shomykohai/hacc#d09eed181c635a14320944241f7f3c6c7f69463e"
 dependencies = [
  "bilge",
  "crc32fast",
