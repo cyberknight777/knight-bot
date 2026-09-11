@@ -90,6 +90,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "base16ct"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fd307490d624467aa6f74b0eabb77633d1f758a7b25f12bceb0b22e08d9726f6"
+
+[[package]]
 name = "base64"
 version = "0.22.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -340,12 +346,35 @@ dependencies = [
 ]
 
 [[package]]
+name = "crypto-bigint"
+version = "0.7.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1a52aa3fcda4e6302a9f48734f234d35d4721b96f8fe07d073f07ce9df4f0271"
+dependencies = [
+ "cpubits",
+ "ctutils",
+ "num-traits",
+ "rand_core",
+ "serdect",
+]
+
+[[package]]
 name = "crypto-common"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ce6e4c961d6cd6c9a86db418387425e8bdeaf05b3c8bc1411e6dca4c252f1453"
 dependencies = [
  "hybrid-array",
+]
+
+[[package]]
+name = "crypto-primes"
+version = "0.7.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3633a51a39c69ebbaa4feaa694bd83d241e4093901c84a0963b19d9bb3f0cf8f"
+dependencies = [
+ "crypto-bigint",
+ "rand_core",
 ]
 
 [[package]]
@@ -640,16 +669,18 @@ dependencies = [
 
 [[package]]
 name = "glass_pumpkin"
-version = "2.0.0-rc0"
+version = "2.0.0-rc1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec260059e5d59a4899d78dff8bf59abf81f8f5b3b44e9d3ba25c9dade1390a36"
+checksum = "a7809b1b81636525574d3ff5afd967c43df03bb23598c8348ee926648672f6d4"
 dependencies = [
+ "crypto-bigint",
+ "crypto-primes",
  "getrandom 0.4.3",
  "num-bigint",
  "num-integer",
  "num-traits",
- "once_cell",
  "rand_core",
+ "thiserror 2.0.18",
 ]
 
 [[package]]
@@ -661,7 +692,7 @@ checksum = "0cc23270f6e1808e30a928bdc84dea0b9b4136a8bc82338574f23baf47bbd280"
 [[package]]
 name = "grammers-client"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5e16253b2ff8cbea94e8fffdfeccc109217ba762"
+source = "git+https://codeberg.org/Lonami/grammers#82eba650098b54e4c2cb9de83fdab7ea2d21a957"
 dependencies = [
  "futures-util",
  "grammers-crypto",
@@ -681,7 +712,7 @@ dependencies = [
 [[package]]
 name = "grammers-crypto"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5e16253b2ff8cbea94e8fffdfeccc109217ba762"
+source = "git+https://codeberg.org/Lonami/grammers#82eba650098b54e4c2cb9de83fdab7ea2d21a957"
 dependencies = [
  "aes",
  "ctr",
@@ -698,7 +729,7 @@ dependencies = [
 [[package]]
 name = "grammers-mtproto"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5e16253b2ff8cbea94e8fffdfeccc109217ba762"
+source = "git+https://codeberg.org/Lonami/grammers#82eba650098b54e4c2cb9de83fdab7ea2d21a957"
 dependencies = [
  "bytes",
  "crc32fast",
@@ -714,7 +745,7 @@ dependencies = [
 [[package]]
 name = "grammers-mtsender"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5e16253b2ff8cbea94e8fffdfeccc109217ba762"
+source = "git+https://codeberg.org/Lonami/grammers#82eba650098b54e4c2cb9de83fdab7ea2d21a957"
 dependencies = [
  "bytes",
  "grammers-crypto",
@@ -730,7 +761,7 @@ dependencies = [
 [[package]]
 name = "grammers-session"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5e16253b2ff8cbea94e8fffdfeccc109217ba762"
+source = "git+https://codeberg.org/Lonami/grammers#82eba650098b54e4c2cb9de83fdab7ea2d21a957"
 dependencies = [
  "grammers-tl-types",
  "libsql",
@@ -741,7 +772,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-gen"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5e16253b2ff8cbea94e8fffdfeccc109217ba762"
+source = "git+https://codeberg.org/Lonami/grammers#82eba650098b54e4c2cb9de83fdab7ea2d21a957"
 dependencies = [
  "grammers-tl-parser",
 ]
@@ -749,7 +780,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-parser"
 version = "1.2.2"
-source = "git+https://codeberg.org/Lonami/grammers#5e16253b2ff8cbea94e8fffdfeccc109217ba762"
+source = "git+https://codeberg.org/Lonami/grammers#82eba650098b54e4c2cb9de83fdab7ea2d21a957"
 dependencies = [
  "crc32fast",
 ]
@@ -757,7 +788,7 @@ dependencies = [
 [[package]]
 name = "grammers-tl-types"
 version = "0.10.0"
-source = "git+https://codeberg.org/Lonami/grammers#5e16253b2ff8cbea94e8fffdfeccc109217ba762"
+source = "git+https://codeberg.org/Lonami/grammers#82eba650098b54e4c2cb9de83fdab7ea2d21a957"
 dependencies = [
  "grammers-tl-gen",
  "grammers-tl-parser",
@@ -1491,12 +1522,13 @@ dependencies = [
 
 [[package]]
 name = "num-bigint"
-version = "0.4.8"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c89e69e7e0f03bea5ef08013795c25018e101932225a656383bd384495ecc367"
+checksum = "93e7820bc0a80a0238e650327316f929ba18d5be054b647490a3a6a339f3e7c0"
 dependencies = [
  "num-integer",
  "num-traits",
+ "rand_core",
 ]
 
 [[package]]
@@ -2290,6 +2322,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6662b5879511e06e8999a8a235d848113e942c9124f211511b16466ee2995f26"
 dependencies = [
  "serde_core",
+]
+
+[[package]]
+name = "serdect"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "66cf8fedced2fcf12406bcb34223dffb92eaf34908ede12fed414c82b7f00b3e"
+dependencies = [
+ "base16ct",
+ "serde",
 ]
 
 [[package]]
