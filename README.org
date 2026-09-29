@@ -52,6 +52,7 @@ $ cargo run --release
 + =/luck= - To say your lucky number.
 + =/magisk= - Gets download link of latest Magisk variants.
 + =/man [command]= - Gets information of a command from manpages.
++ =/mota [guid] [carrier] [serial number]= - Gets latest incremental OTA zip from Motorola servers.
 + =/msg [text]= - Bot replies with your text.
 + =/neo= - Sends neofetch output.
 + =/paste= - Paste text (or contents of a document) in reply to rustbin.
@@ -72,7 +73,6 @@ $ cargo run --release
 + =k.dl [link]= - Download a URL or replied Telegram media to the =dl/= folder.
 + =k.sh [command]= - Execute a shell command.
 + =k.ul [file]= - Upload a file.
-+ =k.mot [guid] [carrier] [serial number]= - Gets latest incremental OTA zip from Motorola servers.
 
 ** Commands on TODO list
 + =/qrd= - Decodes a QR Code.

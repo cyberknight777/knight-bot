@@ -13,51 +13,51 @@ use serde_json::{Value, json};
 
 type Result = std::result::Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
-pub async fn knightcmd_mot(
+pub async fn knightcmd_mota(
     message: &Message,
-    kuid: Option<String>,
-    kcar: Option<String>,
-    ksn: Option<String>,
+    uid: Option<String>,
+    car: Option<String>,
+    sn: Option<String>,
 ) -> Result {
-    let kuid = match kuid {
-        Some(k) if !k.is_empty() => k,
+    let uid = match uid {
+        Some(u) if !u.is_empty() => u,
         _ => {
             message
-                .reply("Missing GUID! Usage: k.mot <otaSourceSha1> <carrier> [serialnumber]")
+                .reply("Missing GUID! Usage: /mota <otaSourceSha1> <carrier> [serialnumber]")
                 .await?;
             return Ok(());
         }
     };
 
-    let kcar = match kcar {
+    let car = match car {
         Some(c) if !c.is_empty() => c,
         _ => {
             message
-                .reply("Missing carrier! Usage: k.mot <otaSourceSha1> <carrier> [serialnumber]")
+                .reply("Missing carrier! Usage: /mota <otaSourceSha1> <carrier> [serialnumber]")
                 .await?;
             return Ok(());
         }
     };
 
-    let ksn = match ksn {
+    let sn = match sn {
         Some(s) if !s.is_empty() => s,
         _ => "SERIAL_NUMBER_NOT_AVAILABLE".to_string(),
     };
 
     let body = json!({
-        "id": ksn,
+        "id": sn,
         "deviceInfo": { "country": "US", "region": "US" },
         "extraInfo": {
-    "carrier": kcar,
+    "carrier": car,
     "vitalUpdate": false,
-    "otaSourceSha1": kuid
+    "otaSourceSha1": uid
         },
         "triggeredBy": "user"
     });
 
     let url = format!(
         "https://moto-cds.appspot.com/cds/upgrade/1/check/ctx/ota/key/{}",
-        kuid
+        uid
     );
 
     let client = Client::new();

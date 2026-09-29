@@ -16,7 +16,7 @@ struct CommandInfo {
     description: String,
 }
 
-const ADMIN_COMMANDS: &[&str] = &["dl", "mot", "sh", "ul"];
+const ADMIN_COMMANDS: &[&str] = &["dl", "sh", "ul"];
 
 pub async fn knightcmd_help(
     message: &Message,

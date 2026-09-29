@@ -24,7 +24,7 @@ mod lpaste;
 mod luck;
 mod magisk;
 mod man;
-mod mot;
+mod mota;
 mod msg;
 mod neo;
 mod paste;
@@ -66,7 +66,7 @@ enum Command {
     Luck,
     Magisk,
     Man(String),
-    Mot(String, String, String),
+    Mota(String, String, String),
     Msg(String),
     Neo,
     Paste(String),
@@ -126,6 +126,11 @@ pub async fn handle_msg(client: Client, message: &Message, bot_username: &str) -
         "/luck" => Command::Luck,
         "/magisk" => Command::Magisk,
         "/man" => Command::Man(args.join(" ")),
+        "/mota" => Command::Mota(
+            args.get(0).unwrap_or(&"").to_string(),
+            args.get(1).unwrap_or(&"").to_string(),
+            args.get(2).unwrap_or(&"").to_string(),
+        ),
         "/msg" => Command::Msg(args.join(" ")),
         "/neo" => Command::Neo,
         "/ping" => Command::Ping,
@@ -143,11 +148,6 @@ pub async fn handle_msg(client: Client, message: &Message, bot_username: &str) -
         "/whois" => Command::Whois(args.join(" ")),
         "/yaap" => Command::Yaap(args.join(" ")),
         "k.sh" => Command::Sh(args.join(" ").parse().unwrap_or_default()),
-        "k.mot" => Command::Mot(
-            args.get(0).unwrap_or(&"").to_string(),
-            args.get(1).unwrap_or(&"").to_string(),
-            args.get(2).unwrap_or(&"").to_string(),
-        ),
         _ => return Ok(()),
     };
 
@@ -168,8 +168,8 @@ pub async fn handle_msg(client: Client, message: &Message, bot_username: &str) -
         Command::Luck => luck::knightcmd_luck(message).await?,
         Command::Magisk => magisk::knightcmd_magisk(message).await?,
         Command::Man(cmd) => man::knightcmd_man(message, cmd).await?,
-        Command::Mot(kuid, kcar, ksn) => {
-            mot::knightcmd_mot(message, Some(kuid), Some(kcar), Some(ksn)).await?
+        Command::Mota(uid, car, sn) => {
+            mota::knightcmd_mota(message, Some(uid), Some(car), Some(sn)).await?
         }
         Command::Msg(text) => msg::knightcmd_msg(message, text).await?,
         Command::Neo => neo::knightcmd_neo(message).await?,
@@ -217,7 +217,6 @@ fn check_cmd(message: &Message, admin_id: i64) -> bool {
     return !message.outgoing()
         && (message.sender().and_then(|s| s.id().bare_id()) == Some(admin_id))
         && (message.text().starts_with("k.sh")
-            || message.text().starts_with("k.mot")
             || message.text().starts_with("k.ul")
             || message.text().starts_with("k.dl"));
 }
